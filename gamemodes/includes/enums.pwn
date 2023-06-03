@@ -11,14 +11,6 @@ enum szInfo
 	Text3D: szTextID,
 };
 
-//Bai toan
-enum E_SERVER_DATA
-{
-    bool: E_STARTED,
-    E_ANSWER,
-    E_START_TIME,
-    E_TIMER,
-}
 
 //Vut sung
 enum dData
