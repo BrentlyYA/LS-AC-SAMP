@@ -2041,7 +2041,7 @@ PlacePokerTable(tableid, skipmisc, Float:x, Float:y, Float:z, Float:rx, Float:ry
 
 	// Create 3D Text Label
 	new szString[64];
-	format(szString, sizeof(szString), "Bàn Poker %d", tableid);
+	format(szString, sizeof(szString), "Bï¿½n Poker %d", tableid);
 	PokerTable[tableid][pkrText3DID] = Create3DTextLabel(szString, COLOR_YELLOW, x, y, z+1.3, DRAWDISTANCE_POKER_MISC, virtualworld, 0);
 
 	return tableid;
@@ -2171,7 +2171,7 @@ JoinPokerTable(playerid, tableid)
 				SetPVarFloat(playerid, "pkrTableJoinZ", tmpPos[2]);
 
 				new string[128];
-				format(string, sizeof(string), "%s (IP:%s) da tham gia Bàn Poker (%d)", GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), tableid);
+				format(string, sizeof(string), "%s (IP:%s) da tham gia Bï¿½n Poker (%d)", GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), tableid);
 				Log("logs/poker.log", string);
 
 				ApplyAnimation(playerid, "CASINO", "cards_out", 4.1, 0, 1, 1, 1, 1, 1);
@@ -2208,7 +2208,7 @@ LeavePokerTable(playerid)
 	GivePlayerCash(playerid, GetPVarInt(playerid, "pkrChips"));
 
 	new string[128];
-	format(string, sizeof(string), "%s (IP:%s) da roi khoi Bàn Poker voi $%s (%d)", GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), number_format(GetPVarInt(playerid, "pkrChips")), tableid);
+	format(string, sizeof(string), "%s (IP:%s) da roi khoi Bï¿½n Poker voi $%s (%d)", GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), number_format(GetPVarInt(playerid, "pkrChips")), tableid);
 	Log("logs/poker.log", string);
 
 	// De-occuply Slot
@@ -2221,7 +2221,7 @@ LeavePokerTable(playerid)
 		KillTimer(PokerTable[tableid][pkrPulseTimer]);
 
 		new tmpString[64];
-		format(tmpString, sizeof(tmpString), "Bàn Poker %d", tableid);
+		format(tmpString, sizeof(tmpString), "Bï¿½n Poker %d", tableid);
 		Update3DTextLabelText(PokerTable[tableid][pkrText3DID], COLOR_YELLOW, tmpString);
 
 		ResetPokerTable(tableid);
@@ -2343,18 +2343,18 @@ ShowCasinoGamesMenu(playerid, dialogid)
 			for(new i = 0; i < MAX_POKERTABLES; i++) {
 				if(PokerTable[i][pkrPlaced] == 1) { format(szPlaced, sizeof(szPlaced), "{00FF00}Hoat dong{FFFFFF}"); }
 				if(PokerTable[i][pkrPlaced] == 0) { format(szPlaced, sizeof(szPlaced), "{FF0000}Khong hoat dong{FFFFFF}"); }
-				format(szString, sizeof(szString), "%sBàn Poker %d (%s)\n", szString, i, szPlaced, PokerTable[i][pkrPlayers]);
+				format(szString, sizeof(szString), "%sBï¿½n Poker %d (%s)\n", szString, i, szPlaced, PokerTable[i][pkrPlayers]);
 			}
-			return ShowPlayerDialog(playerid, DIALOG_CGAMESSELECTPOKER, DIALOG_STYLE_LIST, "Casino Games - (Chon Bàn Poker)", szString, "Chon", "Quay Lai");
+			return ShowPlayerDialog(playerid, DIALOG_CGAMESSELECTPOKER, DIALOG_STYLE_LIST, "Casino Games - (Chon Bï¿½n Poker)", szString, "Chon", "Quay Lai");
 		}
 		case DIALOG_CGAMESSETUPPOKER:
 		{
 			new tableid = GetPVarInt(playerid, "tmpEditPokerTableID")-1;
 
 			if(PokerTable[tableid][pkrPlaced] == 0) {
-				return ShowPlayerDialog(playerid, DIALOG_CGAMESSETUPPOKER, DIALOG_STYLE_LIST, "{FFFFFF}Casino Games - (Cai dat Poker Minigame)", "{FFFFFF}Dat Bàn...", "Chon", "Quay lai");
+				return ShowPlayerDialog(playerid, DIALOG_CGAMESSETUPPOKER, DIALOG_STYLE_LIST, "{FFFFFF}Casino Games - (Cai dat Poker Minigame)", "{FFFFFF}Dat Bï¿½n...", "Chon", "Quay lai");
 			} else {
-				return ShowPlayerDialog(playerid, DIALOG_CGAMESSETUPPOKER, DIALOG_STYLE_LIST, "{FFFFFF}Casino Games - (Cai dat Poker Minigame)", "{FFFFFF}Chinh sua Bàn...\nXoa Bàn...", "Chon", "Quay lai");
+				return ShowPlayerDialog(playerid, DIALOG_CGAMESSETUPPOKER, DIALOG_STYLE_LIST, "{FFFFFF}Casino Games - (Cai dat Poker Minigame)", "{FFFFFF}Chinh sua Bï¿½n...\nXoa Bï¿½n...", "Chon", "Quay lai");
 			}
 		}
 		case DIALOG_CGAMESCREDITS:
@@ -2419,7 +2419,7 @@ ShowCasinoGamesMenu(playerid, dialogid)
 		case DIALOG_CGAMESSETUPPGAME6:
 		{
 			if(GetPVarType(playerid, "pkrTableID")) {
-				return ShowPlayerDialog(playerid, DIALOG_CGAMESSETUPPGAME6, DIALOG_STYLE_INPUT, "{FFFFFF}Casino Games - (Mat khau)", "{FFFFFF}Dat mat khau cho Bàn:\n\nNote: De trong de tao phong cong cong", "Thay doi", "Quay lai");
+				return ShowPlayerDialog(playerid, DIALOG_CGAMESSETUPPGAME6, DIALOG_STYLE_INPUT, "{FFFFFF}Casino Games - (Mat khau)", "{FFFFFF}Dat mat khau cho Bï¿½n:\n\nNote: De trong de tao phong cong cong", "Thay doi", "Quay lai");
 			}
 		}
 		case DIALOG_CGAMESSETUPPGAME7:
@@ -3360,9 +3360,6 @@ public InitiateGamemode()
 	AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, 0, 0, 0, 0, 0, 0);
 	
 	SetGameModeText(SERVER_GM_TEXT);
-    // Bai toan
-    LoadGame();
-	SetTimer("LoadGame",E_TIME*1000,true);
     //Khu an toan
     LoadSafeZones();
 	// MySQL
@@ -3473,7 +3470,7 @@ public InitiateGamemode()
 	
 	print("\n-------------------------------------------");
 	print("SA-MP VN Blog\n");
-	print("Copyright © SA-MP VN Blog 2018");
+	print("Copyright ï¿½ SA-MP VN Blog 2018");
 	print("sampvn94.blogspot.com");
 	print("-------------------------------------------\n");
 	print("Da chay thanh cong gamemode...");
@@ -3488,35 +3485,7 @@ public LoadPlayer(playerid)
 	return 1;
 }
 
-//Bai toan
-forward LoadGame();
-public LoadGame()
-{
-    new E_NUM1 = random(E_MAX_NUMBER-E_MIN_NUMBER) + E_MIN_NUMBER,
-        E_NUM2 = random(E_MAX_NUMBER-E_MIN_NUMBER) + E_MIN_NUMBER,
-        E_NUM3 = random(E_MAX_NUMBER-E_MIN_NUMBER) + E_MIN_NUMBER,
-        E_NUM4 = random(E_MAX_NUMBER-E_MIN_NUMBER) + E_MIN_NUMBER;
 
-    gServerData[E_STARTED] = true;
-    gServerData[E_ANSWER] = E_NUM1 + E_NUM2 - E_NUM3 + E_NUM4;
-    gServerData[E_START_TIME] = GetTickCount();
-
-    new msg[128];
-    format(msg,sizeof(msg),"Bai toan cho 20000$ neu ai tra loi dung --> %i + %i - %i + %i = ?",E_NUM1,E_NUM2,E_NUM3,E_NUM4);
-    SendClientMessageToAll(COLOR_YELLOW,msg);
-    print(msg);
-}
-
-GetTimerInSeconds(now, started)
-{
-   new secs, ms;
-   ms = now - started;
-   while(ms > 999) {
-       secs++;
-       ms = ms-1000;
-   }
-   return secs;
-}
 
 forward CloseWestLobby();
 public CloseWestLobby()
@@ -8494,7 +8463,7 @@ stock ShowMainMenuDialog(playerid, frame)
 		case 1:
 		{
 			format(titlestring, sizeof(titlestring), "{3399FF}Dang nhap - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Chao mung ban den voi Cong dong GTA Online Viet Nam, %s.\n\nDia chi IP: %s\n\nNhan vat %s nay da duoc dang ky, vui lòng dang nhap de tham gia:", GetPlayerNameEx(playerid),  GetPlayerIpEx(playerid), GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Chao mung ban den voi Cong dong GTA Online Viet Nam, %s.\n\nDia chi IP: %s\n\nNhan vat %s nay da duoc dang ky, vui lï¿½ng dang nhap de tham gia:", GetPlayerNameEx(playerid),  GetPlayerIpEx(playerid), GetPlayerNameEx(playerid));
 			ShowPlayerDialog(playerid,MAINMENU,DIALOG_STYLE_PASSWORD,titlestring,string,"Dang nhap","Thoat");
 		}
 		case 2:
@@ -18199,7 +18168,7 @@ stock ShowInventory(playerid,targetid)
 		Ong tiem: %s\n\
 		Giay: %s\n\
 		Day thung: %s\n\
-		Xi gà: %s\n\
+		Xi gï¿½: %s\n\
 		Sprunk Cans: %s\n\
 		Spraycans: %s\n\
 		Tua vit: %s\n\
