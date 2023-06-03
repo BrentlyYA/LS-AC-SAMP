@@ -1035,10 +1035,6 @@ native gpci(playerid, serial[], maxlen);
 #define			AUDIO_URL_URL               (2583)
 //Vut sung
 #define 		MAX_DROP_ITEMS 					1000
-//Bai toan
-#define 		E_TIME              			120 // 2p
-#define 		E_MAX_NUMBER        			100
-#define 		E_MIN_NUMBER        			10
 //Khu an toan
 #define 		MAX_SZ 							100 // So luong toi da cua Khu an toan
 #define 		SKINCUSTOM 					(2584)
