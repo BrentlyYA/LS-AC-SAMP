@@ -2726,21 +2726,6 @@ public OnPlayerConnect(playerid) {
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	//Tai xiu
-	if(ChonTaiXiu[playerid] == 1)
-	{
-	    ChonTaiAll--;
-	    TienCuocTaiAll -= TienCuocTaiXiu[playerid];
-	    TienCuocTaiXiu[playerid] = 0;
-	    ChonTaiXiu[playerid] = 0;
-	}
-	if(ChonTaiXiu[playerid] == 2)
-	{
-	    ChonXiuAll--;
-	    TienCuocXiuAll -= TienCuocTaiXiu[playerid];
-	    TienCuocTaiXiu[playerid] = 0;
-	    ChonTaiXiu[playerid] = 0;
-	}
 	if(!isnull(unbanip[playerid]))
 	{
 	    new string[26];
@@ -6385,20 +6370,6 @@ public OnPlayerText(playerid, text[])
 			return 0;
 		}
 	}
-
-    if(gServerData[E_STARTED] && strval(text) == gServerData[E_ANSWER]) {
-        GivePlayerCash(playerid, 20000);
-        new msg[128],name[MAX_PLAYER_NAME];
-        GetPlayerName(playerid,name,sizeof(name));
-        format(msg,sizeof(msg),"%s da tra loi that chich xac trong %i giay (Dap an: %i)",name, GetTimerInSeconds(GetTickCount(),gServerData[E_START_TIME]), gServerData[E_ANSWER]);
-        SendClientMessageToAll(COLOR_YELLOW,msg);
-        print(msg);
-
-        gServerData[E_STARTED] = false;
-        gServerData[E_ANSWER] = 0;
-        gServerData[E_START_TIME] = 0;
-        return 1;
-    }
 
 	if(PlayerInfo[playerid][pAdmin] < 2)
 	{
