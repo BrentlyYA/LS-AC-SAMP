@@ -42,7 +42,6 @@ main() {}
 public OnGameModeInit()
 {
 	print("Dang chuan bi tai gamemode, xin vui long cho doi...");
-	print("SA-MP VN Blog | Dawkin Nguyen | sampvn94.blogspot.com");
 	g_mysql_Init();
 	return 1;
 }
