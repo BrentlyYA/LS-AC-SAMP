@@ -1407,6 +1407,7 @@ enum FIREWORK_INFO
 	Float: fireworkPos[3]
 }
 
+
 enum cStore
 {
 	cId,
