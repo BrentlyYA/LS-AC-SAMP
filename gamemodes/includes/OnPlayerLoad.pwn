@@ -729,8 +729,6 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pRVehWarns] = 0;
 	}
     format(string, sizeof(string), "Chao mung ban den voi server - %s", GetPlayerNameEx(playerid));
-	SendClientMessageEx( playerid, COLOR_YELLOW, "SA-MP VN Blog | sampvn94.blogspot.com" );
-	SendClientMessageEx( playerid, COLOR_YELLOW, "Dawkin Nguyen | fb.com/dawkinit" );
 	if(pMOTD[0]) { ShowPlayerDialog(playerid, PMOTDNOTICE, DIALOG_STYLE_MSGBOX, "Notice", pMOTD, "Dismiss", ""); }
 	else if(GetPVarInt(playerid, "NullEmail")) {
 		ShowPlayerDialog(playerid, NULLEMAIL, DIALOG_STYLE_INPUT, "{3399FF}Dang ky E-Mail", "{FFFFFF}Xin vui long nhap dia chi E-mail hop le de lien ket voi tai khoan.\n\nLuu y: Cung cap mot dia chi email khong hop le tai khoan se bi cham dut tai khoan.", "Xac nhan", "Bo qua");

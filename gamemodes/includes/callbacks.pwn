@@ -2709,8 +2709,6 @@ public OnPlayerConnect(playerid) {
 	SetPlayerVirtualWorld(playerid, 0);
 
 	SetPlayerColor(playerid,TEAM_HIT_COLOR);
-	//SendClientMessage( playerid, COLOR_WHITE, "SERVER: Chao mung ban den voi Server NGG-TDM" );
-	//SendClientMessage( playerid, COLOR_WHITE, "SA-MP VN Blog | sampvn94.blogspot.com" );
 
 	SyncPlayerTime(playerid);
 
