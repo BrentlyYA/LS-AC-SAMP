@@ -6,25 +6,6 @@ new ShopToggle = 0;
 //Tog lich su
 new bool:InfoMessage[MAX_PLAYERS] = true;
 
-//Tai xiu
-new HeThongTaiXiu = 0;
-new Phientaixiu = 1;
-new KetQuaTaiXiu = 0;
-new TimeTaiXiu = 60;
-new ChonTaiAll = 0;
-new ChonXiuAll = 0;
-new TienCuocTaiAll = 0;
-new TienCuocTraAll = 0;
-new TienCuocXiuAll = 0;
-new IdTaiWin = -1;
-new IdXiuWin = -1;
-new TienIdTaiWin = -1;
-new TienIdXiuWin = -1;
-new TTPhienTaiXiu[1024][500];
-new TTWinTaiXiu[1024][500];
-new ChonTaiXiu[MAX_PLAYERS];
-new TimeChonTaiXiu[MAX_PLAYERS];
-new TienCuocTaiXiu[MAX_PLAYERS];
 //new TradeTimer[MAX_PLAYERS];
 
 //Login
@@ -33,8 +14,6 @@ new Text:LoginHoclamSAMP;
 //Khu an toan
 new SafeZoneInfo[MAX_SZ][szInfo];
 
-//Bai toan
-new gServerData[E_SERVER_DATA];
 
 //Vut sung
 new DropObject[MAX_DROP_ITEMS];
