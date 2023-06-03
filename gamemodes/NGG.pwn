@@ -9,7 +9,7 @@
 	fb.com/dawkinit
 	dawkinit@gmail.com
 */
-#define SERVER_GM_TEXT "NGG-TDM"
+#define SERVER_GM_TEXT "LS:AC Ver 0.1"
 
 #include <a_samp>
 #include <a_mysql>	
