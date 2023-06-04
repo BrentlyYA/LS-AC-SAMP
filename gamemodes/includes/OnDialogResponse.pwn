@@ -2099,14 +2099,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else SendClientMessage(playerid, COLOR_GREY, "Nguoi nay da thoat game hoac ho da thu hoi lai quang cao.");
 		}
-		case DIALOG_ADFINAL: {
-			if(response) {
-				new params[32];
-				format(params, sizeof(params), "%d", GetPVarInt(playerid, "advertContact"));
-				DeletePVar(playerid, "adverContact");
-				return cmd_call(playerid, params);
-			}
-		}
 		case DIALOG_ADLIST: {
 			if(response) {
 
