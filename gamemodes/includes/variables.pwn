@@ -3,9 +3,6 @@ new MainPipeline;
 new ShopPipeline;
 new ShopToggle = 0;
 
-//Tog lich su
-new bool:InfoMessage[MAX_PLAYERS] = true;
-
 //new TradeTimer[MAX_PLAYERS];
 
 //Login
