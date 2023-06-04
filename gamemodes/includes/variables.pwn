@@ -832,7 +832,6 @@ new Homes[MAX_PLAYERS];
 new Locator[MAX_PLAYERS];
 new Mobile[MAX_PLAYERS];
 new RingTone[MAX_PLAYERS];
-new CallCost[MAX_PLAYERS];
 new LockStatus[MAX_VEHICLES char];
 new arr_Engine[MAX_VEHICLES char];
 new arr_Towing[MAX_PLAYERS];
