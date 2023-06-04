@@ -3230,12 +3230,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 	if(IsPlayerConnected(playerid) && IsPlayerConnected(killerid))
 	{
 		
-		if(killerid != INVALID_PLAYER_ID)
-		{
-		GivePlayerCash(killerid, 20000);
-		PlayerInfo[killerid][pCredits] += 500;
-		SendClientMessage(killerid, COLOR_YELLOW, "Ban nhan duoc $20,000 va 500 Credits.");
-		}
 		SetPVarInt(playerid, "PlayerOwnASurf", 0);
 	    #if defined zombiemode
     	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie"))
