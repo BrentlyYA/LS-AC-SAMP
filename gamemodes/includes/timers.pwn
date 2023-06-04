@@ -1952,40 +1952,6 @@ task ServerHeartbeatTwo[1000]() {
 			}
 		}
 
-		if(CellTime[i] > 0 && 0 <= Mobile[i] < sizeof Mobile)
-		{
-			if (CellTime[i] == 60)
-			{
-				CellTime[i] = 1;
-				if(Mobile[Mobile[i]] == i)
-				{
-					CallCost[i] += 10;
-				}
-			}
-			CellTime[i]++;
-			if (Mobile[Mobile[i]] == INVALID_PLAYER_ID && CellTime[i] == 5)
-			{
-				if(IsPlayerConnected(Mobile[i]))
-				{
-				    new Float:rX, Float:rY, Float:rZ;
-				    GetPlayerPos(i, rX, rY, rZ);
-					new string[18 + MAX_PLAYER_NAME];
-					format(string, sizeof(string), "* %s's phone rings.", GetPlayerNameEx(Mobile[i]));
-					RingTone[Mobile[i]] = 10;
-					ProxDetector(30.0, Mobile[i], string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-				}
-			}
-		}
-
-		if(CellTime[i] == 0 && CallCost[i] > 0)
-		{
-			new string[28];
-			format(string, sizeof(string), "~w~Phi cuoc goi~n~~r~$%d",CallCost[i]);
-			GivePlayerCash(i, -CallCost[i]);
-			GameTextForPlayer(i, string, 5000, 1);
-			CallCost[i] = 0;
-		}
-
 		if(TransportDriver[i] != INVALID_PLAYER_ID)
 		{
 			if(GetPlayerVehicleID(i) != GetPlayerVehicleID(TransportDriver[i]) || !TransportDuty[TransportDriver[i]])
