@@ -1,0 +1,86 @@
+// SOLS Project
+AddSimpleModel(-1, 19379, -20078, "maps/sols/1038.dff", "maps/sols/1038.txd");
+AddSimpleModel(-1, 19379, -20079, "maps/sols/1040.dff", "maps/sols/1040.txd");
+AddSimpleModel(-1, 1923, -1041, "maps/sols/1041.dff", "maps/sols/1041.txd");
+AddSimpleModel(-1, 19379, -20081, "maps/sols/1042.dff", "maps/sols/1042.txd");
+AddSimpleModel(-1, 19379, -20082, "maps/sols/1043.dff", "maps/sols/1043.txd");
+AddSimpleModel(-1, 19379, -20083, "maps/sols/1044.dff", "maps/sols/1044.txd");
+AddSimpleModel(-1, 19379, -20084, "maps/sols/1045.dff", "maps/sols/1045.txd");
+AddSimpleModel(-1, 19379, -20085, "maps/sols/1046.dff", "maps/sols/1046.txd");
+AddSimpleModel(-1, 19379, -20086, "maps/sols/1048.dff", "maps/sols/1048.txd");
+AddSimpleModel(-1, 1923, -20087, "maps/sols/1049.dff", "maps/sols/1049.txd");
+AddSimpleModel(-1, 1923, -20088, "maps/sols/1050.dff", "maps/sols/1050.txd");
+AddSimpleModel(-1, 1923, -20089, "maps/sols/1051.dff", "maps/sols/1051.txd");
+AddSimpleModel(-1, 1923, -20090, "maps/sols/1052.dff", "maps/sols/1052.txd");
+AddSimpleModel(-1, 8674, -20091, "maps/sols/1053.dff", "maps/sols/1053.txd");
+AddSimpleModel(-1, 19379, -20092, "maps/sols/1061.dff", "maps/sols/1061.txd");
+AddSimpleModel(-1, 19379, -20093, "maps/sols/1062.dff", "maps/sols/1062.txd");
+AddSimpleModel(-1, 19379, -20094, "maps/sols/1063.dff", "maps/sols/1063.txd");
+AddSimpleModel(-1, 19379, -20095, "maps/sols/1064.dff", "maps/sols/1064.txd");
+AddSimpleModel(-1, 19379, -20096, "maps/sols/1065.dff", "maps/sols/1065.txd");
+AddSimpleModel(-1, 19379, -20097, "maps/sols/1066.dff", "maps/sols/1066.txd");
+AddSimpleModel(-1, 19379, -20098, "maps/sols/1067.dff", "maps/sols/1067.txd");
+AddSimpleModel(-1, 19379, -20099, "maps/sols/1122.dff", "maps/sols/1122.txd");
+AddSimpleModel(-1, 19379, -20100, "maps/sols/1123.dff", "maps/sols/1123.txd");
+AddSimpleModel(-1, 19379, -20101, "maps/sols/1137.dff", "maps/sols/1137.txd");
+AddSimpleModel(-1, 19379, -20102, "maps/sols/1138.dff", "maps/sols/1138.txd");
+AddSimpleModel(-1, 19379, -20103, "maps/sols/1140.dff", "maps/sols/1140.txd");
+AddSimpleModel(-1, 19379, -20104, "maps/sols/1141.dff", "maps/sols/1141.txd");
+AddSimpleModel(-1, 19379, -20105, "maps/sols/1142.dff", "maps/sols/1142.txd");
+AddSimpleModel(-1, 19379, -20106, "maps/sols/1143.dff", "maps/sols/1143.txd");
+AddSimpleModel(-1, 19379, -20107, "maps/sols/1144.dff", "maps/sols/1144.txd");
+AddSimpleModel(-1, 19379, -20108, "maps/sols/1145.dff", "maps/sols/1145.txd");
+AddSimpleModel(-1, 19379, -20109, "maps/sols/1146.dff", "maps/sols/1146.txd");
+AddSimpleModel(-1, 19379, -20110, "maps/sols/1148.dff", "maps/sols/1148.txd");
+AddSimpleModel(-1, 19379, -20111, "maps/sols/1149.dff", "maps/sols/1149.txd");
+AddSimpleModel(-1, 19379, -20112, "maps/sols/1150.dff", "maps/sols/1150.txd");
+AddSimpleModel(-1, 19379, -20113, "maps/sols/1151.dff", "maps/sols/1151.txd");
+AddSimpleModel(-1, 19379, -20114, "maps/sols/1152.dff", "maps/sols/1152.txd");
+AddSimpleModel(-1, 19379, -20115, "maps/sols/1153.dff", "maps/sols/1153.txd");
+AddSimpleModel(-1, 19379, -20116, "maps/sols/1154.dff", "maps/sols/1154.txd");
+AddSimpleModel(-1, 19379, -20117, "maps/sols/1155.dff", "maps/sols/1155.txd");
+AddSimpleModel(-1, 19379, -20118, "maps/sols/1156.dff", "maps/sols/1156.txd");
+AddSimpleModel(-1, 19379, -20119, "maps/sols/1157.dff", "maps/sols/1157.txd");
+AddSimpleModel(-1, 19379, -20120, "maps/sols/1158.dff", "maps/sols/1158.txd");
+AddSimpleModel(-1, 19379, -20121, "maps/sols/1159.dff", "maps/sols/1159.txd");
+AddSimpleModel(-1, 19379, -20122, "maps/sols/1160.dff", "maps/sols/1160.txd");
+AddSimpleModel(-1, 19379, -20123, "maps/sols/1161.dff", "maps/sols/1161.txd");
+AddSimpleModel(-1, 19379, -20124, "maps/sols/1162.dff", "maps/sols/1162.txd");
+AddSimpleModel(-1, 19379, -20125, "maps/sols/1163.dff", "maps/sols/1163.txd");
+AddSimpleModel(-1, 19379, -20126, "maps/sols/1164.dff", "maps/sols/1164.txd");
+AddSimpleModel(-1, 19379, -20127, "maps/sols/1165.dff", "maps/sols/1165.txd");
+AddSimpleModel(-1, 19379, -20128, "maps/sols/1167.dff", "maps/sols/1167.txd");
+AddSimpleModel(-1, 19379, -20129, "maps/sols/1223.dff", "maps/sols/1223.txd");
+AddSimpleModel(-1, 19379, -20130, "maps/sols/1224.dff", "maps/sols/1224.txd");
+AddSimpleModel(-1, 19379, -20131, "maps/sols/1225.dff", "maps/sols/1225.txd");
+AddSimpleModel(-1, 19379, -20132, "maps/sols/1226.dff", "maps/sols/1226.txd");
+AddSimpleModel(-1, 19379, -20133, "maps/sols/1227.dff", "maps/sols/1227.txd");
+AddSimpleModel(-1, 19379, -20134, "maps/sols/1228.dff", "maps/sols/1228.txd");
+AddSimpleModel(-1, 19379, -20135, "maps/sols/1240.dff", "maps/sols/1240.txd");
+AddSimpleModel(-1, 19379, -20136, "maps/sols/1241.dff", "maps/sols/1241.txd");
+AddSimpleModel(-1, 19379, -20137, "maps/sols/1242.dff", "maps/sols/1242.txd");
+AddSimpleModel(-1, 19379, -20138, "maps/sols/1243.dff", "maps/sols/1243.txd");
+AddSimpleModel(-1, 19379, -20139, "maps/sols/1346.dff", "maps/sols/1346.txd");
+AddSimpleModel(-1, 19379, -20140, "maps/sols/1368.dff", "maps/sols/1368.txd");
+AddSimpleModel(-1, 19379, -20141, "maps/sols/1369.dff", "maps/sols/1369.txd");
+AddSimpleModel(-1, 19379, -20142, "maps/sols/1392.dff", "maps/sols/1392.txd");
+AddSimpleModel(-1, 19379, -20143, "maps/sols/1393.dff", "maps/sols/1393.txd");
+AddSimpleModel(-1, 19379, -20144, "maps/sols/1139.dff", "maps/sols/1139.txd");
+AddSimpleModel(-1, 19379, -20145, "maps/sols/1047.dff", "maps/sols/1047.txd");
+AddSimpleModel(-1, 5633, -20146, "maps/sols/13087.dff", "maps/sols/13087.txd");
+
+// Taxi
+AddSimpleModel(-1, 19478, -1019, "maps/taxi/1019.dff", "maps/taxi/1019.txd");
+AddSimpleModel(-1, 1923, -1020, "maps/taxi/1020.dff", "maps/taxi/1020.txd");
+AddSimpleModel(-1, 1923, -1021, "maps/taxi/1021.dff", "maps/taxi/1021.txd");
+AddSimpleModel(-1, 1923, -1022, "maps/taxi/1022.dff", "maps/taxi/1022.txd");
+AddSimpleModel(-1, 5422, -12006, "maps/taxi/12006.dff", "maps/taxi/12006.txd");
+
+// Gas Station
+AddSimpleModel(-1, 1337, -1056, "maps/gas/1056.dff", "maps/gas/1056.txd");
+AddSimpleModel(-1, 1923, -1262, "maps/gas/1262.dff", "maps/gas/1262.txd");
+AddSimpleModel(-1, 1923, -1282, "maps/gas/1282.dff", "maps/gas/1282.txd");
+
+// Bank GTA:ID
+AddSimpleModel(-1, 5704, -5219, "maps/bank/1119.dff", "maps/bank/1119.txd");
+AddSimpleModel(-1, 1491, -5324, "maps/bank/1124.dff", "maps/bank/1124.txd");

@@ -41,6 +41,7 @@ public OnGameModeInit()
 {
 	print("Dang chuan bi tai gamemode, xin vui long cho doi...");
 	g_mysql_Init();
+	#include "./includes/OBJECTMAP.pwn"
 	return 1;
 }
 
