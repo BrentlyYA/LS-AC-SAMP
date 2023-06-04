@@ -175,8 +175,6 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pLottoNr] = 0;
 		PlayerInfo[playerid][pFishes] = 0;
 		PlayerInfo[playerid][pBiggestFish] = 0;
-		PlayerInfo[playerid][pJob] = 0;
-		PlayerInfo[playerid][pJob2] = 0;
 		PlayerInfo[playerid][pPayCheck] = 0;
 		PlayerInfo[playerid][pHeadValue] = 0;
 		PlayerInfo[playerid][pJailTime] = 0;
@@ -473,11 +471,6 @@ public OnPlayerLoad(playerid)
 	    {
 	        SendClientMessageEx(playerid, COLOR_RED, "Cua hang cua ban da het han qua 3 ngay.");
 	    }
-	}
-	if(PlayerInfo[playerid][pJob2] >= 1 && (PlayerInfo[playerid][pDonateRank] < 1 && PlayerInfo[playerid][pFamed] < 1))
-	{
-		PlayerInfo[playerid][pJob2] = 0;
-		SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da bi mat cong viec phu do VIP/Famed da het han su dung.");
 	}
 	if(PlayerInfo[playerid][pDonateRank] >= 4 && PlayerInfo[playerid][pArmsSkill] < 400)
 	{

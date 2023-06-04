@@ -10526,124 +10526,6 @@ stock GetPlayerIpEx(playerid)
 	return ip;
 }
 
-stock GetJobName(job)
-{
-	new name[20];
-	switch(job)
-	{
-		case 1: name = "Tham tu";
-		case 2: name = "Luat su";
-		case 3: name = "Gai diem";
-		case 4: name = "Ban thuoc phien";
-		case 6: name = "Phong vien tin tuc";
-		case 7: name = "Tho sua xe";
-		case 8: name = "Ve si";
-		case 9: name = "Nguoi ban vu khi";
-		case 10: name = "Dai ly xe hoi";
-		case 12: name = "Boxer";
-		case 14: name = "Buon lau ma tuy";
-		case 15: name = "Paper Boy";
-		case 16: name = "Nguoi dua hang";
-		case 17: name = "Tai xe taxi";
-		case 18: name = "Tho thu cong";
-		case 19: name = "Nguoi pha che";
-		case 20: name = "Nguoi dua hang";
-		case 21: name = "Pizza Boy";
-		default: name = "That nghiep";
-	}
-	return name;
-}
-
-stock GetJobLevel(playerid, job)
-{
-	new jlevel;
-	switch(job)
-	{
-		case 1:
-		{
-			new skilllevel = PlayerInfo[playerid][pDetSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 2:
-		{
-			new skilllevel = PlayerInfo[playerid][pLawSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 3:
-		{
-			new skilllevel = PlayerInfo[playerid][pSexSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 4:
-		{
-			new skilllevel = PlayerInfo[playerid][pDrugsSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 7:
-		{
-			new skilllevel = PlayerInfo[playerid][pMechSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 9:
-		{
-			new skilllevel = PlayerInfo[playerid][pArmsSkill];
-			if(skilllevel >= 0 && skilllevel < 50) jlevel = 1;
-			else if(skilllevel >= 50 && skilllevel < 100) jlevel = 2;
-			else if(skilllevel >= 100 && skilllevel < 200) jlevel = 3;
-			else if(skilllevel >= 200 && skilllevel < 400) jlevel = 4;
-			else if(skilllevel >= 400) jlevel = 5;
-		}
-		case 12:
-		{
-			new skilllevel = PlayerInfo[playerid][pBoxSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 14: jlevel = 1;
-		case 20:
-		{
-			new skilllevel = PlayerInfo[playerid][pTruckSkill];
-			if(skilllevel >= 0 && skilllevel <= 50) jlevel = 1;
-			else if(skilllevel >= 51 && skilllevel <= 100) jlevel = 2;
-			else if(skilllevel >= 101 && skilllevel <= 200) jlevel = 3;
-			else if(skilllevel >= 201 && skilllevel <= 400) jlevel = 4;
-			else if(skilllevel >= 401) jlevel = 5;
-		}
-		case 22:
-		{
-			new skilllevel = PlayerInfo[playerid][pTreasureSkill];
-			if(skilllevel >= 0 && skilllevel <= 24) jlevel = 1;
-			else if(skilllevel >= 25 && skilllevel <= 149) jlevel = 2;
-			else if(skilllevel >= 150 && skilllevel <= 299) jlevel = 3;
-			else if(skilllevel >= 300 && skilllevel <= 599) jlevel = 4;
-			else if(skilllevel >= 600) jlevel = 5;
-		}
-	}
-	return jlevel;
-}
 
 stock StripNewLine(string[])
 {
@@ -16403,15 +16285,6 @@ stock SendDivisionMessage(member, division, color, string[])
 	}
 }
 
-stock SendJobMessage(job, color, string[])
-{
-	foreach(new i: Player)
-	{
-		if(((PlayerInfo[i][pJob] == job || PlayerInfo[i][pJob2] == job) && JobDuty[i] == 1) || ((PlayerInfo[i][pJob] == job || PlayerInfo[i][pJob2] == job) && (GetPVarInt(i, "MechanicDuty") == 1 || GetPVarInt(i, "LawyerDuty") == 1))) {
-			SendClientMessageEx(i, color, string);
-		}
-	}
-}
 
 stock SendNewFamilyMessage(family, color, string[])
 {
@@ -16442,21 +16315,6 @@ stock SendFamilyMessage(family, color, string[])
 	}
 }
 
-stock SendTaxiMessage(color, string[])
-{
-	foreach(new i: Player)
-	{
- 		if(IsATaxiDriver(i) && PlayerInfo[i][pDuty] > 0) {
- 		    SendClientMessageEx(i, color, string);
-		}
-
-		if(TransportDuty[i] > 0 && (PlayerInfo[i][pJob] == 17 || PlayerInfo[i][pJob2] == 17 || PlayerInfo[i][pTaxiLicense] == 1)) {
-		    if(!IsATaxiDriver(i)) {
-		    	SendClientMessageEx(i, color, string);
-			}
-		}
-	}
-}
 
 stock RadioBroadCast(playerid, string[])
 {
@@ -18118,10 +17976,6 @@ stock ShowStats(playerid,targetid)
 		nation,
 		org,
 		biz,
-		GetJobName(PlayerInfo[targetid][pJob]),
-		GetJobLevel(targetid, PlayerInfo[targetid][pJob]),
-		GetJobName(PlayerInfo[targetid][pJob2]),
-		GetJobLevel(targetid, PlayerInfo[targetid][pJob2]),
 		insur);
 		ShowPlayerDialog(playerid, DISPLAY_STATS, DIALOG_STYLE_MSGBOX, header, resultline, "Trang Sau", "Dong lai");
 	}
@@ -18254,9 +18108,6 @@ stock SetPlayerToTeamColor(playerid)
 		else if(PlayerInfo[playerid][pBeingSentenced] != 0)
 		{
 			SetPlayerColor(playerid, SHITTY_JUDICIALSHITHOTCH);
-		}
-		else if((PlayerInfo[playerid][pJob] == 17 || PlayerInfo[playerid][pJob2] == 17 || PlayerInfo[playerid][pTaxiLicense] == 1) && TransportDuty[playerid] != 0) {
-			SetPlayerColor(playerid,TEAM_TAXI_COLOR);
 		}
 	    else if(0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS && PlayerInfo[playerid][pDuty]) {
 			return SetPlayerColor(playerid, arrGroupData[PlayerInfo[playerid][pMember]][g_hDutyColour] * 256);

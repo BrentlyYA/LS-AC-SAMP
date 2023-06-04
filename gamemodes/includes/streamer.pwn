@@ -210,10 +210,6 @@ public LoadStreamerDynamicPickups()
 	}
 
     // Pickups
-	CreateDynamicPickup(1239, 23, 301.042633, 178.700408, 1007.171875, -1); // Detective job (SF)
-	CreateDynamicPickup(1239, 23, -2089.344970, 87.800231, 35.320312, -1); // Drug Dealer job (SF)
-	CreateDynamicPickup(1239, 23, 2096.1035,-1795.0962,13.3889, -1); // Pizza Boy job (SF)
-	CreateDynamicPickup(1239, 23, -2240.9011, 2313.1653, 4.9918, -1); // Taxi Driver job (TR)
 	CreateDynamicPickup(1239, 23, 833.60, 3.23, 1004.17, -1); // /paymytickets point
 	CreateDynamicPickup(1239, 23, -4429.944824, 905.032470, 987.078186, -1); // VIP Garage Travel
 	CreateDynamicPickup(1239, 23, 2102.71,-103.97,2.28, -1); // Matrun 3
@@ -223,14 +219,6 @@ public LoadStreamerDynamicPickups()
 	CreateDynamicPickup(1239, 23, -688.7897,966.1434,12.1627, -1); //Matrun TR (DropOff)
   	//CreateDynamicPickup(1239, 23, 2565.346191, 1403.409790, 7699.584472, -1);// VIP ph changing station.
   	CreateDynamicPickup(1239, 23, 701.7953,-519.8322,16.3348, -1); //Rental Icon
-	CreateDynamicPickup(1239, 23, -1475.4224,1877.3550,32.6328, -1); // Mechanic Job (TR)
-	CreateDynamicPickup(1239, 23, -1385.6786,2625.6636,55.5572, -1); // Detective Job (TR)
-	CreateDynamicPickup(1239, 23, -1513.4904,2614.3591,55.8078, -1); // Arms Dealer Job (TR)
-	CreateDynamicPickup(1239, 23, -1356.7195,2065.3450,52.4677, -1); // Craftsman Job (TR)
-	CreateDynamicPickup(1239, 23, -1528.0924,2688.7837,55.8359, -1); // Drug Dealer Job (TR)
-	CreateDynamicPickup(1239, 23, -821.3508,1574.9393,27.1172, -1); // Bodyguard Job (TR)
-	CreateDynamicPickup(1239, 23, -2630.7375,2349.3994,8.4892, -1); // Drug Smuggler Job (TR)
-	CreateDynamicPickup(1239, 23, -864.3550,1536.9703,22.5870, -1); // Bartender Job (TR)
 	CreateDynamicPickup(1239, 23, 757.3734,5.7227,1000.7012, -1); // Train Pos
 	CreateDynamicPickup(1239, 23, 758.43,-78.0,1000.65, -1); // Train Pos (MALL GYM)
 	CreateDynamicPickup(1239, 23, 293.6505,188.3670,1007.1719, -1); //FBI
@@ -253,8 +241,6 @@ public LoadStreamerDynamicPickups()
 	CreateDynamicPickup(1240, 23, -2482.4338,2231.1106,4.8463, -1);// Deliverpt (TR - Bayside)
 	CreateDynamicPickup(1240, 23, 225.3467,1981.8497,17.6406, -1); //Deliverpt (DeMorgan)
 	CreateDynamicPickup(1239, 23, 366.54, 159.09, 1008.38, -1); // LICENSES @ CITY HALL
-	CreateDynamicPickup(1239, 23, 2450.2000,-2126.0259,13.5469); //Trucker registration
-    CreateDynamicPickup(1239, 23, 2103.9937,-1809.6488,13.5547); //Pizza job registration
 	CreateDynamicPickup(1239, 23, 1380.7683,-1088.7391,27.3844); //Detective Registration
 	CreateDynamicPickup(1239, 23, 1469.5247,-1755.7039,3285.2859); //Lawyer Registration
 	CreateDynamicPickup(1239, 23, 1215.1304,-11.8431,1000.9219); //Whore Registration

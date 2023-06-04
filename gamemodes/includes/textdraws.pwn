@@ -889,16 +889,6 @@ public LoadTextDraws()
 	TextDrawSetShadow(TutTxtdraw[14], 1);
 	textdrawscount++;
 
-	// Tutorial (Frame 2-9) (Line 1)
-	TutTxtdraw[15] = TextDrawCreate(175.000000, 141.000000, "There are many jobs located around San Andreas, these are represented");
-	TextDrawBackgroundColor(TutTxtdraw[15], 255);
-	TextDrawFont(TutTxtdraw[15], 2);
-	TextDrawLetterSize(TutTxtdraw[15], 0.159998, 0.899999);
-	TextDrawColor(TutTxtdraw[15], -1);
-	TextDrawSetOutline(TutTxtdraw[15], 1);
-	TextDrawSetProportional(TutTxtdraw[15], 1);
-	textdrawscount++;
-
 	// Tutorial (Frame 2-9) (Line 2)
 	TutTxtdraw[16] = TextDrawCreate(175.000000, 151.000000, "by ~y~yellow~w~ information icons.");
 	TextDrawBackgroundColor(TutTxtdraw[16], 255);
@@ -979,16 +969,7 @@ public LoadTextDraws()
 	TextDrawSetProportional(TutTxtdraw[23], 1);
 	textdrawscount++;
 
-	// Tutorial (Frame 2-9) (Line 10)
-	TutTxtdraw[24] = TextDrawCreate(181.000000, 256.000000, "| You can ~g~/jobhelp~w~ for more!");
-	TextDrawBackgroundColor(TutTxtdraw[24], 255);
-	TextDrawFont(TutTxtdraw[24], 2);
-	TextDrawLetterSize(TutTxtdraw[24], 0.159998, 0.899999);
-	TextDrawColor(TutTxtdraw[24], -1);
-	TextDrawSetOutline(TutTxtdraw[24], 1);
-	TextDrawSetProportional(TutTxtdraw[24], 1);
-	textdrawscount++;
-
+	
 	// Tutorial (Frame 10) (Title)
 	TutTxtdraw[25] = TextDrawCreate(168.000000, 120.000000, "Tutorial - Law Enforcement");
 	TextDrawBackgroundColor(TutTxtdraw[25], 255);
