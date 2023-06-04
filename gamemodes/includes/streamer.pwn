@@ -375,14 +375,6 @@ public LoadStreamerDynamic3DTextLabels()
     CreateDynamic3DTextLabel("Su dung /layvatlieu de lay vat lieu",COLOR_YELLOW,-1522.7351, 2587.2612, 55.8359+0.6, 5.0);
 	CreateDynamic3DTextLabel("Diem thay doi ten \nSu dung /doiten de thay doi ten",COLOR_YELLOW,1154.7295,-1440.2323,15.7969+0.6,18.0); // Namechange at mall
 
-    /* Sprunk 3D Text */
-    CreateDynamic3DTextLabel("May uong nuoc \nBam phim 'F' de lay nuoc uong",COLOR_YELLOW,2140.4504,-1161.4298,23.9922+0.6,12.0); // May uong nuoc
-    CreateDynamic3DTextLabel("May uong nuoc \nBam phim 'F' de lay nuoc uong",COLOR_YELLOW,2153.8826,-1015.5273,62.8895+0.6,12.0); // May uong nuoc
-    CreateDynamic3DTextLabel("May uong nuoc \nBam phim 'F' de lay nuoc uong",COLOR_YELLOW,2325.9705,-1646.1234,14.8270+0.6,12.0); // May uong nuoc
-    CreateDynamic3DTextLabel("May uong nuoc \nBam phim 'F' de lay nuoc uong",COLOR_YELLOW,2060.2163,-1898.6940,13.5538+0.6,12.0); // May uong nuoc
-    CreateDynamic3DTextLabel("May uong nuoc \nBam phim 'F' de lay nuoc uong",COLOR_YELLOW,1929.8986,-1772.5122,13.5469+0.6,12.0); // May uong nuoc
-    CreateDynamic3DTextLabel("May uong nuoc \nBam phim 'F' de lay nuoc uong",COLOR_YELLOW,1153.6688,-1460.8262,15.7969+0.6,12.0); // May uong nuoc
-
 	/* Job's 3D Text */
 	CreateDynamic3DTextLabel("Cong viec Tham tu \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1380.7683,-1088.7391,27.3844+0.5,4.0);// Tham tu (LS)
     CreateDynamic3DTextLabel("Cong viec Tham tu \nSu dung /xinviec de lua chon cong viec",COLOR_RED,301.042633, 178.700408, 1007.171875+0.5,4.0);// Cong viec Detective (SF) // bo qua
