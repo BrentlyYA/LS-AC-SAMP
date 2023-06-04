@@ -5911,26 +5911,6 @@ public OnPlayerText(playerid, text[])
 		}
 		return 0;
 	}
-	if(CallLawyer[playerid] == 111)
-	{
-		if (strcmp("yes", text, true) == 0)
-		{
-			format(string, sizeof(string), "** %s o tu, va can mot luat su. Hay den don canh sat.", GetPlayerNameEx(playerid));
-			SendJobMessage(2, TEAM_AZTECAS_COLOR, string);
-			SendJobMessage(2, TEAM_AZTECAS_COLOR, "* Khi ban o don canh sat, yeu cau mot si quan chap thuan voi ban /accept lawyer.");
-			SendClientMessageEx(playerid, COLOR_LIGHTRED, "Mot yeu cau da duoc gui di toi cac luat su dang lam viec.");
-			WantLawyer[playerid] = 0;
-			CallLawyer[playerid] = 0;
-			return 0;
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTRED, "Khong co luat su nao dang lam viec, thoi gian  o tu cua ban da duoc thuc thi.");
-			WantLawyer[playerid] = 0;
-			CallLawyer[playerid] = 0;
-			return 0;
-		}
-	}
 	if(TalkingLive[playerid] != INVALID_PLAYER_ID)
 	{
 		if(IsAReporter(playerid))
