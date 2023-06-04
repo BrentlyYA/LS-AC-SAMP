@@ -1,13 +1,11 @@
 /*
-	Gamemode NGG-TDM v1.0
-	SA-MP VN Blog
-	sampvn94.blogspot.com
-	fb.com/sampvnblog
-	fb.com/groups/sampvnblog
+	Gamemode LS:AC-ChaseCop ver 1.0
+	Azynre Community
+	Discord.gg/Azynre
 	
-	Dawkin Nguyen
-	fb.com/dawkinit
-	dawkinit@gmail.com
+	Nhat Trung
+	Dien Thien
+	Mon
 */
 #define SERVER_GM_TEXT "LS:AC Ver 0.1"
 
