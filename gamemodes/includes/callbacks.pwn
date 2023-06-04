@@ -1743,7 +1743,7 @@ public OnPlayerStreamOut(playerid, forplayerid)
     return 1;
 }
 
-public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
+/*public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
     IsPlayerEntering{playerid} = true;
 	Seatbelt[playerid] = 0;
@@ -1987,7 +1987,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	}
 
 	return 1;
-}
+}*/
 
 public OnPlayerConnect(playerid) {
 	if(IsPlayerNPC(playerid)) return 1;
@@ -3773,13 +3773,6 @@ public OnPlayerLeaveCheckpoint(playerid)
 public OnPlayerEnterCheckpoint(playerid)
 {
 
-    if(CP[playerid] == 252007)
-    {
-        CP[playerid] = 0;
-        PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-    	SendClientMessage(playerid, COLOR_GREY, " Go /xinviec de nhan cong viec!");
-        DisablePlayerCheckpoint(playerid);
-    }
     if(CP[playerid] == 252006)
     {
         CP[playerid] = 0;

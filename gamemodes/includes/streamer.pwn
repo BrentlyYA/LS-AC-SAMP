@@ -375,42 +375,6 @@ public LoadStreamerDynamic3DTextLabels()
     CreateDynamic3DTextLabel("Su dung /layvatlieu de lay vat lieu",COLOR_YELLOW,-1522.7351, 2587.2612, 55.8359+0.6, 5.0);
 	CreateDynamic3DTextLabel("Diem thay doi ten \nSu dung /doiten de thay doi ten",COLOR_YELLOW,1154.7295,-1440.2323,15.7969+0.6,18.0); // Namechange at mall
 
-	/* Job's 3D Text */
-	CreateDynamic3DTextLabel("Cong viec Tham tu \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1380.7683,-1088.7391,27.3844+0.5,4.0);// Tham tu (LS)
-    CreateDynamic3DTextLabel("Cong viec Tham tu \nSu dung /xinviec de lua chon cong viec",COLOR_RED,301.042633, 178.700408, 1007.171875+0.5,4.0);// Cong viec Detective (SF) // bo qua
-	CreateDynamic3DTextLabel("Cong viec Tham tu \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-1385.6786, 2625.6636, 55.5572+0.5,4.0);// Cong viec Detective (TR) // bo qua
-	CreateDynamic3DTextLabel("Nguoi ban vu khi \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1366.4325,-1275.2096,13.5469+0.5,4.0);// Buon vu khi (LS)
-    CreateDynamic3DTextLabel("Nguoi ban vu khi \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-2623.333984, 209.235931, 4.684767+0.5,4.0);// Gun Job // bo qua
-	CreateDynamic3DTextLabel("Nguoi ban vu khi \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-1513.4904, 2614.3591, 55.8078+0.5,4.0);// Arms Dealer (TR) // bo qua
- 	CreateDynamic3DTextLabel("Nguoi ban thuoc phien \nSu dung /xinviec de lua chon cong viec",COLOR_RED,2166.3772,-1675.3829,15.0859+0.5,4.0);// Buon thuoc phien (LS)
-    CreateDynamic3DTextLabel("Nguoi ban thuoc phien \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-2089.344970, 87.800231, 35.320312+0.5,4.0);// Drug Dealer (SF) // bo qua
-	CreateDynamic3DTextLabel("Nguoi ban thuoc phien \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-1528.0924,2688.7837,55.8359+0.5,4.0);// Drug Dealer (TR) // bo qua
-	CreateDynamic3DTextLabel("Cong viec Ve si \nSu dung /xinviec de lua chon cong viec",COLOR_RED,2226.1716,-1718.1792,13.5165+0.5,4.0);// Ve si (LS)
-    CreateDynamic3DTextLabel("Cong viec Ve si \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-2269.256103, -158.054321, 35.320312+0.5,4.0);// Ve si (SF) // bo qua
-	CreateDynamic3DTextLabel("Cong viec Ve si \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-821.3508,1574.9393,27.1172+0.5,4.0);// Ve si (TR) // bo qua
-	CreateDynamic3DTextLabel("Luat su \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1469.5247,-1755.7039,3285.2859+0.5,4.0);// Luat su (LS)
-    CreateDynamic3DTextLabel("Tai xe Taxi \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1808.4767,-1885.1515,13.5851+0.5,4.0);// Tai xe Taxi (LS)
-    CreateDynamic3DTextLabel("Tai xe Taxi \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-1981.144775, 133.063293, 27.687500+0.5,4.0);// Taxi Driver (SF) // bo qua
-	CreateDynamic3DTextLabel("Tai xe Taxi \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-2240.9011, 2313.1653, 4.9918+0.5,4.0);// Taxi Driver (TR) // bo qua
-    CreateDynamic3DTextLabel("Cong viec Ve si \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1224.13, 267.98, 19.55+0.5,4.0);// Ve si (Montgomery) // bo qua
-    CreateDynamic3DTextLabel("Tho sua xe \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1911.7753,-1872.7100,13.5475+0.5,4.0);// Tho sua xe (LS)
-    CreateDynamic3DTextLabel("Tho sua xe \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-2032.601928, 143.866592, 28.835937+0.5,4.0);// Mechanic (SF) // bo qua
-	CreateDynamic3DTextLabel("Tho sua xe \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-1475.4224, 1877.3550, 32.6328+0.5,4.0);// Mechanic (TR) // bo qua
-	CreateDynamic3DTextLabel("Gai diem \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1215.1304,-11.8431,1000.9219+0.5,4.0);// Gai diem (LS)
-    CreateDynamic3DTextLabel("Boxer Job \nSu dung /xinviec de lua chon cong viec",COLOR_RED,766.0804,14.5133,1000.7004+0.5,4.0);// Boxer (LS)
-    CreateDynamic3DTextLabel("Boxer Job \nSu dung /xinviec de lua chon cong viec",COLOR_RED,758.98,-60.32,1000.78+0.5,4.0);// Boxer2 // bo qua
-    CreateDynamic3DTextLabel("Buon lau ma tuy \nSu dung /xinviec de lua chon cong viec",COLOR_RED,2354.2808,-1169.2959,28.0066+0.5,4.0);// Buon ma tuy (LS)
-	CreateDynamic3DTextLabel("Buon lau ma tuy \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-2630.7375,2349.3994,8.4892+0.5,4.0);// Drug Smuggler (TR) // bo qua
-    CreateDynamic3DTextLabel("Cong viec Ve si \nSu dung /xinviec de lua chon cong viec",COLOR_RED,1153.7828,-1457.9697,15.7969+0.5,4.0);// Ve si (benh vien LS)
-    CreateDynamic3DTextLabel("Tho thu cong \nSu dung /xinviec de lua chon cong viec",COLOR_RED,2195.8335,-1973.0638,13.5589+0.5,4.0);// Tho thu cong (LS)
-	CreateDynamic3DTextLabel("Tho thu cong \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-1356.7195,2065.3450,52.4677+0.5,4.0);// Craftsman (TR) // bo qua
-	CreateDynamic3DTextLabel("Nguoi pha che \nSu dung /xinviec de lua chon cong viec",COLOR_RED,502.6696,-11.6603,1000.6797+0.5,4.0);// Nguoi pha che (Alhambra)
-	CreateDynamic3DTextLabel("Nguoi pha che \nSu dung /xinviec de lua chon cong viec",COLOR_RED,-864.3550,1536.9703,22.5870+0.5,4.0);// Nguoi pha che (TR) // bo qua
-    CreateDynamic3DTextLabel("Trucker \nSu dung /xinviec de lua chon cong viec",COLOR_RED,2450.2000,-2126.0259,13.5469+0.5,4.0);// Trucker Job (LS)
-    CreateDynamic3DTextLabel("Nhan vien Pizza Boy \nSu dung /xinviec de lua chon cong viec",COLOR_RED,2103.9937,-1809.6488,13.5547+0.5,4.0);// Pizza Boy Job (LS)
-    CreateDynamic3DTextLabel("Tierra Robada Gant Bridge Access.",0xFFFF00AA,-2678.2702636719,2148.0134277344,55.4296875+0.6,20.0);// Border Lable
-	CreateDynamic3DTextLabel("Tierra Robada Airport",0xFFFF00AA,-1873.2819824219,2172.4621582031,6.2687501907349+0.6,20.0);// Airport Lable.
-	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_YELLOW,901.4825,1429.7404,-82.3235+0.6,4.0); //Famed Locker
 	
 	//NGGShop
 	CreateDynamic3DTextLabel("Cua hang xe\n/carshop", COLOR_YELLOW, 2958.2200, -1339.2900, 5.2100+0.6, 10.0);
