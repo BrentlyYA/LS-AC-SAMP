@@ -20909,10 +20909,6 @@ CMD:barrels(playerid, params[])
 	return 1;
 }
 
-CMD:eba(playerid, params[]) {
-	return cmd_emergencybutton(playerid, params);
-}
-
 
 CMD:backup(playerid, params[])
 {
