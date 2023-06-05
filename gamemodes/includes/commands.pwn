@@ -52718,24 +52718,24 @@ CMD:rflhelp(playerid, params[])
 }
 
 // Start of the voucher commands
-CMD:myvouchers(playerid, params[])
-{
-	if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the lam dieu nay khi dang o tu");
+//CMD:myvouchers(playerid, params[])
+//{
+	//if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the lam dieu nay khi dang o tu");
 
-	ShowVouchers(playerid, playerid);
-	return 1;
-}
+	//ShowVouchers(playerid, playerid);
+	//return 1;
+//}
 
-CMD:checkvouchers(playerid, params[])
-{
-	new targetid;
-	if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the su dung lenh nay!");
-	if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /checkvouchers [player]");
-	if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+//CMD:checkvouchers(playerid, params[])
+//{
+	//new targetid;
+	//if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the su dung lenh nay!");
+	//if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /checkvouchers [player]");
+	//if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 
-	ShowVouchers(playerid, targetid);
-	return 1;
-}
+	//ShowVouchers(playerid, targetid);
+	//return 1;
+//}
 
 CMD:sellvoucher(playerid, params[])
 {
@@ -52901,15 +52901,15 @@ CMD:denyvoucher(playerid, params[])
 	return 1;
 }
 
-CMD:voucherhelp(playerid, params[])
-{
-	SendClientMessageEx(playerid, COLOR_GRAD1, "** Player Commands: /myvouchers /denyvoucher /chapnhan voucher");
-	if(PlayerInfo[playerid][pAdmin] >= 4)
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "** Admin Commands: /checkvouchers");
-	}
-	return 1;
-}
+//CMD:voucherhelp(playerid, params[])
+//{
+	//SendClientMessageEx(playerid, COLOR_GRAD1, "** Player Commands: /myvouchers /denyvoucher /chapnhan voucher");
+	//if(PlayerInfo[playerid][pAdmin] >= 4)
+	//{
+		//SendClientMessageEx(playerid, COLOR_GRAD1, "** Admin Commands: /checkvouchers");
+	//}
+	//return 1;
+//}
 //end of the voucher commands
 
 CMD:qs(playerid, params[]) return cmd_quickstats(playerid, params);
