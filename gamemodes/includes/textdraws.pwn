@@ -1885,20 +1885,6 @@ stock PrepTradeToysGUI(playerid, sellerid, price, object)
 	new string[128];
 	InsideTradeToys[playerid] = 1;
 	
-	// Background
-	ttBackground[playerid] = CreatePlayerTextDraw(playerid, 21.000000, 120.000000, "Background"); // Leave the string there, it will fuck up the size of the background if not
-	PlayerTextDrawBackgroundColor(playerid, ttBackground[playerid], 255);
-	PlayerTextDrawFont(playerid, ttBackground[playerid], 0);
-	PlayerTextDrawLetterSize(playerid, ttBackground[playerid], -0.019998, 34.600002);
-	PlayerTextDrawColor(playerid, ttBackground[playerid], -256);
-	PlayerTextDrawSetOutline(playerid, ttBackground[playerid], 0);
-	PlayerTextDrawSetProportional(playerid, ttBackground[playerid], 0);
-	PlayerTextDrawSetShadow(playerid, ttBackground[playerid], 1);
-	PlayerTextDrawUseBox(playerid, ttBackground[playerid], 1);
-	PlayerTextDrawBoxColor(playerid, ttBackground[playerid], 136);
-	PlayerTextDrawTextSize(playerid, ttBackground[playerid], 618.000000, 164.000000);
-	PlayerTextDrawSetSelectable(playerid, ttBackground[playerid], 0);
-	
 	// Model
 	ttModel[playerid] = CreatePlayerTextDraw(playerid, 382.000000, 201.000000, "Model");
 	PlayerTextDrawBackgroundColor(playerid, ttModel[playerid], 255);
