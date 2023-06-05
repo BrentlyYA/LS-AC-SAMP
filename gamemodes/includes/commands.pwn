@@ -3174,37 +3174,7 @@ CMD:zombieevent(playerid, params[])
 	return 1;
 }
 
-CMD:zombieannounce(playerid, params[])
-{
-	if(PlayerInfo[playerid][pAdmin] >= 1337)
-	{
-	    if(zombieevent == 1)
-	    {
-	        //SendAudioToRange(65, 100, 0.0, 0.0, 0.0, 10000); RESCRIPT NEW SOUND
-			SendClientMessageToAllEx(COLOR_WHITE, "|___________ Government Tin Tuc Thong Bao ___________|");
-			SendClientMessageToAllEx(COLOR_DBLUE, "** Nguoi phat ngon: Chu y, Thong bao quan trong tu chinh phu San Andreas.");
-			SendClientMessageToAllEx(COLOR_DBLUE, "** Nguoi phat ngon: Tinh trang khan cap duoc ban hanh tren toan dat nuoc");
-			SendClientMessageToAllEx(COLOR_DBLUE, "** Nguoi phat ngon: Thanh pho Los Santos da duoc canh ly theo lenh 113B.");
-			SendClientMessageToAllEx(COLOR_DBLUE, "** Nguoi phat ngon: Dang co mot dich benh hoanh hanh, su lay nhiem dang tang cao.");
-			SendClientMessageToAllEx(COLOR_DBLUE, "** Nguoi phat ngon: Hay lien he voi cac bac si hoac trung tam y te de dieu tri.");
-	    }
-	}
-	return 1;
-}
 
-CMD:makezombie(playerid, params[])
-{
-	if(PlayerInfo[playerid][pAdmin] >= 1337)
-	{
- 		if(zombieevent == 1)
-	    {
-    		new giveplayerid;
-			if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /makezombie [player]");
-			MakeZombie(giveplayerid);
-	    }
-	}
-	return 1;
-}
 
 CMD:getvials(playerid, params[])
 {
@@ -3247,20 +3217,6 @@ CMD:setvials(playerid, params[])
 	return 1;
 }
 
-CMD:unzombie(playerid, params[])
-{
-	if(PlayerInfo[playerid][pAdmin] >= 1337)
-	{
- 		if(zombieevent == 1)
-	    {
-    		new giveplayerid;
-			if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /unzombie [player]");
-			SendClientMessageEx(playerid, COLOR_GREY, "Done!");
-			UnZombie(giveplayerid);
-	    }
-	}
-	return 1;
-}
 
 CMD:bite(playerid, params[])
 {
@@ -47606,114 +47562,6 @@ CMD:f(playerid, params[])
 	return 1;
 }*/
 
-CMD:news(playerid, params[])
-{
-	if (IsAReporter(playerid))
-	{
-		new string[128];
-		if(shutdown == 1) return SendClientMessageEx(playerid, COLOR_WHITE, "He thong thong tin hien dang dong." );
-		if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /news [text]");
-
-		new newcar = GetPlayerVehicleID(playerid);
-		if(IsANewsCar(newcar) || IsPlayerInRangeOfPoint(playerid,7.0,639.7627,-11.1346,1107.9656))
-		{
-			if(PlayerInfo[playerid][pRank] < 1)
-			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban phai it nhat la rank 1.");
-			}
-			else
-			{
-				format(string, sizeof(string), "NR %s: %s", GetPlayerNameEx(playerid), params);
-				OOCNews(COLOR_NEWS,string);
-			}
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o trong xe/may bay tin tuc hoac phong thu  ..");
-			return 1;
-		}
-	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong phai la phong vien tin tuc!");
-	}
-	return 1;
-}
-
-CMD:watchtv(playerid, params[])
-{
-	for(new i; i < MAX_HOUSES; i++)
-	{
-		if(WatchingTV[playerid] != 0 || (IsPlayerInRangeOfPoint(playerid, 50, HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[i][hIntIW]))
-		{
-			if(broadcasting == 0) return SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Khong co gi tren TV!");
-
-			new string[128];
-			if(WatchingTV[playerid] == 0)
-			{
-				format(string, sizeof(string), "* %s bat TV", GetPlayerNameEx(playerid));
-				ProxDetector(30.0, playerid, string, COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW);
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Su dung /watchtv mot lan nua de tat xem TV");
-				BroadcastLastVW[playerid] = GetPlayerVirtualWorld(playerid);
-				BroadcastLastInt[playerid] = GetPlayerInterior(playerid);
-				GetPlayerPos(playerid, BroadcastFloats[playerid][1], BroadcastFloats[playerid][2], BroadcastFloats[playerid][3]);
-				GetPlayerFacingAngle(playerid, BroadcastFloats[playerid][0]);
-
-				WatchingTV[playerid] = 1;
-				viewers++;
-				UpdateSANewsBroadcast();
-
-				TogglePlayerControllable(playerid, false);
-				SetPlayerInterior(playerid, 1);
-				SetPlayerVirtualWorld(playerid, 4225);
-				SetPlayerPos(playerid, 639.2813,-11.8090,1111.4656);
-
-				if(cameraangle == 0)
-				{
-					SetPlayerCameraPos(playerid, 635.6883,-11.1890,1108.6041);
-					SetPlayerCameraLookAt(playerid, 641.3040,-12.2565,1108.1642);
-				}
-				else if(cameraangle == 1)
-				{
-					SetPlayerCameraPos(playerid, 637.9041,-8.3097,1108.9656);
-					SetPlayerCameraLookAt(playerid, 640.9764,-14.7714,1107.9656);
-				}
-				else if(cameraangle == 2)
-				{
-					SetPlayerCameraPos(playerid, 638.6522,-15.6267,1108.9656);
-					SetPlayerCameraLookAt(playerid, 640.7208,-9.5926,1107.2006);
-				}
-				else
-				{
-					SetPlayerCameraPos(playerid, 635.6883,-11.1890,1108.6041);
-					SetPlayerCameraLookAt(playerid, 641.3040,-12.2565,1108.1642);
-				}
-				return 1;
-			}
-			else
-			{
-				SetPlayerPos(playerid,BroadcastFloats[playerid][1],BroadcastFloats[playerid][2],BroadcastFloats[playerid][3]);
-				SetPlayerVirtualWorld(playerid, BroadcastLastVW[playerid]);
-				PlayerInfo[playerid][pVW] = BroadcastLastVW[playerid];
-				SetPlayerInterior(playerid, BroadcastLastInt[playerid]);
-				PlayerInfo[playerid][pInt] = BroadcastLastInt[playerid];
-				SetPlayerFacingAngle(playerid, BroadcastFloats[playerid][0]);
-				SetCameraBehindPlayer(playerid);
-				Player_StreamPrep(playerid, BroadcastFloats[playerid][1],BroadcastFloats[playerid][2],BroadcastFloats[playerid][3], FREEZE_TIME);
-
-				WatchingTV[playerid] = 0;
-				viewers--;
-				UpdateSANewsBroadcast();
-
-				format(string, sizeof(string), "* %s da dung xem TV", GetPlayerNameEx(playerid));
-				ProxDetector(30.0, playerid, string, COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW);
-				return 1;
-			}
-		}
-	}
-	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban phai o trong ngoi nha!");
-	return 1;
-}
 
 CMD:cameraangle(playerid, params[])
 {
@@ -47799,87 +47647,7 @@ CMD:cameraangle(playerid, params[])
 	return 1;
 }
 
-CMD:stopnews(playerid, params[])
-{
-	if(IsAReporter(playerid) && (PlayerInfo[playerid][pRank] >= 5 || arrGroupData[PlayerInfo[playerid][pLeader]][g_iGroupType] == 4))
-	{
-	    if(shutdown == 0)
-	    {
-	        shutdown = 1;
-	        SendClientMessageEx(playerid, COLOR_WHITE, "Ban vua moi tat toan bo he thong thong tin..." );
-	        if(broadcasting == 1)
-	        {
-	            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Phat thanh truyen hinh vua tat..");
-				broadcasting = 0;
-				UpdateSANewsBroadcast();
-				DestroyDynamic3DTextLabel(camera);
-	            foreach(new i: Player)
-				{
-					if(WatchingTV[i] == 1)
-					{
-						SetPlayerPos(i,BroadcastFloats[i][1],BroadcastFloats[i][2],BroadcastFloats[i][3]);
-						SetPlayerVirtualWorld(i, BroadcastLastVW[i]);
-						PlayerInfo[i][pInt] = BroadcastLastVW[i];
-						SetPlayerInterior(i, BroadcastLastInt[i]);
-						PlayerInfo[i][pInt] = BroadcastLastInt[i];
-						SetPlayerFacingAngle(i, BroadcastFloats[i][0]);
-						SetCameraBehindPlayer(i);
-						WatchingTV[i] = 0;
-						viewers = 0;
-						UpdateSANewsBroadcast();
-						Player_StreamPrep(i, BroadcastFloats[i][1],BroadcastFloats[i][2],BroadcastFloats[i][3], FREEZE_TIME);
-					}
-				}
-	        }
-	        foreach(new i: Player)
-	        {
-	            if(TalkingLive[i] != INVALID_PLAYER_ID)
-				{
-					SendClientMessageEx(i, COLOR_LIGHTBLUE, "* He thong tro chuyen truc tuyen bi tat.");
-					SendClientMessageEx(TalkingLive[i], COLOR_LIGHTBLUE, "* He thong tro chuyen truc tuyen bi tat.");
-					TogglePlayerControllable(i, 1);
-					TogglePlayerControllable(TalkingLive[i], 1);
-					TalkingLive[TalkingLive[i]] = INVALID_PLAYER_ID;
-					TalkingLive[i] = INVALID_PLAYER_ID;
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Live vua moi tat..");
-					return 1;
-				}
-	        }
-	    }
-	    else
-	    {
-	        shutdown = 0;
-	        SendClientMessageEx(playerid, COLOR_WHITE, "Ban vua bat he thong tin tuc " );
-	    }
-	}
-	return 1;
-}
 
-CMD:liveban(playerid, params[])
-{
-	if (IsAReporter(playerid))
-	{
-	    new giveplayerid,
-	        string[128];
-
-	    if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /liveban [Player]");
-	    if(PlayerInfo[giveplayerid][pLiveBanned] == 0)
-	    {
-	        PlayerInfo[giveplayerid][pLiveBanned] = 1;
-	        format(string, sizeof(string), "%s da bi cam phong van %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
-	        SendGroupMessage(4, RADIO, string);
-	        return 1;
-	    }
-	    else
-	    {
-	        PlayerInfo[giveplayerid][pLiveBanned] = 0;
-	        format(string, sizeof(string), "%s da duoc bo cam %s tro chuyen truc tuyen", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
-	        SendGroupMessage(4, RADIO, string);
-	        return 1;
-	    }
-	}
-	return 1;
-}
 
 CMD:broadcast(playerid, params[])
 {
@@ -47934,65 +47702,6 @@ CMD:broadcast(playerid, params[])
 	return 1;
 }
 
-CMD:live(playerid, params[])
-{
-	if(IsAReporter(playerid) && PlayerInfo[playerid][pRank] > 0)
-	{
-	    if(shutdown == 1) return SendClientMessageEx(playerid, COLOR_WHITE, "He thong tin hieu hien dang bi vo hieu hoa." );
-		if(TalkingLive[playerid] != INVALID_PLAYER_ID)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Truc truyen noi chuyen ket thuc.");
-			SendClientMessageEx(TalkingLive[playerid], COLOR_LIGHTBLUE, "* Truc truyen noi chuyen kett.");
-			TogglePlayerControllable(playerid, 1);
-			TogglePlayerControllable(TalkingLive[playerid], 1);
-			DeletePVar(playerid, "IsLive");
-			DeletePVar(TalkingLive[playerid], "IsLive");
-			TalkingLive[TalkingLive[playerid]] = INVALID_PLAYER_ID;
-			TalkingLive[playerid] = INVALID_PLAYER_ID;
-			return 1;
-		}
-
-		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /live [Player]");
-
-		if (IsPlayerConnected(giveplayerid))
-		{
-			if (ProxDetectorS(5.0, playerid, giveplayerid))
-			{
-			    if(PlayerInfo[giveplayerid][pLiveBanned] == 1) return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi do bi cam tro chuyen truc tuyen.");
-				if(PlayerCuffed[giveplayerid] >= 1 || PlayerCuffed[playerid] >= 1)
-				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay bay gio.");
-				}
-				else
-				{
-					if(giveplayerid == playerid) { SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the moi noi chuyen truc tuyen voi chinh minh!"); return 1; }
-					format(string, sizeof(string), "* Ban moi %s tro chuyen truc tuyen.", GetPlayerNameEx(giveplayerid));
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
-					format(string, sizeof(string), "* %s da moi ban mot cuoc tr chuyen truc tuyen, su dung /chapnhan live de bat dau doi thoai.", GetPlayerNameEx(playerid));
-					SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
-					LiveOffer[giveplayerid] = playerid;
-				}
-			}
-			else
-			{
-				SendClientMessageEx(playerid, COLOR_GREY, "Nguoi do khong o gan ban.");
-				return 1;
-			}
-
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
-			return 1;
-		}
-	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong phai phong vien Tin tuc!");
-	}
-	return 1;
-}
 
 CMD:usepot(playerid, params[])
 {
