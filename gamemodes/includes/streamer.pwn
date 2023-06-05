@@ -210,68 +210,8 @@ public LoadStreamerDynamicPickups()
 	}
 
     // Pickups
-	CreateDynamicPickup(1239, 23, 833.60, 3.23, 1004.17, -1); // /paymytickets point
-	CreateDynamicPickup(1239, 23, -4429.944824, 905.032470, 987.078186, -1); // VIP Garage Travel
-	CreateDynamicPickup(1239, 23, 2102.71,-103.97,2.28, -1); // Matrun 3
-	CreateDynamicPickup(1239, 23, -1816.528686, -179.502624, 9.398437, -1); // Matrun 4 (pickup)
-	CreateDynamicPickup(1239, 23, -1872.879760, 1416.312500, 7.180089, -1); // Matrun 4 (dropoff)
-	CreateDynamicPickup(1239, 23, -1522.7351, 2587.2612, 55.8359, -1); //Matrun TR (Pickup)
 	CreateDynamicPickup(1239, 23, -688.7897,966.1434,12.1627, -1); //Matrun TR (DropOff)
   	//CreateDynamicPickup(1239, 23, 2565.346191, 1403.409790, 7699.584472, -1);// VIP ph changing station.
-  	CreateDynamicPickup(1239, 23, 701.7953,-519.8322,16.3348, -1); //Rental Icon
-	CreateDynamicPickup(1239, 23, 757.3734,5.7227,1000.7012, -1); // Train Pos
-	CreateDynamicPickup(1239, 23, 758.43,-78.0,1000.65, -1); // Train Pos (MALL GYM)
-	CreateDynamicPickup(1239, 23, 293.6505,188.3670,1007.1719, -1); //FBI
-	CreateDynamicPickup(1239, 23, 2354.2808,-1169.2959,28.0066, -1); //Drug Smuggler
-	CreateDynamicPickup(1240, 23, 1179.4012451172,-1331.5632324219,2423.0461425781, -1);// /healme//Old Healme: 2103.4998,2824.2568,-16.1672
-	CreateDynamicPickup(1239, 23, 1169.7209472656,-1348.3218994141,2423.0461425781, -1);// /Old Insurance: 2086.4915,2826.7122,-16.1744
-    CreateDynamicPickup(1210, 23, -71.419654846191,1360.4097900391,1080.2185058594, -1); //Hitman Pickup
-	CreateDynamicPickup(1240, 23, -1528.814331, 2540.706054, 55.835937, -1);// Deliverpt (TR - El Quebrados)
-	CreateDynamicPickup(1240, 23, 1142.4733,-1326.3633,13.6259, -1);// Deliverpt (All Saints)
-	CreateDynamicPickup(1240, 23, 2027.0599,-1410.6870,16.9922, -1);// Deliverpt (County General)
-	CreateDynamicPickup(1240, 23, 1227.2339,306.4730,19.7028, -1);// Deliverpt (Montgomery)
-	CreateDynamicPickup(1240, 23, -339.2989,1055.8138,19.7392, -1);// Deliverpt (Fort Carson)
-	CreateDynamicPickup(1240, 23, -2695.5725,639.4147,14.4531, -1); // Deliverpt (SF)
-	CreateDynamicPickup(1240, 23, 1165.1564,-1368.8240,26.6502, -1);// Deliverpt (All Saints Rooftop)
-	CreateDynamicPickup(1240, 23, 2024.5742,-1382.7844,48.3359, -1);// Deliverpt (County General)
-	CreateDynamicPickup(1240, 23, 1233.3384,316.4022,24.7578, -1);// Deliverpt (Montgomery Rooftop)
-	CreateDynamicPickup(1240, 23, -334.1560,1051.4434,26.0125, -1);// Deliverpt (Fort Carson Rooftop)
-	CreateDynamicPickup(1240, 23, -2656.0339,615.2567,66.0938, -1);// Deliverpt (SF Rooftop)
-	CreateDynamicPickup(1240, 23, 1579.58,1768.88,10.82, -1);// Deliverpt (LV Hospital)
-	CreateDynamicPickup(1240, 23, -2482.4338,2231.1106,4.8463, -1);// Deliverpt (TR - Bayside)
-	CreateDynamicPickup(1240, 23, 225.3467,1981.8497,17.6406, -1); //Deliverpt (DeMorgan)
-	CreateDynamicPickup(1239, 23, 366.54, 159.09, 1008.38, -1); // LICENSES @ CITY HALL
-	CreateDynamicPickup(1239, 23, 1380.7683,-1088.7391,27.3844); //Detective Registration
-	CreateDynamicPickup(1239, 23, 1469.5247,-1755.7039,3285.2859); //Lawyer Registration
-	CreateDynamicPickup(1239, 23, 1215.1304,-11.8431,1000.9219); //Whore Registration
-	CreateDynamicPickup(1239, 23, 2166.3772,-1675.3829,15.0859); //DrugDealer Registration
-	CreateDynamicPickup(1239, 23, 2226.1716,-1718.1792,13.5165); //BodyGuard Registration (LS)
-	CreateDynamicPickup(1239, 23, -2269.256103, -158.054321, 35.320312); //BodyGuard Registration (SF)
-	CreateDynamicPickup(1239, 23, 1224.13, 267.98, 19.55); //Bodyguard (Montgomery) Registration
-	CreateDynamicPickup(1239, 23, 1911.7753,-1872.7100,13.5475); //CarMechanic (Blueberry) Registration
-	CreateDynamicPickup(1239, 23, -2032.601928, 143.866592, 28.835937); //CarMechanic (SF) Registration
-	CreateDynamicPickup(1239, 23, 1099.73,-1504.67,15.800); // BodyGuard Registration (MALL GYM)
-	CreateDynamicPickup(1239, 23, 1366.4325,-1275.2096,13.5469); //ArmsDealer Registration (LS)
-	CreateDynamicPickup(1239, 23, -2623.333984, 209.235931, 4.684767); //ArmsDealer Registration (SF)
-	CreateDynamicPickup(1239, 23, 2195.8335,-1973.0638,13.5589); //Craftsman Registration
-	CreateDynamicPickup(1239, 23, 502.6696,-11.6603,1000.6797); //Bartender Registration
-	CreateDynamicPickup(1239, 23, 766.0804,14.5133,1000.7004); //Boxer Registration
-	CreateDynamicPickup(1239, 23, 758.98,-60.32,1000.78); //Boxer Registration2
-	CreateDynamicPickup(1239, 23, 1808.4767,-1885.1515,13.5851); //TaxiDriver Registration (LS)
-	CreateDynamicPickup(1239, 23, -1981.144775, 133.063293, 27.687500); //TaxiDriver Registration (SF)
-	CreateDynamicPickup(371, 23, 1544.2,-1353.4,329.4); //LS towertop
-	CreateDynamicPickup(371, 23, 1536.0, -1360.0, 1150.0); //LS towertop
-	CreateDynamicPickup(1242, 23, 1527.5,-12.1,1002.0); //binco armor
-	//CreateDynamicPickup(1240, 23, 279.3000,1853.5619,8.7649); //area51 health
-	CreateDynamicPickup(2485, 23, 2958.2200, -1339.2900, 5.2100);// NGGShop - Car Shop
-	CreateDynamicPickup(1239, 23, 2950.4014, -1283.0776, 4.6875);// NGGShop - Plane Shop
-	CreateDynamicPickup(1239, 23, 2974.7520, -1462.9265, 2.8184);// NGGShop - Boat Shop
-	CreateDynamicPickup(1314, 23, 2939.0134, -1401.2946, 11.0000);// NGGShop - VIP Shop
-	CreateDynamicPickup(1272, 23, 2938.2734, -1391.0596, 11.0000);// NGGShop - House Shop
-	CreateDynamicPickup(1239, 23, 2939.8442, -1411.2906, 11.0000);// NGGShop - Misc Shop
-	CreateDynamicPickup(1239, 23, 2927.5000, -1530.0601, 11.0000);// NGGShop - ATM
-	CreateDynamicPickup(1239, 23, 1826.2765,-1592.7878,13.3622);// NGGShop - Hotdog Stand
-	CreateDynamicPickup(1241, 23, 2946.8672, -1484.9561, 11.0000);// NGGShop - Healthcare
 	CreateDynamicPickup(1239, 23, 2937.2878, -1357.2294, 11.0000);// NGGShop - Gift Reset
 	print("[Streamer] Dynamic Pickups has been loaded.");
 	
@@ -282,68 +222,6 @@ forward LoadStreamerDynamic3DTextLabels();
 public LoadStreamerDynamic3DTextLabels()
 {
 	new string[128];
-    CreateDynamic3DTextLabel("{FF8000}/loadforklift\nDe dua cac thung len xe forklift", COLOR_YELLOW, -2114.1, -1723.5, 11984.5, 20.0, _, _, 1, 0, -1, _, 20.0);
-	CreateDynamic3DTextLabel("{FF8000}LOCKDOWN\nCHI BAM TRONG TRUONG HOP KHAN CAP", COLOR_YELLOW, -1121.70, 4290.41, 5.88, 20.0, _, _, 1, 0, 0, _, 20.0);
-
-	// General text labels
-	CreateDynamic3DTextLabel("All Saints Plaza Parking Garage\nType /enter de dua xe cua ban vao bai",COLOR_YELLOW,1218.69,-1425.01,13.15+0.6,25.0);
-	CreateDynamic3DTextLabel("Club VIP Parking\nSu dung /enter de dua xe cua ban vao bai",COLOR_YELLOW,1814.6857,-1559.2028,13.4834+0.4,15.0);
-	CreateDynamic3DTextLabel("Gym Parking Garage\nSu dung /enter de dua xe cua ban vao bai",COLOR_YELLOW,2273.4026,-1724.3064,13.5469+0.6,25.0);
-	CreateDynamic3DTextLabel("Courthouse Parking Garage\nSu dung /enter de dua xe cua ban vao bai",COLOR_YELLOW,1418.5190,-1663.8959,13.5395+0.6,25.0);
-    CreateDynamic3DTextLabel("Tra ve phat cua ban hoac\nlay chiec xe cua ban, su dung /dmvmenu",COLOR_YELLOW,833.60, 3.23, 1004.17+0.6,4.0);//
-    CreateDynamic3DTextLabel("Thay doi so dien thoai VIP, su dung /vipnum",COLOR_YELLOW,2549.548095, 1404.047729, 7699.584472+0.6,4.0);//
-    CreateDynamic3DTextLabel("Thay doi so dien thoai VIP, su dung /vipnum",COLOR_YELLOW,1832.6000, 1375.1700, 1464.4600+0.6,4.0);//
-    CreateDynamic3DTextLabel("Su dung /travel\nDe dua chiec xe cua ban ra khoi bai do xe VIP",COLOR_YELLOW,-4429.944824, 905.032470, 987.078186+0.5,13.0);// VIP garage travel
-    CreateDynamic3DTextLabel("/viplocker\nDe mo tu do VIP.",COLOR_YELLOW,2555.747314, 1404.106079, 7699.584472+0.6,4.0);/// LS VIP locker room
-	CreateDynamic3DTextLabel("/viplocker\nDe mo tu do VIP.",COLOR_YELLOW,1832.0533, 1380.7281, 1464.3822+0.6,4.0);/// LV Main VIP locker room
-    CreateDynamic3DTextLabel("/viplocker\nDe mo tu do VIP.",COLOR_YELLOW,772.4844, 1715.7213, 1938.0391+0.6,4.0);/// LV Plat VIP locker room
-	CreateDynamic3DTextLabel("/getgift\nDe nhan phan thuong ben trong tui qua.",COLOR_YELLOW,2546.611572, 1403.323608, 7700.768066,8.0);/// VIP Lounge
-	CreateDynamic3DTextLabel("/nhanqua\nDe nhan phan thuong ben trong tui qua.",COLOR_YELLOW,1726.1000, 1370.1000, 1449.9000,8.0);/// LV VIP Lounge
-	CreateDynamic3DTextLabel("/nhanqua\nDe nhan phan thuong ben trong tui qua.",COLOR_YELLOW,1763.5000, 1432.5000, 2015.7000,8.0);/// LV GVIP Lounge
-	CreateDynamic3DTextLabel("/nhanqua\nDe nhan phan thuong ben trong tui qua.",COLOR_YELLOW,772.4000, 1743.2000, 1938.8800,8.0);/// LV PVIP Lounge
-    CreateDynamic3DTextLabel("Thue mot chiec xe dap theo yeu cau",COLOR_YELLOW,701.7953,-519.8322,16.3348+0.6,4.0);
-	CreateDynamic3DTextLabel("Factions Duty Point", COLOR_DBLUE, -2043.527832, -189.208435, 985.183105+0.6, 4.0); //
-	CreateDynamic3DTextLabel("Factions Duty Point", COLOR_DBLUE, 1112.7, -2055.8, 1409.7+0.6, 4.0); //
-	CreateDynamic3DTextLabel("Factions Duty Point", COLOR_DBLUE, 321.43, 303.96, 999.14+0.6, 4.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, 2112, 5, -1); //
-	CreateDynamic3DTextLabel("Factions Duty Point", COLOR_DBLUE, 1533.6, -1760.9, 2264.4+0.6, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, 2345, 18, -1); //
-	CreateDynamic3DTextLabel("Tro lai Entrance", COLOR_DBLUE, -2033.7502,-154.8784,35.3203+0.6, 4.0); // Prison
-	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,225.3467,1981.8497,17.6406+0.6,4.0);//Deliverpt (DeMorgan)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,-1528.814331, 2540.706054, 55.835937+0.6,4.0);///Deliverpt (TR - El Quebrados)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,1142.4733,-1326.3633,13.6259+0.6,4.0);///Deliverpt (All Saints)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,2027.0599,-1410.6870,16.9922+0.6,4.0);///Deliverpt (County General)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,1227.2339,306.4730,19.7028+0.6,4.0);///Deliverpt (Montgomery)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,-339.2989,1055.8138,19.7392+0.6,4.0);///Deliverpt (Fort Carson)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,1165.1564,-1368.8240,26.6502+0.6,4.0);///Deliverpt (All Saints Rooftop)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,2024.5742,-1382.7844,48.3359+0.6,4.0);///Deliverpt (County General)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,1233.3384,316.4022,24.7578+0.6,4.0);///Deliverpt (Montgomery Rooftop)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,-334.1560,1051.4434,26.0125+0.6,4.0);///Deliverpt (Fort Carson Rooftop)
-   	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,-2656.0339,615.2567,66.0938+0.6,4.0);///Deliverpt (SF Rooftop)
-	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,1579.58,1768.88,10.82+0.6,4.0); // /deliverpt (LV Hospital)
-   	CreateDynamic3DTextLabel("Emergency Room\n/deliverpt",COLOR_DBLUE,-2695.5725,639.4147,14.4531+0.6,4.0);///Deliverpt (SF)
-	CreateDynamic3DTextLabel("/deliverpt",COLOR_LIGHTRED,-2482.4338,2231.1106,4.8463+0.6,4.0);///Deliverpt (TR - Bayside)
-   	CreateDynamic3DTextLabel("/deliver",COLOR_DBLUE,1991.7953,-2321.2532,13.5469+0.6,4.0);// Deliver
-   	CreateDynamic3DTextLabel("/healme \nDe chua benh cua ban",COLOR_DBLUE,1179.4012451172,-1331.5632324219,2423.0461425781+0.6,4.0);// /healme
-   	CreateDynamic3DTextLabel("/muabaohiem \n Mua bao hiem y te",COLOR_DBLUE,1169.7209472656,-1348.3218994141,2423.0461425781+0.6,4.0);// Insurance
-   	CreateDynamic3DTextLabel("/muabaohiem \n Mua bao hiem y te",COLOR_DBLUE,2785.586914, 2400.224853, 1240.531127+0.6,8.0);// GVIP Insurance
-   	CreateDynamic3DTextLabel("/muabaohiem \n Mua bao hiem y te",COLOR_DBLUE,912.1003,1429.9298,-81.1762+0.6,4.0);// Famed Room Insurance
-	CreateDynamic3DTextLabel("Su dung /layvatlieu tu mot chiec thuyen \nde co duoc vat lieu",COLOR_YELLOW,2102.71,-103.97,2.28+0.5,8.0);// Deliver
-    CreateDynamic3DTextLabel("Su Dung /laybanh de nhan banh \nDe co Pizza giao hang!",COLOR_YELLOW,2096.1035,-1795.0962,13.3889, 4.0); // Lay banh (LS)
-	CreateDynamic3DTextLabel("Su dung /muagiayphep to \nDe chon mua giay phep.",COLOR_YELLOW,366.54,159.09,1008.38+0.5,8.0);// Licenses.
-	//CreateDynamic3DTextLabel("Type /registerplate to\nchange your license plate.",COLOR_YELLOW,366.54,159.09,1008.38+1,8.0);// Licenses.
-    CreateDynamic3DTextLabel("/muatrangphuc\n De thay trang phuc ca nhan.",COLOR_YELLOW,208.8970,-100.3289,1005.2578,8.0);
-    CreateDynamic3DTextLabel("/muatrangphuc\n De thay trang phuc ca nhan.",COLOR_YELLOW,206.5429,-41.2313,1001.8047,8.0);
-    CreateDynamic3DTextLabel("/muatrangphuc\n De thay trang phuc ca nhan.",COLOR_YELLOW,209.3064,-8.3033,1005.2109,8.0);
-    CreateDynamic3DTextLabel("/muatrangphuc\n De thay trang phuc ca nhan.",COLOR_YELLOW,159.6771,-83.2866,1001.8120,8.0);
-    CreateDynamic3DTextLabel("/muatrangphuc\n De thay trang phuc ca nhan.",COLOR_YELLOW,206.4552,-163.0903,1000.5234,8.0);
-    CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,206.3253,-100.3268,1005.2578,8.0);
-    CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,201.0413,-40.1616,1001.8047,8.0);
-    CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,206.3963,-8.2122,1001.2109,8.0);
-    CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,162.7706,-83.2726,1001.8047,8.0);
-    CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,2787.095947, 2390.353027, 1240.531127+0.6,4.0); // Gold+ VIP Room
-    CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,202.6777,-163.0623,1000.5306,8.0);
-	CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,1774.7533, 1422.6665, 2013.4979,8.0);
-	CreateDynamic3DTextLabel("/muadochoi\n De mua phu kien trang tri.",COLOR_YELLOW,775.0900, 1742.4900, 1938.3800,8.0);
-
     CreateDynamic3DTextLabel("Tank Spawn\nZone",COLOR_YELLOW,286.7334, 2024.3762, 17.6406,10.0);
     CreateDynamic3DTextLabel("Air Vehicle Spawn\nZone", COLOR_YELLOW, 326.2754,1887.7212,17.6566, 10.0);
 
@@ -362,17 +240,6 @@ public LoadStreamerDynamic3DTextLabels()
 	CreateDynamic3DTextLabel("Diem thay doi ten \nSu dung /doiten de thay doi ten",COLOR_YELLOW,1154.7295,-1440.2323,15.7969+0.6,18.0); // Namechange at mall
 
 	
-	//NGGShop
-	CreateDynamic3DTextLabel("Cua hang xe\n/carshop", COLOR_YELLOW, 2958.2200, -1339.2900, 5.2100+0.6, 10.0);
-	CreateDynamic3DTextLabel("Cua hang may bay\n/planeshop", COLOR_YELLOW, 2950.4014, -1283.0776, 4.6875+0.6, 10.0);
-	CreateDynamic3DTextLabel("Cua hang thuyen\n/boatshop", COLOR_YELLOW, 2974.7520, -1462.9265, 2.8184+0.6, 10.0);
-	CreateDynamic3DTextLabel("VIP Shop\n/vipshop", COLOR_YELLOW, 2939.0134, -1401.2946, 11.0000+0.6, 10.0);
-	CreateDynamic3DTextLabel("Toy Shop\n/toyshop", COLOR_YELLOW, 2927.5244, -1549.1826, 11.0000+0.6, 10.0);
-	CreateDynamic3DTextLabel("Gift Reset\n/buygiftreset", COLOR_YELLOW, 2937.2878, -1357.2294, 11.0000+0.6, 10.0);
-	CreateDynamic3DTextLabel("House Shop\n/houseshop", COLOR_YELLOW, 2938.2734, -1391.0596, 11.0000+0.6, 10.0);
-	CreateDynamic3DTextLabel("Misc Shop\n/miscshop", COLOR_YELLOW, 2939.8442, -1411.2906, 11.0000+0.6, 10.0);
-	CreateDynamic3DTextLabel("Hot Dogs\n/muahotdog", COLOR_YELLOW, 1826.2765,-1592.7878,13.3622+0.6, 10.0);
-	CreateDynamic3DTextLabel("HealthCare Shop\n/buyhealthcare", COLOR_YELLOW, 2946.8672, -1484.9561, 11.0000+0.6, 10.0);
 	print("[Streamer] Dynamic 3D Text Labels has been loaded.");
 	return 1;
 }
