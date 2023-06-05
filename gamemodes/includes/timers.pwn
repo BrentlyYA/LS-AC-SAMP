@@ -60,7 +60,6 @@ task SyncUp[60000]()
 	static
 		string[128];
 
-	SyncTime();
 	SyncMinTime();
 
 	for(new i = 0; i < MAX_PLANTS; i++)
