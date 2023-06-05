@@ -128,7 +128,7 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pServiceTime] = 0;
 		PlayerInfo[playerid][pFirework] = 0;
 		PlayerInfo[playerid][pBoombox] = 0;
-		PlayerInfo[playerid][pCash] = 200000;
+		PlayerInfo[playerid][pCash] = 0;
 		PlayerInfo[playerid][pHunger] = 100;
 		PlayerInfo[playerid][pLevel] = 1;
 		PlayerInfo[playerid][pAdmin] = 0;
