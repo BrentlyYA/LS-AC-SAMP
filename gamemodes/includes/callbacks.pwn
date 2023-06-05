@@ -1328,71 +1328,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			x++;
 		}
 	}
-
-	new tableid = GetPVarInt(playerid, "pkrTableID")-1;
-	if(playertextid == PlayerPokerUI[playerid][38])
-	{
-		switch(GetPVarInt(playerid, "pkrActionOptions"))
- 		{
-			case 1: // Raise
-			{
-				PokerRaiseHand(playerid);
-				PokerTable[tableid][pkrRotations] = 0;
-			}
-			case 2: // Call
-			{
-				PokerCallHand(playerid);
-			}
-			case 3: // Check
-			{
-				PokerCheckHand(playerid);
-				PokerRotateActivePlayer(tableid);
-			}
- 		}
-	}
-	if(playertextid == PlayerPokerUI[playerid][39])
-	{
-		switch(GetPVarInt(playerid, "pkrActionOptions"))
-		{
-			case 1: // Check
-			{
-				PokerCheckHand(playerid);
-				PokerRotateActivePlayer(tableid);
-			}
-			case 2: // Raise
-			{
-				PokerRaiseHand(playerid);
-				PokerTable[tableid][pkrRotations] = 0;
-			}
-			case 3: // Fold
-			{
-				PokerFoldHand(playerid);
-				PokerRotateActivePlayer(tableid);
-			}
-		}
-	}
-	if(playertextid == PlayerPokerUI[playerid][40])
-	{
-		switch(GetPVarInt(playerid, "pkrActionOptions"))
-		{
-			case 1: // Fold
-			{
-				PokerFoldHand(playerid);
-				PokerRotateActivePlayer(tableid);
-			}
-			case 2: // Fold
-			{
-				PokerFoldHand(playerid);
-				PokerRotateActivePlayer(tableid);
-			}
-		}
-	}
-	if(playertextid == PlayerPokerUI[playerid][41]) // LEAVE
-	{
-		if(GetPVarType(playerid, "pkrTableID")) {
-			LeavePokerTable(playerid);
-		}
-	}
 	return 1;
 }
 
@@ -2652,13 +2587,6 @@ public OnPlayerDisconnect(playerid, reason)
 		#endif
 		if(GetPVarType(playerid, "RentedVehicle")) {
 		    DestroyVehicle(GetPVarInt(playerid, "RentedVehicle"));
-		}
-		if(GetPVarType(playerid, "pkrTableID")) {
-			LeavePokerTable(playerid);
-		}
-
-		if(GetPVarType(playerid, "pTable")) {
-		    DestroyPokerTable(GetPVarInt(playerid, "pTable"));
 		}
 		if(GetPVarInt(playerid, "DraggingPlayer") != INVALID_PLAYER_ID)
 		{
