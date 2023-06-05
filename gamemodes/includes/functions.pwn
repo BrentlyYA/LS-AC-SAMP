@@ -156,12 +156,6 @@ NationSel_HandleNationSelection(playerid)
 			}
 		}
 		ShowPlayerDialog(playerid, NULLEMAIL, DIALOG_STYLE_INPUT, "{3399FF}Dang ki E-mail", "{FFFFFF}Xin vui long go dung dia chi e-mail cua ban voi tai khoan.\n\nLuu y: Vui long lam dung de bao mat tai khoan tot hon.", "Dong y", "Bo qua");
-		PlayerInfo[playerid][pSVIPExVoucher] += 1;
-		PlayerInfo[playerid][pCredits] += 1000;
-  		PlayerInfo[playerid][pCash] += 2000000;
-		SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc VIP 7 ngay, 1,000 Credit va 2,000,000$");
-		SendClientMessage(playerid, COLOR_YELLOW, "Su dung /myvouchers de kiem tra");
-		SendClientMessage(playerid, COLOR_YELLOW, "Luu y: Ban hay su dung credit ngay bay gio, neu khong se bi mat khi thoat ra khoi game");
 		SetCameraBehindPlayer(playerid);
 		SetPlayerVirtualWorld(playerid, 0);
 		if(NATION_SAN_ANDREAS == PlayerNationSelection[playerid])
