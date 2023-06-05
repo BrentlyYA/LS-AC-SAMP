@@ -2152,7 +2152,7 @@ stock CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetShadow(playerid, BackupText[playerid] , 1);
 	
 	//Hunger Games Textdraws
-	_hungerText[playerid] = CreatePlayerTextDraw(playerid, 633.000000, 430.000000, "Trang Thai: ~w~Hai long");
+	_hungerText[playerid] = CreatePlayerTextDraw(playerid, 633.000000, 430.000000, " ");
 	PlayerTextDrawAlignment(playerid, _hungerText[playerid], 3);
 	PlayerTextDrawBackgroundColor(playerid, _hungerText[playerid], 255);
 	PlayerTextDrawFont(playerid, _hungerText[playerid], 1);

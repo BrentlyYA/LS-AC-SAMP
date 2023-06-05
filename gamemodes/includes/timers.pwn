@@ -1634,13 +1634,13 @@ task ServerHeartbeat[1000]() {
 			switch (PlayerInfo[i][pHunger])
 			{
 				case 80..100:
-					PlayerTextDrawSetString(i, _hungerText[i], "Trang Thai: ~g~Rat No");
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
 				case 40..79:
-					PlayerTextDrawSetString(i, _hungerText[i], "Trang Thai: ~y~No Bung");
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
 				case 20..39:
-					PlayerTextDrawSetString(i, _hungerText[i], "Trang Thai: ~y~Doi Bung");
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
 				case 0..19:
-					PlayerTextDrawSetString(i, _hungerText[i], "Trang Thai: ~r~Rat Doi");
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
 			}
 		}
 
