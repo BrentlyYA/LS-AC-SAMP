@@ -49744,57 +49744,6 @@ CMD:contract(playerid, params[])
 }
 
 
-CMD:tudo(playerid, params[]) {
-	return cmd_locker(playerid, params);
-}
-
-CMD:locker(playerid, params[]) {
-
-	new
-		iGroupID = PlayerInfo[playerid][pMember],
-		szTitle[18 + GROUP_MAX_NAME_LEN],
-		szDialog[100];
-
-	if(PlayerInfo[playerid][pWRestricted] != 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the mo tu nay khi dang bi gioi han vu khi");
-	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the lam dieu nay khi dang tham gia su kien Hunger Games!");
-	if(0 <= iGroupID < MAX_GROUPS)
-	{
-		for(new i; i < MAX_GROUPS; i++)
-		{
-			for(new j; j < MAX_GROUP_LOCKERS; j++)
-			{
-				if(IsPlayerInRangeOfPoint(playerid, 3.0, arrGroupLockers[i][j][g_fLockerPos][0], arrGroupLockers[i][j][g_fLockerPos][1], arrGroupLockers[i][j][g_fLockerPos][2]) && arrGroupLockers[i][j][g_iLockerVW] == GetPlayerVirtualWorld(playerid))
-				{
-					if(i == iGroupID || (arrGroupData[i][g_iGroupType] == arrGroupData[iGroupID][g_iGroupType] && arrGroupLockers[i][j][g_iLockerShare]))
-					{
-					    format(szTitle, sizeof(szTitle), "%s Locker Menu", arrGroupData[iGroupID][g_szGroupName]);
-					    if(arrGroupData[iGroupID][g_iLockerCostType] == 0) {
-					        if(arrGroupData[iGroupID][g_iLockerStock] > 100)
-					        {
-					        	format(szTitle, sizeof(szTitle), "%s - Locker Stock: %d", szTitle, arrGroupData[iGroupID][g_iLockerStock]);
-							}
-							else
-							{
-							    format(szTitle, sizeof(szTitle), "%s - {AA3333}Locker Stock: %d", szTitle, arrGroupData[iGroupID][g_iLockerStock]);
-							}
-					    }
-					    format(szDialog, sizeof(szDialog), "Duty\nVu khi\nDong phuc%s", (arrGroupData[iGroupID][g_iGroupType] == 1) ? ("\nClear Suspect\nFirstAid & Kevlar\nMedkit & Vest Trunk Kit\nTazer & Cuffs") : (""));
-						ShowPlayerDialog(playerid, G_LOCKER_MAIN, DIALOG_STYLE_LIST, szTitle, szDialog, "Lua chon", "Huy bo");
-						return 1;
-					}
-					else
-					{
-					    SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the mo tu do day.");
-						return 1;
-					}
-				}
-			}
-		}
-	}
-	SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o gan tu lay do!");
-	return 1;
-}
-
 CMD:editgroup(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] >= 99999 || PlayerInfo[playerid][pFactionModerator] >= 2)
 	{
