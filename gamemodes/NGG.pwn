@@ -8,7 +8,6 @@
 	Mon
 */
 #define SERVER_GM_TEXT "LS:AC Ver 0.1"
-
 #include <a_samp>
 #include <a_mysql>	
 #include <streamer>
@@ -42,6 +41,7 @@ public OnGameModeInit()
 	print("Dang chuan bi tai gamemode, xin vui long cho doi...");
 	g_mysql_Init();
 	#include "./includes/OBJECTMAP.pwn"
+	ShowNameTags(0);
 	return 1;
 }
 
