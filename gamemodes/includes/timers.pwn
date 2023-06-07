@@ -139,31 +139,6 @@ task ServerHeartbeat[1000]() {
 				PayDay(i);
 			}
 		}
-
-		if (GetPVarInt(i, "MailTime") > 0)
-			SetPVarInt(i, "MailTime", GetPVarInt(i, "MailTime") - 1);
-		else
-			DeletePVar(i, "MailTime");
-
-		if(PlayerInfo[i][pJudgeJailType] != 0 && PlayerInfo[i][pJudgeJailTime] > 0 && !PlayerInfo[i][pBeingSentenced]) PlayerInfo[i][pJudgeJailTime]--;
-		if(PlayerInfo[i][pJudgeJailTime] <= 0 && PlayerInfo[i][pJudgeJailType] != 0) PlayerInfo[i][pJudgeJailType] = 0;
-		if(FindTime[i] >= 1)
-		{
-			if(FindTime[i] == FindTimePoints[i]) {
-				FindTime[i] = 0;
-				FindTimePoints[i] = 0;
-				SetPlayerToTeamColor(FindingPlayer[i]);
-				FindingPlayer[i] = -1;
-				PlayerPlaySound(i, 1056, 0.0, 0.0, 0.0);
-				GameTextForPlayer(i, "~r~RedMarker gone", 2500, 1);
-			}
-			else
-			{
-				format(string, sizeof(string), "%d", FindTimePoints[i] - FindTime[i]);
-				GameTextForPlayer(i, string, 1500, 6);
-				FindTime[i] += 1;
-			}
-		}
 		if(CalledCops[i] >= 1)
 		{
 			if(CopsCallTime[i] < 1) { CopsCallTime[i] = 0; HidePlayerBeaconForCops(i); CalledCops[i] = 0; }
