@@ -239,10 +239,6 @@ task ProductionUpdate[300000]()
 		{
 			SendClientMessageEx(i, COLOR_LIGHTBLUE, "Can ho tro? Doi ngu Community Advisors co the giup do ban. (/yeucautrogiup de duoc giup do)");
 		}
-		if(PlayerInfo[i][pConnectHours] < 2) {
-			SendClientMessageEx(i, COLOR_LIGHTRED, "Vu khi se bi gioi han trong 2 gio choi dau tien khi tham gia may chu NGG-TDM.");
-		}
-
 		if(PlayerInfo[i][pFishes] >= 5) {
 			if(FishCount[i] >= 3) PlayerInfo[i][pFishes] = 0;
 			else ++FishCount[i];

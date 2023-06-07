@@ -2781,7 +2781,6 @@ CMD:givegun(playerid, params[])
         if(gun < 1||gun > 47)
             { SendClientMessageEx(playerid, COLOR_GRAD1, "ID vu khi khong hop le!"); return 1; }
         if(IsPlayerConnected(playa)) {
-            if((PlayerInfo[playa][pConnectHours] < 2 || PlayerInfo[playa][pWRestricted] > 0) && gun != 46 && gun != 43) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is currently restricted from carrying weapons");
             if(playa != INVALID_PLAYER_ID && gun <= 20 || gun >= 22) {
                 PlayerInfo[playa][pAGuns][GetWeaponSlot(gun)] = gun;
                 GivePlayerValidWeapon(playa, gun, 60000);
