@@ -4167,21 +4167,6 @@ public OtherTimerEx(playerid, type)
 				SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_SELLMATSTIMER);
 			}
 		}
-		case TYPE_HOSPITALTIMER:
-		{
-			if(GetPVarInt(playerid, "HospitalTimer") > 0)
-			{
-				new Float:curhealth;
-				GetPlayerHealth(playerid, curhealth);
-				SetPVarInt(playerid, "HospitalTimer", GetPVarInt(playerid, "HospitalTimer")-1);
-				SetPlayerHealth(playerid, curhealth+1);
-				SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_HOSPITALTIMER);
-				if(GetPVarInt(playerid, "HospitalTimer") == 0)
-				{
-					HospitalSpawn(playerid);
-				}
-			}
-		}
 		case TYPE_FLOODPROTECTION:
 		{
 			if( CommandSpamUnmute[playerid] >= 1)

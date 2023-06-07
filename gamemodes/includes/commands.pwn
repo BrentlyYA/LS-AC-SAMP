@@ -24341,48 +24341,6 @@ CMD:setcapping(playerid, params[]) {
 	return 1;
 }
 
-CMD:hosp(playerid, params[]) {
-	return cmd_hospital(playerid, params);
-}
-
-CMD:hospital(playerid, params[])
-{
-	if(PlayerInfo[playerid][pAdmin] >= 2)
-	{
-		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid))
-		{
-			if(PlayerInfo[playerid][pHospital] > 0)
-			{
-				DeletePVar(playerid, "HospitalTimer");
-				HospitalSpawn(playerid);
-				PlayerInfo[playerid][pHospital] = 0;
-				return SendClientMessageEx(playerid, COLOR_GREY, "You have released yourself from the hospital.");
-			}
-			else return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /hospital [player]");
-		}
-		else
-		{
-			if(IsPlayerConnected(giveplayerid))
-			{
-				if(PlayerInfo[giveplayerid][pHospital] > 0)
-				{
-					format(string, sizeof(string), " You have forced %s out of the hospital.", GetPlayerNameEx(giveplayerid));
-					SendClientMessageEx(playerid, COLOR_WHITE, string);
-					SendClientMessageEx(giveplayerid, COLOR_WHITE, "You have been forced out of the hospital by an Admin.");
-					DeletePVar(giveplayerid, "HospitalTimer");
-					HospitalSpawn(giveplayerid);
-					PlayerInfo[giveplayerid][pHospital] = 0;
-					DeletePVar(giveplayerid, "MedicBill");
-				}
-				else SendClientMessageEx(playerid, COLOR_GRAD2, "That person is not in the hospital!");
-			}
-			else SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
-		}
-	}
-	return 1;
-}
-
 CMD:hoisinh(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 2)
