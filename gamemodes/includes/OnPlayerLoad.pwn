@@ -286,11 +286,6 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pReg] = 1;
 	}
 
-	if(PlayerInfo[playerid][pHospital] == 1)
-	{
-		PlayerInfo[playerid][pHospital] = 0;
-		SetPVarInt(playerid, "MedicBill", 1);
-	}
 
 	if(PlayerInfo[playerid][pBanAppealer] >= 1 && PlayerInfo[playerid][pAdmin] < 2) PlayerInfo[playerid][pBanAppealer] = 0;
 	if(PlayerInfo[playerid][pPR] >= 1 && PlayerInfo[playerid][pAdmin] < 2) PlayerInfo[playerid][pPR] = 0;

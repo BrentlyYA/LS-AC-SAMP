@@ -453,7 +453,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "Loses", szResult, MainPipeline); PlayerInfo[extraid][pLoses] = strval(szResult);
 					cache_get_field_content(row,  "Tutorial", szResult, MainPipeline); PlayerInfo[extraid][pTut] = strval(szResult);
 					cache_get_field_content(row,  "OnDuty", szResult, MainPipeline); PlayerInfo[extraid][pDuty] = strval(szResult);
-					cache_get_field_content(row,  "Hospital", szResult, MainPipeline); PlayerInfo[extraid][pHospital] = strval(szResult);
 					cache_get_field_content(row,  "MarriedID", szResult, MainPipeline); PlayerInfo[extraid][pMarriedID] = strval(szResult);
 					cache_get_field_content(row,  "ContractBy", PlayerInfo[extraid][pContractBy], MainPipeline, MAX_PLAYER_NAME);
 					cache_get_field_content(row,  "ContractDetail", PlayerInfo[extraid][pContractDetail], MainPipeline, 64);
@@ -491,7 +490,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "TaxiLicense", szResult, MainPipeline); PlayerInfo[extraid][pTaxiLicense] = strval(szResult);
 					cache_get_field_content(row,  "TicketTime", szResult, MainPipeline); PlayerInfo[extraid][pTicketTime] = strval(szResult);
 					cache_get_field_content(row,  "Screwdriver", szResult, MainPipeline); PlayerInfo[extraid][pScrewdriver] = strval(szResult);
-					cache_get_field_content(row,  "Smslog", szResult, MainPipeline); PlayerInfo[extraid][pSmslog] = strval(szResult);
 					cache_get_field_content(row,  "Wristwatch", szResult, MainPipeline); PlayerInfo[extraid][pWristwatch] = strval(szResult);
 					cache_get_field_content(row,  "Surveillance", szResult, MainPipeline); PlayerInfo[extraid][pSurveillance] = strval(szResult);
 					cache_get_field_content(row,  "Tire", szResult, MainPipeline); PlayerInfo[extraid][pTire] = strval(szResult);
@@ -2854,7 +2852,6 @@ stock g_mysql_SaveAccount(playerid)
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Loses", PlayerInfo[playerid][pLoses]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Tutorial", PlayerInfo[playerid][pTut]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "OnDuty", PlayerInfo[playerid][pDuty]);
-    SavePlayerInteger(query, GetPlayerSQLId(playerid), "Hospital", PlayerInfo[playerid][pHospital]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "MarriedID", PlayerInfo[playerid][pMarriedID]);
     SavePlayerString(query, GetPlayerSQLId(playerid), "ContractBy", PlayerInfo[playerid][pContractBy]);
     SavePlayerString(query, GetPlayerSQLId(playerid), "ContractDetail", PlayerInfo[playerid][pContractDetail]);
@@ -2892,7 +2889,6 @@ stock g_mysql_SaveAccount(playerid)
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "TaxiLicense", PlayerInfo[playerid][pTaxiLicense]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "TicketTime", PlayerInfo[playerid][pTicketTime]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Screwdriver", PlayerInfo[playerid][pScrewdriver]);
-    SavePlayerInteger(query, GetPlayerSQLId(playerid), "Smslog", PlayerInfo[playerid][pSmslog]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Speedo", PlayerInfo[playerid][pSpeedo]);
 
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Wristwatch", PlayerInfo[playerid][pWristwatch]);
@@ -3107,12 +3103,6 @@ stock GetLatestKills(playerid, giveplayerid)
 	mysql_function_query(MainPipeline, query, true, "OnGetLatestKills", "ii", playerid, giveplayerid);
 }
 
-stock GetSMSLog(playerid)
-{
-	new query[256];
-	format(query, sizeof(query), "SELECT `sender`, `sendernumber`, `message`, `date` FROM `sms` WHERE `receiverid` = %d ORDER BY `date` DESC LIMIT 10", GetPlayerSQLId(playerid));
-	mysql_function_query(MainPipeline, query, true, "OnGetSMSLog", "i", playerid);
-}
 
 stock LoadBusinessSales() {
 
@@ -6254,30 +6244,6 @@ public OnWarnPlayer(index)
 	return 1;
 }
 
-
-forward OnGetSMSLog(playerid);
-public OnGetSMSLog(playerid)
-{
-    new string[128], sender[MAX_PLAYER_NAME], message[256], sDate[20], rows, fields;
-	cache_get_data(rows, fields, MainPipeline);
-	if(rows)
-	{
-		SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
-		SendClientMessageEx(playerid, COLOR_YELLOW, "<< 10 tin nhan SMS da nhan >>");
-		for(new i; i < rows; i++)
-		{
-			cache_get_field_content(i, "sender", sender, MainPipeline, MAX_PLAYER_NAME);
-			cache_get_field_content(i, "sendernumber", string, MainPipeline); new sendernumber = strval(string);
-			cache_get_field_content(i, "message", message, MainPipeline, sizeof(message));
-			cache_get_field_content(i, "date", sDate, MainPipeline, sizeof(sDate));
-			if(sendernumber != 0) format(string, sizeof(string), "[%s] SMS: %s, Nguoi gui: %s (%d)", sDate, message, StripUnderscore(sender), sendernumber);
-			else format(string, sizeof(string), "[%s] SMS: %s, Nguoi gui: Khong biet", sDate, message);
-			SendClientMessageEx(playerid, COLOR_YELLOW, string);
-		}
-	}
-	else SendClientMessageEx(playerid, COLOR_GREY, "Ban chua nhan bat ki tin nhan SMS nao.");
-	return 1;
-}
 
 forward Group_QueryFinish(iType, iExtraID);
 public Group_QueryFinish(iType, iExtraID) {

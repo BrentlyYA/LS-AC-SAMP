@@ -24,7 +24,6 @@ native gpci(playerid, serial[], maxlen);
 #define			TYPE_TPDRUGRUNTIMER 		2
 #define			TYPE_ARMSTIMER 				3
 #define			TYPE_GIVEWEAPONTIMER 		4
-#define			TYPE_HOSPITALTIMER 			5
 #define			TYPE_SEXTIMER 				6
 #define			TYPE_FLOODPROTECTION 		7
 #define			TYPE_HEALTIMER 				8

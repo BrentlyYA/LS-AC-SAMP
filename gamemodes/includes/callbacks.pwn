@@ -339,16 +339,6 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 	{
 		StopAudioStreamForPlayerEx(playerid);
 	}
-	if(areaid == NGGShop && GetPVarInt(playerid, "ShopTP") == 1)
-	{
-		if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0)
-			return DeletePVar(playerid, "ShopTP");
-		Player_StreamPrep(playerid, GetPVarFloat(playerid, "tmpX"), GetPVarFloat(playerid, "tmpY"), GetPVarFloat(playerid, "tmpZ"), FREEZE_TIME);
-		SetPlayerInterior(playerid, GetPVarInt(playerid, "tmpInt"));
-		SetPlayerVirtualWorld(playerid, GetPVarInt(playerid, "tmpVW"));
-		DeletePVar(playerid, "ShopTP");
-		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Cam on ban da nghe tham cua hang cua chung toi, hay  som quay tro lai cua hang cua chung toi nhe!");
-	}
 	return 1;
 }
 
@@ -2352,18 +2342,6 @@ public OnPlayerDisconnect(playerid, reason)
 		if(GetPVarInt(playerid, "MovingStretcher") != -1) {
 			KillTimer(GetPVarInt(playerid, "TickEMSMove"));
 		}
-
-		if(GetPVarInt(playerid, "Injured") == 1) {
-			PlayerInfo[playerid][pHospital] = 1;
-			KillEMSQueue(playerid);
-			ResetPlayerWeaponsEx(playerid);
-		}
-		if(GetPVarInt(playerid, "HeroinEffect")) {
-			KillTimer(GetPVarInt(playerid, "HeroinEffect"));
-			PlayerInfo[playerid][pHospital] = 1;
-			KillEMSQueue(playerid);
-			ResetPlayerWeaponsEx(playerid);
-		}
 		if(GetPVarInt(playerid, "AttemptPurify"))
 		{
 			Purification[0] = 0;
@@ -3339,24 +3317,6 @@ public OnPlayerSpawn(playerid)
 	SetPlayerSkillLevel(playerid, WEAPONSKILL_PISTOL, 1);
 	SetPlayerSkillLevel(playerid, WEAPONSKILL_MICRO_UZI, 1);
 
- 	if(sobeitCheckvar[playerid] == 0)
-	{
-	    if(PlayerInfo[playerid][pInt] == 0 && PlayerInfo[playerid][pVW] == 0)
-	    {
-			if(sobeitCheckIsDone[playerid] == 0)
-			{
-			    if(PlayerInfo[playerid][pAdmin] < 2)
-			    {
-			        if(PlayerInfo[playerid][pHospital] == 0)
-			        {
-					    sobeitCheckIsDone[playerid] = 1;
-					    SetTimerEx("sobeitCheck", 10000, 0, "i", playerid);
-						TogglePlayerControllable(playerid, false);
-					}
-				}
-			}
-  		}
-	}
 
 	if(GetPVarInt(playerid, "NGPassenger") == 1)
 	{
