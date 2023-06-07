@@ -200,7 +200,7 @@ public LoadTextDraws()
 	TextDrawBoxColor(NoticeTxtdraw[0], 100);
 	TextDrawTextSize(NoticeTxtdraw[0], 454.000000, 18.000000);
 
-	NoticeTxtdraw[1] = TextDrawCreate(317.000000, 174.000000, "GVN - Notice");
+	NoticeTxtdraw[1] = TextDrawCreate(317.000000, 174.000000, "LS:AC - Notice");
 	TextDrawAlignment(NoticeTxtdraw[1], 2);
 	TextDrawBackgroundColor(NoticeTxtdraw[1], 255);
 	TextDrawFont(NoticeTxtdraw[1], 2);

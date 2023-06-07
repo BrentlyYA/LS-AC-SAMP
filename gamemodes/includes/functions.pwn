@@ -3648,32 +3648,21 @@ public SendEMSQueue(playerid,type)
 	{
 		case 1:
 		{
-		    Streamer_UpdateEx(playerid, GetPVarFloat(playerid,"MedicX"), GetPVarFloat(playerid,"MedicY"), GetPVarFloat(playerid,"MedicZ"));
-			SetPlayerPos(playerid, GetPVarFloat(playerid,"MedicX"), GetPVarFloat(playerid,"MedicY"), GetPVarFloat(playerid,"MedicZ"));
-			SetPlayerVirtualWorld(playerid, GetPVarInt(playerid,"MedicVW"));
-	  		SetPlayerInterior(playerid, GetPVarInt(playerid,"MedicInt"));
-
-			SetPVarInt(playerid, "EMSAttempt", -1);
-
-			if(GetPlayerInterior(playerid) > 0) Player_StreamPrep(playerid, GetPVarFloat(playerid,"MedicX"), GetPVarFloat(playerid,"MedicY"), GetPVarFloat(playerid,"MedicZ"), FREEZE_TIME);
-			GameTextForPlayer(playerid, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu", 5000, 3);
-			ClearAnimations(playerid);
 			ApplyAnimation(playerid, "KNIFE", "KILL_Knife_Ped_Die", 4.0, 0, 1, 1, 1, 0, 1);
+			ClearAnimations(playerid);
 			SetPlayerHealth(playerid, 100);
-			RemoveArmor(playerid);
-			if(GetPVarInt(playerid, "usingfirstaid") == 1)
-			{
-			    firstaidexpire(playerid);
-			}
-			SetPVarInt(playerid,"MedicCall",1);
+			RemoveArmor(playerid);	
+			SetPlayerPos(playerid, 1797.7936,-1578.5709,14.0876);
+			SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "Ban da bi giet chet va spawn lai ve lobby!");
 		}
 		case 2:
 		{
-		    SetPVarInt(playerid,"EMSAttempt", 2);
-			ClearAnimations(playerid);
 		 	ApplyAnimation(playerid, "SWAT", "gnstwall_injurd", 4.0, 0, 1, 1, 1, 0, 1);
+			ClearAnimations(playerid);
 			SetPlayerHealth(playerid, 100);
 			RemoveArmor(playerid);
+			SetPlayerPos(playerid, 1797.7936,-1578.5709,14.0876);
+			SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "Ban da bi giet chet va spawn lai ve lobby!");
 		}
 	}
 	return 1;
