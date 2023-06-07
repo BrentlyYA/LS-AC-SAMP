@@ -12409,6 +12409,11 @@ CMD:accept(playerid, params[])
                                 PlayerInfo[playerid][pScrewdriver]++;
                                 SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/banvukhi");
                             }
+                            case 2:
+                            {
+                                PlayerInfo[playerid][pSmslog]++;
+                                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "/smslog");
+                            }
                             case 3:
                             {
                                 PlayerInfo[playerid][pWristwatch]++;
@@ -24463,6 +24468,11 @@ CMD:giveweapon(playerid, params[])
 		return 1;
 	}
 
+	if(GetPVarInt(playerid, "Injured") != 0||PlayerCuffed[playerid]!=0||PlayerInfo[playerid][pHospital]!=0||GetPlayerState(playerid) == 7)
+	{
+		SendClientMessageEx (playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
+		return 1;
+	}
 	if(IsPlayerInAnyVehicle(playerid))
 	{
 		SendClientMessageEx (playerid, COLOR_GRAD2, "You can not give weapons in a vehicle!");
@@ -41272,6 +41282,58 @@ CMD:credits(playerid, params[])
 	return 1;
 }
 
+CMD:shopstats(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] < 1338 && PlayerInfo[playerid][pShopTech] != 3)
+	    return 0;
+
+	mysql_function_query(MainPipeline, "SELECT `id`, `Month` FROM `sales`", true, "CheckSales", "i", playerid);
+	return 1;
+}
+
+CMD:shophelp(playerid, params[]) {
+    return ShowPlayerDialog(playerid, DIALOG_SHOPHELPMENU, DIALOG_STYLE_LIST, "Nhung cua hang ma ban muon tim hieu them?","VIP Shop\nHouse Shop\nBusiness Shop\nToy Shop\nMiscellaneous Shop\nCar Shop\nPlane Shop\nBoat Shop", "Chon", "Thoat");
+}
+
+CMD:gvnshop(playerid, params[]) {
+	if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "EventToken") == 1 || GetPVarInt(playerid, "IsInArena") >= 0)
+		return SendClientMessage(playerid, COLOR_GRAD2, "You can't do this at this time!");
+	if(PlayerInfo[playerid][pWantedLevel] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban dan muon, ban khong the su dung lenh nay.");
+	if(gettime() - LastShot[playerid] < 60) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da bi ban' trong vong 60s cuoi cung, ban khong the su dung lenh nay.");
+	if(IsPlayerInDynamicArea(playerid, NGGShop)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da o GTA-VIETNAM Shop");
+	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay ben trong mot chiec xe.");
+	if(GetPVarInt(playerid, "ShopTP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da yeu cau mot Teleport den GTA-VIETNAM Shop.");
+
+	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban da yeu cau Teleport den GvN Shop, xin vui long cho 30 giay..");
+	SetTimerEx("TeleportToShop", 30000, false, "i", playerid);
+	TogglePlayerControllable(playerid, 0);
+	SetPVarInt(playerid, "ShopTP", 1);
+
+	new Float:tmp[3];
+	GetPlayerPos(playerid, tmp[0], tmp[1], tmp[2]);
+	SetPVarFloat(playerid, "tmpX", tmp[0]);
+	SetPVarFloat(playerid, "tmpY", tmp[1]);
+	SetPVarFloat(playerid, "tmpZ", tmp[2]);
+	SetPVarInt(playerid, "tmpInt", GetPlayerInterior(playerid));
+	SetPVarInt(playerid, "tmpVW", GetPlayerVirtualWorld(playerid));
+	return 1;
+}
+
+CMD:leaveshop(playerid, params[]) {
+	if(GetPVarInt(playerid, "ShopTP") == 1)
+	{
+		if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0)
+			return SendClientMessage(playerid, COLOR_GRAD2, "You can't do this at this time!.");
+		if(gettime() - LastShot[playerid] < 60) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da bi thuong trong vong 60 giay cuoi cung, ban se khong duoc dua den vi tri truoc day cua ban.");
+		Player_StreamPrep(playerid, GetPVarFloat(playerid, "tmpX"), GetPVarFloat(playerid, "tmpY"), GetPVarFloat(playerid, "tmpZ"), FREEZE_TIME);
+		SetPlayerInterior(playerid, GetPVarInt(playerid, "tmpInt"));
+		SetPlayerVirtualWorld(playerid, GetPVarInt(playerid, "tmpVW"));
+		TogglePlayerControllable(playerid, 1);
+		DeletePVar(playerid, "ShopTP");
+	}
+	return 1;
+}
+
 CMD:togshopnotice(playerid, params[]) {
 	if(PlayerInfo[playerid][pConnectHours] >= 50)
 	{
@@ -45392,6 +45454,502 @@ CMD:receiver(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong co may thu.");
 	}
 	return 1;
+}
+
+CMD:smslog(playerid, params[])
+{
+	if(PlayerInfo[playerid][pSmslog] > 0) GetSMSLog(playerid);
+	else return SendClientMessageEx(playerid, COLOR_YELLOW, "    Ban khong co tin nhan SMS nao!");
+	return 1;
+}
+
+CMD:chetao(playerid, params[])
+{
+	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the lam dieu nay khi dang them gia su kien Hunger Games!");
+	if (PlayerInfo[playerid][pJob] != 18 && PlayerInfo[playerid][pJob2] != 18)
+	{
+		SendClientMessageEx(playerid,COLOR_GREY,"   Ban khong phai la Tho thu cong!");
+		return 1;
+	}
+	if (PlayerInfo[playerid][pJailTime] > 0)
+	{
+		SendClientMessageEx(playerid,COLOR_GREY,"   Ban khong the lam dieu nay khi dang trong tu!");
+		return 1;
+	}
+	new string[128];
+	if (GetPVarInt(playerid, "ArmsTimer") > 0)
+	{
+		format(string, sizeof(string), "   Ban phai doi %d giay truoc khi che tao lai.", GetPVarInt(playerid, "ArmsTimer"));
+		SendClientMessageEx(playerid,COLOR_GREY,string);
+		return 1;
+	}
+	if(PlayerInfo[playerid][pHospital] > 0)
+	{
+		SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the che tao khi dang o benh vien.");
+		return 1;
+	}
+	new giveplayerid, choice[32], weapon, price;
+	if(sscanf(params, "us[32]", giveplayerid, choice))
+	{
+		SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
+		SendClientMessageEx(playerid, COLOR_YELLOW, "<< Hang thu cong co san >>");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "screwdriver(1000)	 smslog(2000)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "wristwatch(500)	 surveillance(8000)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "tire(250)	         lock(500)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "firstaid(1000)	 camera(250)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "rccam(8000)	     receiver(5000)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "gps(1000)          bugsweep(10000)");
+		//SendClientMessageEx(playerid, COLOR_GRAD1, "parachute(50)          bag(6000)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "parachute(50)        mailbox(15000)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "metaldetector(12500) syringe(500)");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "closet(50000)");
+		SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
+		SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /craft [Player] [craftname]");
+		return 1;
+	}
+	if(HungerPlayerInfo[giveplayerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Nguoi nay khong the nhan bat cu thu gi vao luc nay.");
+	if (IsPlayerConnected(giveplayerid))
+	{
+		if(isnull(choice))
+		{
+			SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
+			SendClientMessageEx(playerid, COLOR_YELLOW, "<< Hang thu cong co san >>");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "screwdriver(1000)	 smslog(2000)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "wristwatch(500)	 surveillance(8000)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "tire(250)	         lock(500)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "firstaid(1000)	 camera(250)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "rccam(8000)	     receiver(5000)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "gps(1000)          bugsweep(10000)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "parachute(50)          mailbox(15000)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "metaldetector(12500) syringe(500)");
+			SendClientMessageEx(playerid, COLOR_GRAD1, "closet(50000)");
+			SendClientMessageEx(playerid, COLOR_GREEN, "________________________________________________");
+			SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /craft [Player] [craftname]");
+			return 1;
+		}
+		/*if(strcmp(choice,"bag",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 6000)
+			{
+				price = 6000;
+				weapon = 14;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}*/
+		if(strcmp(choice, "screwdriver", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 1000)
+			{
+				price = 1000;
+				weapon = 1;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice, "smslog", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 2000)
+			{
+				price = 2000;
+				weapon = 2;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice, "wristwatch", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 500)
+			{
+				price = 500;
+				weapon = 3;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice, "surveillance", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 8000)
+			{
+				price = 8000;
+				weapon = 4;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice, "tire", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 250)
+			{
+				price = 250;
+				weapon = 5;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice, "lock", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 500)
+			{
+				price = 500;
+				weapon = 6;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice, "firstaid", true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 1000)
+			{
+				price = 1000;
+				weapon = 7;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice,"camera",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 250)
+			{
+				price = 250;
+				weapon = 8;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice,"rccam",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 8000)
+			{
+				price = 8000;
+				weapon = 9;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice,"receiver",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 5000)
+			{
+				price = 5000;
+				weapon = 10;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice,"gps",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 1000)
+			{
+				price = 1000;
+				weapon = 11;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+
+		else if(strcmp(choice,"bugsweep",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 10000)
+			{
+				price = 10000;
+				weapon = 12;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+
+		else if(strcmp(choice,"parachute",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 50)
+			{
+				price = 50;
+				weapon = 13;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+
+        else if(strcmp(choice,"metaldetector",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 12500)
+			{
+				price = 12500;
+				weapon = 14;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+
+		else if(strcmp(choice,"mailbox",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 15000)
+			{
+				price = 15000;
+				weapon = 15;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+        else if(strcmp(choice,"syringe",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 500)
+			{
+				price = 500;
+				weapon = 16;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else if(strcmp(choice,"closet",true) == 0)
+		{
+			if(PlayerInfo[playerid][pMats] >= 50000)
+			{
+				price = 50000;
+				weapon = 17;
+			}
+			else
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"   Khong du vat lieu!");
+				return 1;
+			}
+		}
+		else { SendClientMessageEx(playerid,COLOR_GREY,"   Ten Craft khong hop le!"); return 1; }
+		if (ProxDetectorS(5.0, playerid, giveplayerid))
+		{
+			if(weapon == 17)
+			{
+				if(PlayerInfo[giveplayerid][pPhousekey] == INVALID_HOUSE_ID && PlayerInfo[giveplayerid][pPhousekey2] == INVALID_HOUSE_ID)
+				{
+					if(giveplayerid == playerid) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu mot ngoi nha!");
+					else
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Ho khong so huu ngoi nha!");
+						SendClientMessageEx(giveplayerid, COLOR_GREY, "Ban khong so hu ngoi nha!");
+					}
+				}
+			}
+			if(giveplayerid == playerid)
+			{
+				if(weapon != 16 && weapon != 17)
+				{
+					PlayerInfo[playerid][pMats] -= price;
+				}
+
+				switch(weapon)
+				{
+				case 1:
+					{
+						PlayerInfo[playerid][pScrewdriver]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/banvukhi");
+					}
+				case 2:
+					{
+						PlayerInfo[playerid][pSmslog]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/smslog");
+					}
+				case 3:
+					{
+						PlayerInfo[playerid][pWristwatch]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/dongho");
+					}
+				case 4:
+					{
+						PlayerInfo[playerid][pSurveillance]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/(p)lace(c)amera /(s)ee(c)amera /(d)estroy(c)amera");
+					}
+				case 5:
+					{
+						PlayerInfo[playerid][pTire]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/suaxe");
+					}
+				case 6:
+					{
+						PlayerInfo[playerid][pLock]=1;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/lock");
+					}
+				case 7:
+					{
+						PlayerInfo[playerid][pFirstaid]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/firstaid");
+					}
+				case 8:
+					{
+						GivePlayerValidWeapon(playerid, 43, 50);
+					}
+				case 9:
+					{
+						PlayerInfo[playerid][pRccam]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/rccam");
+					}
+				case 10:
+					{
+						PlayerInfo[playerid][pReceiver]++;
+						SetPVarInt(playerid, "pReceiverMLeft", 4);
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "You will receive the next four department radio messages.");
+					}
+				case 11:
+					{
+						PlayerInfo[playerid][pGPS]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/gps");
+					}
+				case 12:
+					{
+						PlayerInfo[playerid][pSweep]++;
+						PlayerInfo[playerid][pSweepLeft] = 3;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/sweep");
+					}
+				case 13:
+					{
+						GivePlayerValidWeapon(playerid, 46, 99999);
+					}
+				case 14:
+					{
+						if(PlayerInfo[playerid][pTreasureSkill] >=0 && PlayerInfo[playerid][pTreasureSkill] <= 24) PlayerInfo[playerid][pMetalDetector] += 25;
+						else if(PlayerInfo[playerid][pTreasureSkill] >=25 && PlayerInfo[playerid][pTreasureSkill] <= 149) PlayerInfo[playerid][pMetalDetector] += 50;
+						else if(PlayerInfo[playerid][pTreasureSkill] >=150 && PlayerInfo[playerid][pTreasureSkill] <= 299) PlayerInfo[playerid][pMetalDetector] += 75;
+						else if(PlayerInfo[playerid][pTreasureSkill] >=300 && PlayerInfo[playerid][pTreasureSkill] <= 599) PlayerInfo[playerid][pMetalDetector] += 100;
+						else if(PlayerInfo[playerid][pTreasureSkill] >=600) PlayerInfo[playerid][pMetalDetector] += 125;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/search");
+					}
+				case 15:
+					{
+						PlayerInfo[playerid][pMailbox]++;
+						SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "Su dung /placemailbox gui thu den noi muon.");
+					}
+				case 16:
+					{
+						if(PlayerInfo[playerid][pSyringes] < 3)
+						{
+							PlayerInfo[playerid][pMats] -= price;
+							PlayerInfo[playerid][pSyringes]++;
+							SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/useheroin");
+						}
+						else
+						{
+							SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the giu them ong tiem duoc nua.");
+						}
+					}
+				case 17:
+					{
+						if(GetPlayerVirtualWorld(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntIW])
+						{
+							if(IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey]][hInteriorZ]))
+							{
+								GetPlayerPos(playerid, HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetZ]);
+								if(IsValidDynamic3DTextLabel(HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID])) DestroyDynamic3DTextLabel(Text3D:HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID]);
+								HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetTextID] = CreateDynamic3DTextLabel("Tu quan ao\n/closet de su dung", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey]][hIntIW], .streamdistance = 10.0);
+								SaveHouse(PlayerInfo[playerid][pPhousekey]);
+								PlayerInfo[playerid][pMats] -= price;
+								SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+							}
+							else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o trong nha cua ban!");
+						}
+						else if(GetPlayerVirtualWorld(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntVW] && GetPlayerInterior(playerid) == HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntIW])
+						{
+							if(IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hInteriorZ]))
+							{
+								GetPlayerPos(playerid, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetZ]);
+								if(IsValidDynamic3DTextLabel(HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID])) DestroyDynamic3DTextLabel(Text3D:HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID]);
+								HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetTextID] = CreateDynamic3DTextLabel("Tu quan ao\n/closet de su dung", 0xFFFFFF88, HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetX], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetY], HouseInfo[PlayerInfo[playerid][pPhousekey2]][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntVW], .interiorid = HouseInfo[PlayerInfo[playerid][pPhousekey2]][hIntIW], .streamdistance = 10.0);
+								SaveHouse(PlayerInfo[playerid][pPhousekey2]);
+								PlayerInfo[playerid][pMats] -= price;
+								SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, "/closet(add/remove)");
+								printf("Check 5");
+							}
+							else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o ben trong ngoi nha!");
+						}
+						else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o ben trong ngoi nha!");
+					}
+				}
+				format(string, sizeof(string), "   Ban da tao cho minh mot %s.", choice);
+				PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
+				SendClientMessageEx(playerid, COLOR_GRAD1, string);
+				PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
+				switch( PlayerInfo[playerid][pSex] )
+				{
+					case 1: format(string, sizeof(string), "* %s tao ra mot vat pham tu vat lieu trong tui cua ho.", GetPlayerNameEx(playerid));
+					case 2: format(string, sizeof(string), "* %s tao ra mot vat pham tu vat lieu trong tui cua ho.", GetPlayerNameEx(playerid));
+				}
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+				return 1;
+			}
+			format(string, sizeof(string), "* Ban muon ban %s de mua a %s.", GetPlayerNameEx(giveplayerid), choice);
+			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+			format(string, sizeof(string), "* Tho thu cong %s muon ban cho ban  %s, (su dung /chapnhan craft) de mua.", GetPlayerNameEx(playerid), choice);
+			SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
+			CraftOffer[giveplayerid] = playerid;
+			CraftId[giveplayerid] = weapon;
+			CraftMats[giveplayerid] = price;
+			format(CraftName[giveplayerid], 50, "%s", choice);
+			if(PlayerInfo[playerid][pAdmin] < 3)
+			{
+				SetPVarInt(playerid, "ArmsTimer", 10); SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_ARMSTIMER);
+			}
+			return 1;
+		}
+		else
+		{
+			SendClientMessageEx(playerid, COLOR_GREY, "Nguoi do khong o gan ban.");
+			return 1;
+		}
+	}
+	else
+	{
+		SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+		return 1;
+	}
 }
 
 CMD:getpot(playerid, params[])
