@@ -100,6 +100,285 @@ task playerTabbedLoop[1000]() {
 	return 1;
 }
 
+// Timer Name: MoneyUpdate()
+// TickRate: 1 secs.
+task MoneyUpdate[1000]()
+{
+	for(new i = 0; i < MAX_ITEMS; i++)
+	{
+	    if(Price[i] != ShopItems[i][sItemPrice])
+	    {
+	        new string[128];
+	        format(string, 128, "Item: %d - Gia tien: %d - Reset: %d", i, ShopItems[i][sItemPrice], Price[i]);
+	        Log("error.log", string);
+	        ShopItems[i][sItemPrice] = Price[i];
+	    }
+	}
+
+	new minuitet=minuite;
+	gettime(hour,minuite,second);
+	FixHour(hour);
+	hour = shifthour;
+	if(minuitet != minuite)
+	{
+		new tstring[7];
+		if(minuite < 10)
+		{
+			format(tstring, sizeof(tstring), "%d:0%d", hour, minuite);
+		}
+		else
+		{
+			format(tstring, sizeof(tstring), "%d:%d", hour, minuite);
+		}
+		TextDrawSetString(WristWatch, tstring);
+	}
+	if(EventKernel[EventStatus] >= 2 && EventKernel[EventTime] > 0)
+	{
+    	if(--EventKernel[EventTime] <= 0) {
+    	    foreach(new i: Player)
+			{
+    			if( GetPVarInt( i, "EventToken" ) == 1 )
+				{
+				    if(EventKernel[EventType] == 3) {
+						if(IsValidDynamic3DTextLabel(RFLTeamN3D[i])) {
+							DestroyDynamic3DTextLabel(RFLTeamN3D[i]);
+						}
+						DisablePlayerCheckpoint(i);
+					}
+					ResetPlayerWeapons( i );
+					SetPlayerWeapons(i);
+					SetPlayerToTeamColor(i);
+					SetPlayerSkin(i, PlayerInfo[i][pModel]);
+					SetPlayerPos(i,EventFloats[i][1],EventFloats[i][2],EventFloats[i][3]);
+					Player_StreamPrep(i, EventFloats[i][1],EventFloats[i][2],EventFloats[i][3], FREEZE_TIME);
+					SetPlayerVirtualWorld(i, EventLastVW[i]);
+					SetPlayerFacingAngle(i, EventFloats[i][0]);
+					SetPlayerInterior(i,EventLastInt[i]);
+					SetPlayerHealth(i, EventFloats[i][4]);
+					if(EventFloats[i][5] > 0) {
+						SetPlayerArmor(i, EventFloats[i][5]);
+					}
+					for(new d = 0; d < 6; d++)
+					{
+						EventFloats[i][d] = 0.0;
+					}
+					EventLastVW[i] = 0;
+					EventLastInt[i] = 0;
+					DeletePVar(i, "EventToken");
+					SendClientMessageEx( i, COLOR_YELLOW, "Ban da bi loai ra khoi su kien nay do bo dem thoi gian da bat dau." );
+				}		
+			}
+			EventKernel[ EventPositionX ] = 0;
+			EventKernel[ EventPositionY ] = 0;
+			EventKernel[ EventPositionZ ] = 0;
+			EventKernel[ EventTeamPosX1 ] = 0;
+			EventKernel[ EventTeamPosY1 ] = 0;
+			EventKernel[ EventTeamPosZ1 ] = 0;
+			EventKernel[ EventTeamPosX2 ] = 0;
+			EventKernel[ EventTeamPosY2 ] = 0;
+			EventKernel[ EventTeamPosZ2 ] = 0;
+			EventKernel[ EventStatus ] = 0;
+			EventKernel[ EventType ] = 0;
+			EventKernel[ EventHealth ] = 0;
+			EventKernel[ EventLimit ] = 0;
+			EventKernel[ EventPlayers ] = 0;
+			EventKernel[ EventWeapons ][0] = 0;
+			EventKernel[ EventWeapons ][1] = 0;
+			EventKernel[ EventWeapons ][2] = 0;
+			EventKernel[ EventWeapons ][3] = 0;
+			EventKernel[ EventWeapons ][4] = 0;
+			for(new i = 0; i < 20; i++)
+			{
+			    EventRCPU[i] = 0;
+			    EventRCPX[i] = 0.0;
+			    EventRCPY[i] = 0.0;
+			    EventRCPZ[i] = 0.0;
+			    EventRCPS[i] = 0.0;
+			    EventRCPT[i] = 0;
+			}
+			EventKernel[EventCreator] = INVALID_PLAYER_ID;
+			EventKernel[VipOnly] = 0;
+			EventKernel[EventJoinStaff] = 0;
+			SendClientMessageToAllEx( COLOR_LIGHTBLUE, "* Su kien hien tai da ket thuc." );
+		}
+	}
+	foreach(new i: Player)
+	{
+		if(gPlayerLogged{i})
+		{
+		/*
+			if(IsSpawned[i] == 0) 
+			{
+				SpawnKick[i]++;
+				if(SpawnKick[i] >= 120)
+				{
+					IsSpawned[i] = 1;
+					SpawnKick[i] = 0;
+					new string[128];
+					SendClientMessageEx(i, COLOR_WHITE, "HE THONG: Ban da bi kick khoi server vi AFK.");
+					format(string, sizeof(string), " %s (ID: %d) (IP: %s) da bi he thong tu dong kick ra khoi may chu vi treo may qua 2 phut.", GetPlayerNameEx(i), i, GetPlayerIpEx(i));
+					Log("logs/spawnafk.log", string);
+					SetTimerEx("KickEx", 1000, 0, "i", i);
+				}
+			}
+		*/
+			if(IsSpawned[i] > 0 && SpawnKick[i] > 0)
+			{
+				SpawnKick[i] = 0;
+			}
+		    if(GetPlayerPing(i) > MAX_PING)
+		    {
+		        if(playerTabbed[i] == 0)
+		        {
+					if(GetPVarInt(i, "BeingKicked") != 1)
+					{
+						new
+							string[89 + MAX_PLAYER_NAME], ping;
+							
+						ping = GetPlayerPing(i);
+						if(ping != 65535) // Invalid Ping
+						{
+							format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s da tu dong bi kick voi %d ping (maximum: "#MAX_PING").", GetPlayerNameEx(i), ping);
+							ABroadCast(COLOR_YELLOW, string, 2);
+							SendClientMessageEx(i, COLOR_WHITE, "Ban da tu dong bi kick vi ping cua ban cao hon muc quy dinh.");
+							SetPVarInt(i, "BeingKicked", 1);
+							SetTimerEx("KickEx", 1000, 0, "i", i);
+						}
+					}
+				}
+		    }
+
+		    if(PlayerInfo[i][pBuddyInvited] == 1 && --PlayerInfo[i][pTempVIP] <= 0)
+			{
+				PlayerInfo[i][pTempVIP] = 0;
+				PlayerInfo[i][pBuddyInvited] = 0;
+				PlayerInfo[i][pDonateRank] = 0;
+				SendClientMessageEx(i, COLOR_LIGHTBLUE, "VIP cua ban hien da het han.");
+				SetPlayerToTeamColor(i);
+    		}
+			if(rBigEarT[i] > 0) {
+				rBigEarT[i]--;
+				if(rBigEarT[i] == 0) {
+					DeletePVar(i, "BigEar");
+					DeletePVar(i, "BigEarPlayer");
+					SendClientMessageEx(i, COLOR_WHITE, "Big Ears hien da duoc tat.");
+				}	
+			}
+			if(PlayerInfo[i][pTriageTime] != 0)
+	  		{
+				PlayerInfo[i][pTriageTime]--;
+    		}
+			if(PlayerInfo[i][pTicketTime] != 0)
+			{
+				PlayerInfo[i][pTicketTime]--;
+			}
+			if(GetPVarInt(i, "InRangeBackup") > 0)
+			{
+				SetPVarInt(i, "InRangeBackup", GetPVarInt(i, "InRangeBackup")-1);
+			}
+			if(GetPVarType(i, "IsTackled"))
+			{
+			    new copcount, string[128];
+				foreach(new j: Player)
+				{
+					if(ProxDetectorS(4.0, i, j) && IsACop(j) && j != i)
+					{
+						copcount++;
+					}
+				}
+				if(copcount == 0 || !ProxDetectorS(5.0, i, GetPVarInt(i, "IsTackled")))
+				{
+				    SendClientMessageEx(i, COLOR_GREEN, "Ban co the chay thoat do khong co canh sat nao dang dung ben canh ban.");
+				    ClearTackle(i);
+				}
+			    if(GetPVarInt(i, "TackleCooldown") > 0)
+			    {
+				    if(IsPlayerConnected(GetPVarInt(i, "IsTackled")) && GetPVarInt(GetPVarInt(i, "IsTackled"), "Tackling") == i)
+				    {
+				        format(string, sizeof(string), "~n~~n~~n~~n~~n~~n~~n~~n~~n~~r~%d", GetPVarInt(i, "TackleCooldown"));
+						GameTextForPlayer(i, string, 1100, 3);
+				        SetPVarInt(i, "TackleCooldown", GetPVarInt(i, "TackleCooldown")-1);
+						if(GetPVarInt(i, "TackledResisting") == 2 && copcount <= 3 && GetPVarInt(i, "TackleCooldown") < 12) // resisting
+						{
+						    new escapechance = random(100);
+						    switch(escapechance)
+						    {
+						        case 35,40,22,72,11..16, 50..57, 62..65:
+						        {
+									GameTextForPlayer(i, "~n~~n~~n~~n~~n~~n~~n~~n~~n~~g~THOAT KHOI!", 10000, 3);
+						            SendClientMessageEx(i, COLOR_GREEN, "Ban co the day si quan ra va co the chay thoat.");
+						            format(string, sizeof(string), "** %s day %s sang mot ben va thoat khoi.", GetPlayerNameEx(i), GetPlayerNameEx(GetPVarInt(i, "IsTackled")));
+    								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+				    				TogglePlayerControllable(GetPVarInt(i, "IsTackled"), 0);
+									ApplyAnimation(GetPVarInt(i, "IsTackled"), "SWEET", "Sweet_injuredloop", 4.0, 1, 1, 1, 1, 0, 1);
+									SetTimerEx("CopGetUp", 2500, 0, "i", GetPVarInt(i, "IsTackled"));
+									ClearTackle(i);
+						        }
+						    }
+						}
+				    }
+				}
+				else
+				{
+				    if(ProxDetectorS(5.0, i, GetPVarInt(i, "IsTackled")))
+				    {
+				        CopGetUp(GetPVarInt(i, "IsTackled"));
+				    }
+				    SetPVarInt(GetPVarInt(i, "IsTackled"), "CopTackleCooldown", 30);
+				    ShowPlayerDialog(i, -1, DIALOG_STYLE_LIST, "Dong", "Dong", "Dong", "Dong");
+				    ClearTackle(i);
+				}
+			}
+			if(GetPVarInt(i, "CopTackleCooldown") > 0)
+			{
+			    SetPVarInt(i, "CopTackleCooldown", GetPVarInt(i, "CopTackleCooldown")-1);
+			}
+			if(PlayerInfo[i][pCash] != GetPlayerMoney(i))
+			{
+			    /*if((GetPlayerAnimationIndex(i) == 1660) && ((PlayerInfo[i][pCash] - GetPlayerMoney(i)) == 1))
+			    {
+					new Float:hp;
+					GetPlayerHealth(i, hp);
+					if(hp + 35 >= 100.0) pSSHealth[i] = 100.0;
+					else pSSHealth[i] = hp + 35.0;
+				}*/
+				ResetPlayerMoney(i);
+				GivePlayerMoney(i, PlayerInfo[i][pCash]);
+			}
+			if(PlayerInfo[i][pGPS] > 0 && GetPVarType(i, "gpsonoff"))
+   			{
+    			new zone[28];
+				GetPlayer3DZone(i, zone, MAX_ZONE_NAME);
+				TextDrawSetString(GPS[i], zone);
+			}
+			if(GetPVarType(i, "Injured")) SetPlayerArmedWeapon(i, 0);
+			if(GetPVarType(i, "IsFrozen")) TogglePlayerControllable(i, 0);
+			if(PlayerCuffed[i] > 1) {
+				SetPlayerHealth(i, 1000);
+				SetPlayerArmor(i, GetPVarFloat(i, "cuffarmor"));
+			}
+			if(IsPlayerInAnyVehicle(i) && TruckUsed[i] != INVALID_VEHICLE_ID)
+			{
+			    if(TruckUsed[i] == GetPlayerVehicleID(i) && GetPVarInt(i, "Gas_TrailerID") != 0)
+			    {
+					if(Businesses[TruckDeliveringTo[TruckUsed[i]]][bType] == BUSINESS_TYPE_GASSTATION)
+					{
+					    if(GetVehicleTrailer(GetPlayerVehicleID(i)) != GetPVarInt(i, "Gas_TrailerID"))
+					    {
+							SetPVarInt(i, "GasWarnings", GetPVarInt(i, "GasWarnings") + 1);
+							if(GetPVarInt(i, "GasWarnings") > 10)
+							{
+						    	CancelTruckDelivery(i);
+						    	DeletePVar(i, "GasWarnings");
+						    	SendClientMessageEx(i, COLOR_REALRED, "Ban da giao hang that bai khi mat tai hang hoa len xe!");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 // Timer Name: ServerHeartbeat()
 // TickRate: 1 secs.
@@ -147,6 +426,503 @@ task ServerHeartbeat[1000]() {
 
 		if(PlayerInfo[i][pJudgeJailType] != 0 && PlayerInfo[i][pJudgeJailTime] > 0 && !PlayerInfo[i][pBeingSentenced]) PlayerInfo[i][pJudgeJailTime]--;
 		if(PlayerInfo[i][pJudgeJailTime] <= 0 && PlayerInfo[i][pJudgeJailType] != 0) PlayerInfo[i][pJudgeJailType] = 0;
+		if(playerTabbed[i] == 0) {
+			if(PlayerInfo[i][pJailTime] > 0 && --PlayerInfo[i][pJailTime] <= 0) {
+				if(strfind(PlayerInfo[i][pPrisonReason], "[IC]", true) != -1 || strfind(PlayerInfo[i][pPrisonReason], "[ISOLATE]", true) != -1) {
+	   				SetPlayerInterior(i, 0);
+					PlayerInfo[i][pInt] = 0;
+					SetPlayerVirtualWorld(i, 0);
+					PlayerInfo[i][pVW] = 0;
+					SetPlayerPos(i, -2028.5829,-96.5533,35.1641);
+				}
+				else {
+				 	SetPlayerInterior(i, 0);
+					PlayerInfo[i][pInt] = 0;
+					SetPlayerVirtualWorld(i, 0);
+					PlayerInfo[i][pVW] = 0;
+	    			SetPlayerPos(i, 1544.5059,-1675.5673,13.5585);
+				}
+				SetPlayerHealth(i, 100);
+				PlayerInfo[i][pJailTime] = 0;
+				PhoneOnline[i] = 0;
+				SendClientMessageEx(i, COLOR_GRAD1,"   Ban da tra no cho xa hoi.");
+				GameTextForPlayer(i, "~g~Tu do~n~~w~Co gang la mot cong dat tot", 5000, 1);
+				ClearCrimes(i);
+				strcpy(PlayerInfo[i][pPrisonReason], "None", 128);
+				SetPlayerToTeamColor(i);
+			}
+		}
+
+		if(CommandSpamTimes[i] != 0)
+		{
+			CommandSpamTimes[i]--;
+		}
+		if(TextSpamTimes[i] != 0)
+		{
+			TextSpamTimes[i]--;
+		}
+		if(PlayerInfo[i][pRMuted] == 2) {
+			PlayerInfo[i][pRMutedTime]--;
+			if(PlayerInfo[i][pRMutedTime] <= 0) {
+				PlayerInfo[i][pRMuted] = 0;
+			}
+		}
+		if(PlayerInfo[i][pVMuted] == 2) {
+			PlayerInfo[i][pVMutedTime]--;
+			if(PlayerInfo[i][pVMutedTime] <= 0) {
+				PlayerInfo[i][pVMuted] = 0;
+			}
+		}
+		if(PlayerInfo[i][pRHMuteTime] > 0) {
+			PlayerInfo[i][pRHMuteTime]--;
+		}
+
+		if(GetPVarType(i, "hFind"))
+		{
+		    new Float:X, Float:Y, Float:Z, pID = GetPVarInt(i, "hFind");
+		    if(IsPlayerConnected(pID))
+		    {
+		        if(PhoneOnline[pID] == 0 && PlayerInfo[pID][pPnumber] != 0|| PlayerInfo[pID][pBugged] == PlayerInfo[i][pMember])
+		        {
+		            if(GetPlayerInterior(pID) != 0) {
+		                DeletePVar(i, "hFind");
+						DisablePlayerCheckpoint(i);
+						SendClientMessageEx(i, COLOR_GREY, "Cac tin hieu qua yeu de theo doi.");
+					}
+					else {
+					    GetPlayerPos(pID, X, Y, Z);
+					    SetPlayerCheckpoint(i, X, Y, Z, 4.0);
+					}
+				}
+				else
+				{
+
+				    SendClientMessageEx(i, COLOR_GRAD2, "Tin hieu theo doi cua ban da mat ket noi.");
+				    DeletePVar(i, "hFind");
+					DisablePlayerCheckpoint(i);
+				}
+			}
+		}
+
+		/*if(GetPVarType(i, "Backup"))
+		{
+		    new Float:X, Float:Y, Float:Z, pID = GetPVarInt(i, "Backup");
+		    if(IsPlayerConnected(pID))
+		    {
+			    GetPlayerPos(pID, X, Y, Z);
+			    SetPlayerCheckpoint(i, X, Y, Z, 4.0);
+			}
+		}*/
+
+		if(WantLawyer[i] >= 1)
+		{
+			CallLawyer[i] = 111;
+			if(WantLawyer[i] == 1)
+			{
+				SendClientMessageEx(i, COLOR_LIGHTRED, "Ban co muon mot luat su? (Su dung yes hoac no)");
+			}
+			WantLawyer[i] ++;
+			if(WantLawyer[i] == 8)
+			{
+				SendClientMessageEx(i, COLOR_LIGHTRED, "Ban co muon mot luat su? (Su dung yes hoac no)");
+			}
+			if(WantLawyer[i] == 15)
+			{
+				SendClientMessageEx(i, COLOR_LIGHTRED, "Ban co muon mot luat su? (Su dung yes hoac no)");
+			}
+			if(WantLawyer[i] == 20)
+			{
+				SendClientMessageEx(i, COLOR_LIGHTRED, "Khong co luat su nao dang lam viec, ban se bi vao tu vao luc nay.");
+				WantLawyer[i] = 0;
+				CallLawyer[i] = 0;
+			}
+		}
+		if(PlayerDrunk[i] >= 5)
+		{
+			PlayerDrunkTime[i] += 1;
+			if(PlayerDrunkTime[i] == 8)
+			{
+				PlayerDrunkTime[i] = 0;
+
+				if(IsPlayerInAnyVehicle(i))
+				{
+					if(GetPlayerState(i) == 2)
+					{
+						new Float:angle;
+						GetPlayerFacingAngle(i, angle);
+						SetVehicleZAngle(GetPlayerVehicleID(i), angle + random(10) - 5);
+					}
+				}
+				else
+				{
+					ApplyAnimation(i,"PED", "WALK_DRUNK",4.0,0,1,0,0,0);
+				}
+			}
+		}
+		if(PlayerStoned[i] >= 3)
+		{
+			PlayerStoned[i] += 1;
+			SetPlayerDrunkLevel(i, 40000);
+			if(PlayerStoned[i] == 50)
+			{
+				PlayerStoned[i] = 0;
+				SetPlayerDrunkLevel(i, 0);
+				SendClientMessageEx(i, COLOR_GRAD1, " Ban khong con bi nem da!");
+			}
+		}
+		if(BoxWaitTime[i] > 0)
+		{
+			if(BoxWaitTime[i] >= BoxDelay)
+			{
+				BoxDelay = 0;
+				BoxWaitTime[i] = 0;
+				PlayerPlaySound(i, 1057, 0.0, 0.0, 0.0);
+				GameTextForPlayer(i, "~g~Bat dau tran dau", 5000, 1);
+				TogglePlayerControllable(i, 1);
+				RoundStarted = 1;
+			}
+			else
+			{
+				format(string, sizeof(string), "%d", BoxDelay - BoxWaitTime[i]);
+				GameTextForPlayer(i, string, 1500, 6);
+				BoxWaitTime[i] += 1;
+			}
+		}
+		if(RoundStarted > 0)
+		{
+			if(PlayerBoxing[i] > 0)
+			{
+				new trigger = 0;
+				new Lost = 0;
+				new Float:angle;
+				new Float:health;
+				GetPlayerHealth(i, health);
+				if(health < 12)
+				{
+					if(i == Boxer1) { Lost = 1; trigger = 1; }
+					else if(i == Boxer2) { Lost = 2; trigger = 1; }
+				}
+				if(health < 28) { GetPlayerFacingAngle(i, angle); SetPlayerFacingAngle(i, angle + 85); }
+				if(trigger)
+				{
+					new winner[MAX_PLAYER_NAME];
+					new loser[MAX_PLAYER_NAME];
+					new titel[MAX_PLAYER_NAME];
+					if(Lost == 1)
+					{
+						if(IsPlayerConnected(Boxer1) && IsPlayerConnected(Boxer2))
+						{
+							if(IsPlayerInRangeOfPoint(Boxer1,25.0,768.48, -73.66, 1000.57) || IsPlayerInRangeOfPoint(Boxer2,25.0,768.48, -73.66, 1000.57))
+							{
+								SetPlayerPos(Boxer1, 768.48, -73.66, 1000.57); SetPlayerPos(Boxer2, 768.48, -73.66, 1000.57);
+								SetPlayerInterior(Boxer1, 7); SetPlayerInterior(Boxer2, 7);
+								GetPlayerName(Boxer1, loser, sizeof(loser));
+								GetPlayerName(Boxer2, winner, sizeof(winner));
+								SetPlayerWeapons(Boxer1);
+								SetPlayerWeapons(Boxer2);
+								if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer1][pLoses] += 1; }
+								if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer2][pWins] += 1; }
+								if(TBoxer != INVALID_PLAYER_ID)
+								{
+									if(IsPlayerConnected(TBoxer))
+									{
+										if(TBoxer != Boxer2)
+										{
+											if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12)
+											{
+												TBoxer = Boxer2;
+												GetPlayerName(TBoxer, titel, sizeof(titel));
+												new nstring[MAX_PLAYER_NAME];
+												format(nstring, sizeof(nstring), "%s", titel);
+												strmid(Titel[TitelName], nstring, 0, strlen(nstring), 255);
+												Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+												Titel[TitelLoses] = PlayerInfo[TBoxer][pLoses];
+												Misc_Save();
+												format(string, sizeof(string), "Tin tuc Boxing: %s da danh chien thang truoc %s va bay gio la nha vo dich moi.",  titel, loser);
+												ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+											}
+											else
+											{
+												SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban se la nha vo dich neu ban co cong viec Boxer!");
+											}
+										}
+										else
+										{
+											GetPlayerName(TBoxer, titel, sizeof(titel));
+											format(string, sizeof(string), "Tin tuc Boxing: Nha vo dich %s da gianh chien thang truoc %s.",  titel, loser);
+											ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+											Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+											Titel[TitelLoses] = PlayerInfo[Boxer2][pLoses];
+											Misc_Save();
+										}
+									}
+								}//TBoxer
+								format(string, sizeof(string), "* Ban da chien thang truoc %s.", winner);
+								SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, string);
+								GameTextForPlayer(Boxer1, "~r~Ban thua", 3500, 1);
+								format(string, sizeof(string), "* Ban da chien thang truoc %s.", loser);
+								SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, string);
+								GameTextForPlayer(Boxer2, "~r~Ban thang", 3500, 1);
+								if(GetPlayerHealth(Boxer1, health) < 20)
+								{
+									SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+									SetPlayerHealth(Boxer1, 30.0);
+								}
+								else
+								{
+									SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+									SetPlayerHealth(Boxer1, 50.0);
+								}
+								if(GetPlayerHealth(Boxer2, health) < 20)
+								{
+									SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+									SetPlayerHealth(Boxer2, 30.0);
+								}
+								else
+								{
+									SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+									SetPlayerHealth(Boxer2, 50.0);
+								}
+								GameTextForPlayer(Boxer1, "~g~Match Over", 5000, 1); GameTextForPlayer(Boxer2, "~g~Match Over", 5000, 1);
+								if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12) { PlayerInfo[Boxer2][pBoxSkill] += 1; }
+								PlayerBoxing[Boxer1] = 0;
+								PlayerBoxing[Boxer2] = 0;
+							}
+							SetPlayerPos(Boxer1, 765.8433,3.2924,1000.7186); SetPlayerPos(Boxer2, 765.8433,3.2924,1000.7186);
+							SetPlayerInterior(Boxer1, 5); SetPlayerInterior(Boxer2, 5);
+							GetPlayerName(Boxer1, loser, sizeof(loser));
+							GetPlayerName(Boxer2, winner, sizeof(winner));
+							SetPlayerWeapons(Boxer1);
+							SetPlayerWeapons(Boxer2);
+							if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer1][pLoses] += 1; }
+							if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12) { PlayerInfo[Boxer2][pWins] += 1; }
+							if(TBoxer != INVALID_PLAYER_ID)
+							{
+								if(IsPlayerConnected(TBoxer))
+								{
+									if(TBoxer != Boxer2)
+									{
+										if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12)
+										{
+											TBoxer = Boxer2;
+											GetPlayerName(TBoxer, titel, sizeof(titel));
+											new nstring[MAX_PLAYER_NAME];
+											format(nstring, sizeof(nstring), "%s", titel);
+											strmid(Titel[TitelName], nstring, 0, strlen(nstring), 255);
+											Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+											Titel[TitelLoses] = PlayerInfo[TBoxer][pLoses];
+											Misc_Save();
+											format(string, sizeof(string), "Tin tuc Boxing: %s da danh chien thang truoc %s va bay gio la nha vo dich moi.",  titel, loser);
+											ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+										}
+										else
+										{
+											SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban se la nha vo dich neu ban co cong viec Boxer!");
+										}
+									}
+									else
+									{
+										GetPlayerName(TBoxer, titel, sizeof(titel));
+										format(string, sizeof(string), "Tin tuc Boxing: Nha vo dich %s da gianh chien thang truoc %s.",  titel, loser);
+										ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+										Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+										Titel[TitelLoses] = PlayerInfo[Boxer2][pLoses];
+										Misc_Save();
+									}
+								}
+							}//TBoxer
+							format(string, sizeof(string), "* Ban da chien thang truoc %s.", winner);
+							SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, string);
+							GameTextForPlayer(Boxer1, "~r~Ban thua", 3500, 1);
+							format(string, sizeof(string), "* Ban da chien thang truoc %s.", loser);
+							SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, string);
+							GameTextForPlayer(Boxer2, "~r~Ban thang", 3500, 1);
+							if(GetPlayerHealth(Boxer1, health) < 20)
+							{
+								SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+								SetPlayerHealth(Boxer1, 30.0);
+							}
+							else
+							{
+								SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+								SetPlayerHealth(Boxer1, 50.0);
+							}
+							if(GetPlayerHealth(Boxer2, health) < 20)
+							{
+								SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+								SetPlayerHealth(Boxer2, 30.0);
+							}
+							else
+							{
+								SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+								SetPlayerHealth(Boxer2, 50.0);
+							}
+							GameTextForPlayer(Boxer1, "~g~Match Over", 5000, 1); GameTextForPlayer(Boxer2, "~g~Match Over", 5000, 1);
+							if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12) { PlayerInfo[Boxer2][pBoxSkill] += 1; }
+							PlayerBoxing[Boxer1] = 0;
+							PlayerBoxing[Boxer2] = 0;
+						}
+					}
+					else if(Lost == 2)
+					{
+						if(IsPlayerConnected(Boxer1) && IsPlayerConnected(Boxer2))
+						{
+							if(IsPlayerInRangeOfPoint(Boxer1,25.0,768.48, -73.66, 1000.57) || IsPlayerInRangeOfPoint(Boxer2,25.0, 768.48, -73.66, 1000.57))
+							{
+								SetPlayerPos(Boxer1, 768.48, -73.66, 1000.57); SetPlayerPos(Boxer2, 768.48, -73.66, 1000.57);
+								SetPlayerInterior(Boxer1, 7); SetPlayerInterior(Boxer2, 7);
+								GetPlayerName(Boxer1, winner, sizeof(winner));
+								GetPlayerName(Boxer2, loser, sizeof(loser));
+								if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12) { PlayerInfo[Boxer2][pLoses] += 1; }
+								if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer1][pWins] += 1; }
+								if(TBoxer != INVALID_PLAYER_ID)
+								{
+									if(IsPlayerConnected(TBoxer))
+									{
+										if(TBoxer != Boxer1)
+										{
+											if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12)
+											{
+												TBoxer = Boxer1;
+												GetPlayerName(TBoxer, titel, sizeof(titel));
+												new nstring[MAX_PLAYER_NAME];
+												format(nstring, sizeof(nstring), "%s", titel);
+												strmid(Titel[TitelName], nstring, 0, strlen(nstring), 255);
+												Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+												Titel[TitelLoses] = PlayerInfo[TBoxer][pLoses];
+												Misc_Save();
+												format(string, sizeof(string), "Tin tuc Boxing: %s da danh chien thang truoc %s va bay gio la nha vo dich moi.",  titel, loser);
+												ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+											}
+											else
+											{
+												SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban se la nha vo dich neu ban co cong viec Boxer!");
+											}
+										}
+										else
+										{
+											GetPlayerName(TBoxer, titel, sizeof(titel));
+											format(string, sizeof(string), "Tin tuc Boxing: Nha vo dich %s da gianh chien thang truoc %s.",  titel, loser);
+											ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+											Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+											Titel[TitelLoses] = PlayerInfo[Boxer1][pLoses];
+											Misc_Save();
+										}
+									}
+								}//TBoxer
+								format(string, sizeof(string), "* Ban da chien thang truoc %s.", winner);
+								SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, string);
+								GameTextForPlayer(Boxer2, "~r~Ban thang", 3500, 1);
+								format(string, sizeof(string), "* Ban da chien thang truoc %s.", loser);
+								SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, string);
+								GameTextForPlayer(Boxer1, "~g~Ban thua", 3500, 1);
+								if(GetPlayerHealth(Boxer1, health) < 20)
+								{
+									SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+									SetPlayerHealth(Boxer1, 30.0);
+								}
+								else
+								{
+									SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+									SetPlayerHealth(Boxer1, 50.0);
+								}
+								if(GetPlayerHealth(Boxer2, health) < 20)
+								{
+									SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+									SetPlayerHealth(Boxer2, 30.0);
+								}
+								else
+								{
+									SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+									SetPlayerHealth(Boxer2, 50.0);
+								}
+								GameTextForPlayer(Boxer1, "~g~Match Over", 5000, 1); GameTextForPlayer(Boxer2, "~g~Match Over", 5000, 1);
+								if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer1][pBoxSkill] += 1; }
+								PlayerBoxing[Boxer1] = 0;
+								PlayerBoxing[Boxer2] = 0;
+							}
+							SetPlayerPos(Boxer1, 768.48, -73.66, 1000.57); SetPlayerPos(Boxer2, 768.48, -73.66, 1000.57);
+							SetPlayerInterior(Boxer1, 7); SetPlayerInterior(Boxer2, 7);
+							GetPlayerName(Boxer1, winner, sizeof(winner));
+							GetPlayerName(Boxer2, loser, sizeof(loser));
+							if(PlayerInfo[Boxer2][pJob] == 12 || PlayerInfo[Boxer2][pJob2] == 12) { PlayerInfo[Boxer2][pLoses] += 1; }
+							if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer1][pWins] += 1; }
+							if(TBoxer != INVALID_PLAYER_ID)
+							{
+								if(IsPlayerConnected(TBoxer))
+								{
+									if(TBoxer != Boxer1)
+									{
+										if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12)
+										{
+											TBoxer = Boxer1;
+											GetPlayerName(TBoxer, titel, sizeof(titel));
+											new nstring[MAX_PLAYER_NAME];
+											format(nstring, sizeof(nstring), "%s", titel);
+											strmid(Titel[TitelName], nstring, 0, strlen(nstring), 255);
+											Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+											Titel[TitelLoses] = PlayerInfo[TBoxer][pLoses];
+											Misc_Save();
+											format(string, sizeof(string), "Tin tuc Boxing: %s da danh chien thang truoc %s va bay gio la nha vo dich moi.",  titel, loser);
+											ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+										}
+										else
+										{
+											SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban se la nha vo dich neu ban co cong viec Boxer!");
+										}
+									}
+									else
+									{
+										GetPlayerName(TBoxer, titel, sizeof(titel));
+										format(string, sizeof(string), "Tin tuc Boxing: Nha vo dich %s da gianh chien thang truoc %s.",  titel, loser);
+										ProxDetector(30.0, Boxer1, string, COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+										Titel[TitelWins] = PlayerInfo[TBoxer][pWins];
+										Titel[TitelLoses] = PlayerInfo[Boxer1][pLoses];
+										Misc_Save();
+									}
+								}
+							}//TBoxer
+							format(string, sizeof(string), "* Ban da gianh chien thang truoc %s.", winner);
+							SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, string);
+							GameTextForPlayer(Boxer2, "~r~Ban thua", 3500, 1);
+							format(string, sizeof(string), "* Ban da gianh chien thang truoc %s.", loser);
+							SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, string);
+							GameTextForPlayer(Boxer1, "~g~Ban thang", 3500, 1);
+							if(GetPlayerHealth(Boxer1, health) < 20)
+							{
+								SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+								SetPlayerHealth(Boxer1, 30.0);
+							}
+							else
+							{
+								SendClientMessageEx(Boxer1, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+								SetPlayerHealth(Boxer1, 50.0);
+							}
+							if(GetPlayerHealth(Boxer2, health) < 20)
+							{
+								SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban da cam thay kiet suc sau tran chien, hay di an o dau do cung ban be.");
+								SetPlayerHealth(Boxer2, 30.0);
+							}
+							else
+							{
+								SendClientMessageEx(Boxer2, COLOR_LIGHTBLUE, "* Ban cam thay tuyet voi ngay sau khi chien thang.");
+								SetPlayerHealth(Boxer2, 50.0);
+							}
+							GameTextForPlayer(Boxer1, "~g~Match Over", 5000, 1); GameTextForPlayer(Boxer2, "~g~Match Over", 5000, 1);
+							if(PlayerInfo[Boxer1][pJob] == 12 || PlayerInfo[Boxer1][pJob2] == 12) { PlayerInfo[Boxer1][pBoxSkill] += 1; }
+							PlayerBoxing[Boxer1] = 0;
+							PlayerBoxing[Boxer2] = 0;
+						}
+					}
+					InRing = 0;
+					RoundStarted = 0;
+					Boxer1 = INVALID_PLAYER_ID;
+					Boxer2 = INVALID_PLAYER_ID;
+					TBoxer = INVALID_PLAYER_ID;
+					trigger = 0;
+				}
+			}
+		}
 		if(FindTime[i] >= 1)
 		{
 			if(FindTime[i] == FindTimePoints[i]) {
@@ -222,6 +998,19 @@ task ServerHeartbeat[1000]() {
 					GetPlayerPos(BusAccepted[i], X, Y, Z);
 					SetPlayerCheckpoint(i, X, Y, Z, 5);
 				}
+			}
+		}
+		if(MedicCallTime[i] > 0)
+		{
+			if(MedicCallTime[i] == 45) { MedicCallTime[i] = 0; DisablePlayerCheckpoint(i); PlayerPlaySound(i, 1056, 0.0, 0.0, 0.0); GameTextForPlayer(i, "~r~RedMarker gone", 2500, 1); }
+			else
+			{
+				format(string, sizeof(string), "%d", 45 - MedicCallTime[i]);
+				new Float:X,Float:Y,Float:Z;
+				GetPlayerPos(MedicAccepted[i], X, Y, Z);
+				SetPlayerCheckpoint(i, X, Y, Z, 5);
+				GameTextForPlayer(i, string, 1500, 6);
+				MedicCallTime[i] += 1;
 			}
 		}
 		if(MechanicCallTime[i] > 0)
