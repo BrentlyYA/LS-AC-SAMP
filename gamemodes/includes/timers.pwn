@@ -1085,6 +1085,48 @@ task ServerHeartbeat[1000]() {
 		}
   		UpdateSpeedCamerasForPlayer(i);
 
+		if (PlayerInfo[i][pAdmin] < 2 || HelpingNewbie[i] != INVALID_PLAYER_ID)
+		{
+			if (PlayerInfo[i][pHospital] == 0 && GetPVarInt(i, "Injured") != 1 && GetPVarInt(i, "IsFrozen") == 0 && GetPVarInt(i, "PlayerCuffed") == 0)
+			{
+				if (++PlayerInfo[i][pHungerTimer] >= 1800 && PlayerInfo[i][pHunger] > 0) // 30 minutes
+				{
+					PlayerInfo[i][pHungerTimer] = 0;
+					PlayerInfo[i][pHunger] -= 8;
+					if (PlayerInfo[i][pHunger] < 0)
+						PlayerInfo[i][pHunger] = 0;
+
+					if (PlayerInfo[i][pHunger] == 0)
+					{
+						SendClientMessageEx(i, COLOR_RED, "Ban dang doi bung - ban can phai an!");
+					}
+				}
+
+				if(PlayerCuffed[i] == 0)
+				{
+					if (PlayerInfo[i][pHunger] == 0 && ++PlayerInfo[i][pHungerDeathTimer] >= 600) // 10 minutes
+					{
+						SendClientMessageEx(i, COLOR_RED, "Ban dang bi bat tinh vi doi bung");
+						SetPlayerHealth(i, 0);
+						PlayerInfo[i][pHungerDeathTimer] = 0;
+					}
+				}
+			}
+
+			// update hunger text draw
+			switch (PlayerInfo[i][pHunger])
+			{
+				case 80..100:
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
+				case 40..79:
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
+				case 20..39:
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
+				case 0..19:
+					PlayerTextDrawSetString(i, _hungerText[i], " ");
+			}
+		}
+
 		if (GetPVarInt(i, "_BoxingQueue") == 1)
 		{
 			SetPVarInt(i, "_BoxingQueueTick", GetPVarInt(i, "_BoxingQueueTick") + 1);

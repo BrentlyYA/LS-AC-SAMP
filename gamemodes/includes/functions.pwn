@@ -9453,6 +9453,549 @@ stock SetPlayerSpawn(playerid)
 				EventLastInt[playerid] = 0;
 				return 1;
 			}
+		}
+		if(GetPVarInt(playerid, "MedicBill") == 1 && PlayerInfo[playerid][pJailTime] == 0)
+		{
+		    #if defined zombiemode
+	    	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie"))
+			{
+				SpawnZombie(playerid);
+  				return 1;
+			}
+			#endif
+			SendClientMessageEx( playerid, TEAM_CYAN_COLOR, "Truoc khi ban xuat vien, nhan vien benh vien se tich thu toan bo vu khi cua ban." );
+			PlayerInfo[playerid][pDuty] = 0;
+			PlayerInfo[playerid][pVW] = 0;
+			PlayerInfo[playerid][pInt] = 0;
+			PlayerInfo[playerid][pHunger] = 50;
+
+			//Tazer & Cuff reset
+			PlayerInfo[playerid][pHasCuff] = 0;
+			PlayerInfo[playerid][pHasTazer] = 0;
+
+			// decrease fitness by 8
+			if (PlayerInfo[playerid][pFitness] >= 6)
+				PlayerInfo[playerid][pFitness] -= 6;
+			else
+				PlayerInfo[playerid][pFitness] = 0;
+
+			SetPlayerVirtualWorld(playerid, 0);
+			/*new cut = deathcost; //PlayerInfo[playerid][pLevel]*deathcost;
+			GivePlayerCash(playerid, -cut); GetPlayerDistanceFromPoint(iPlayerTwo, fPlayerPos[0], fPlayerPos[1], fPlayerPos[2]);
+			format(string, sizeof(string), "Your hospital bill comes to $%d. Have a nice day!", cut);
+			SendClientMessageEx(playerid, TEAM_CYAN_COLOR, string);*/
+			ResetPlayerWeapons(playerid);
+
+			if( GetPVarInt( playerid, "EventToken" ) == 1 )
+			{
+				//SendClientMessageEx( playerid, COLOR_WHITE, "As you've just come from an event, your weapons have been refunded." );
+			}
+			else
+			{
+				ResetPlayerWeaponsEx(playerid);
+			}
+
+			SetPVarInt(playerid, "MedicBill", 1);
+			SetPlayerInterior(playerid, 0);
+			new string[70+MAX_PLAYER_NAME];
+			if(PlayerInfo[playerid][pWantedLevel] > 1 && PlayerInfo[playerid][pInsurance] > 5)
+			{
+				new randhos = Random(1, 6);
+				switch (randhos)
+   				{
+    				case 1:
+  	    			{
+						SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+						format(string, sizeof(string), " County General Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+						SetPlayerCameraPos(playerid,1999.5308,-1449.3281,13.5594+6.0);
+						SetPlayerCameraLookAt(playerid,2036.2179,-1410.3223,17.1641);
+						SetPlayerPos(playerid, 1999.5308,-1449.3281,10.5594);
+						PlayerInfo[playerid][pHospital] = 2;
+					}
+					case 2:
+					{
+						SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+						format(string, sizeof(string), " All Saints Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+						SetPlayerCameraPos(playerid,1188.4574,-1309.2242,13.5625+6.0);
+						SetPlayerCameraLookAt(playerid,1175.5581,-1324.7922,18.1610);
+						SetPlayerPos(playerid, 1188.4574,-1309.2242,10.5625); // Warp the player
+						PlayerInfo[playerid][pHospital] = 1;
+					}
+					case 3:
+					{
+						SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+						format(string, sizeof(string), " Red County Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+						SetPlayerCameraPos(playerid,1248.4147,338.8385,19.4063+6.0);
+						SetPlayerCameraLookAt(playerid,1241.4449,326.3389,19.7555);
+						SetPlayerPos(playerid, 1248.4147,338.8385,19.4063);
+						PlayerInfo[playerid][pHospital] = 3;
+					}
+					case 4:
+					{
+						SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+						format(string, sizeof(string), " Fort Carson Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+						SetPlayerCameraPos(playerid,-314.0242,1060.7919,19.5938+6.0);
+						SetPlayerCameraLookAt(playerid,-320.0992,1049.0341,20.3403);
+						SetPlayerPos(playerid, -314.0242,1060.7919,19.5938);
+						PlayerInfo[playerid][pHospital] = 4;
+					}
+					case 5:
+					{
+						SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+						format(string, sizeof(string), " San Fierro Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+						SetPlayerCameraPos(playerid,-2571.2766,558.7813,68.1754);
+						SetPlayerCameraLookAt(playerid,-2619.2883,596.2850,49.0966);
+						SetPlayerPos(playerid, -2653.6685,626.6485,4.8930);
+						PlayerInfo[playerid][pHospital] = 5;
+					}
+				}
+				SendGroupMessage(1, DEPTRADIO, string);
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 1)
+			{
+				SetPlayerCameraPos(playerid,1999.5308,-1449.3281,13.5594+6.0);
+				SetPlayerCameraLookAt(playerid,2036.2179,-1410.3223,17.1641);
+				SetPlayerPos(playerid, 1999.5308,-1449.3281,10.5594);
+				PlayerInfo[playerid][pHospital] = 2;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 2)
+			{
+				SetPlayerCameraPos(playerid,1188.4574,-1309.2242,13.5625+6.0);
+				SetPlayerCameraLookAt(playerid,1175.5581,-1324.7922,18.1610);
+				SetPlayerPos(playerid, 1188.4574,-1309.2242,10.5625); // Warp the player
+				PlayerInfo[playerid][pHospital] = 1;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 3)
+			{
+				SetPlayerCameraPos(playerid,1237.849243, 352.657409, 23.576650);
+				SetPlayerCameraLookAt(playerid,1239.147705, 348.883331, 23.311220);
+				SetPlayerPos(playerid, 1248.4147,338.8385,16.0);
+				PlayerInfo[playerid][pHospital] = 3;
+			}
+   			else if(PlayerInfo[playerid][pInsurance] == 4)
+			{
+				SetPlayerCameraPos(playerid,-314.0242,1060.7919,19.5938+6.0);
+				SetPlayerCameraLookAt(playerid,-320.0992,1049.0341,20.3403);
+				SetPlayerPos(playerid, -314.0242,1060.7919,19.5938);
+				PlayerInfo[playerid][pHospital] = 4;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 5)
+			{
+				SetPlayerCameraPos(playerid,-2571.2766,558.7813,68.1754);
+				SetPlayerCameraLookAt(playerid,-2619.2883,596.2850,49.0966);
+				SetPlayerPos(playerid, -2653.6685,626.6485,4.8930);
+				PlayerInfo[playerid][pHospital] = 5;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 6)
+			{
+			    if(PlayerInfo[playerid][pDonateRank] >= 3)
+			    {
+					SetPlayerCameraPos(playerid,2787.102050, 2392.162841, 1243.898681);
+					SetPlayerCameraLookAt(playerid,2801.281982, 2404.575683, 1240.531127);
+					SetPlayerPos(playerid, 2788.561523, 2387.321044, 1227.350219);
+					PlayerInfo[playerid][pHospital] = 7;
+				}
+				else
+				{
+					PlayerInfo[playerid][pInsurance] = 0;
+			        SetPlayerSpawn(playerid);
+				}
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 7)
+			{
+				SetPlayerCameraPos(playerid,2787.102050, 2392.162841, 1243.898681);
+				SetPlayerCameraLookAt(playerid,2801.281982, 2404.575683, 1240.531127);
+				SetPlayerPos(playerid, 2788.561523, 2387.321044, 1227.350219);
+				PlayerInfo[playerid][pHospital] = 8;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 8)
+			{
+
+			    new Float:X, Float:Y, Float:Z;
+				GetDynamicObjectPos(Carrier[0], X, Y, Z);
+				SetPlayerCameraPos(playerid,(X-100),(Y-100),30);
+				SetPlayerCameraLookAt(playerid,X, Y, Z);
+				SetPlayerPos(playerid, (X-0.377671),(Y-10.917018),0);
+				PlayerInfo[playerid][pHospital] = 9;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 9)
+			{
+				SetPlayerCameraPos(playerid, -1529.847167, 2539.394042, 62.038913);
+				SetPlayerCameraLookAt(playerid, -1514.883300, 2527.161132, 55.743553);
+				SetPlayerPos(playerid, -1514.809204, 2526.305175, 51.865501);
+				PlayerInfo[playerid][pHospital] = 10;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 10)
+			{
+				if(!IsACop(playerid))
+				{
+			        PlayerInfo[playerid][pInsurance] = 0;
+			        SetPlayerSpawn(playerid);
+				}
+				else
+				{
+					SetPlayerPos(playerid,-1633.0745, 266.1379, 1.2124);
+					SetPlayerCameraPos(playerid, -1633.7493, 266.4792, 28.4621);
+					SetPlayerCameraLookAt(playerid, -1634.6990, 266.8079, 28.1269);
+					TogglePlayerControllable(playerid, 0);
+					PlayerInfo[playerid][pHospital] = 11;
+				}
+			}
+            else if(PlayerInfo[playerid][pInsurance] == 11)
+			{
+				SetPlayerCameraPos(playerid, 1575.5074, 1862.8700, 22.8418);
+				SetPlayerCameraLookAt(playerid, 1607.4342, 1826.3204, 10.8203);
+				SetPlayerPos(playerid, 1578.7942, 1862.1686, 3.6148);
+				PlayerInfo[playerid][pHospital] = 12;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 12)
+			{
+				SetPlayerCameraPos(playerid, 922.253, 1430.680, -80.411);
+    			SetPlayerCameraLookAt(playerid,917.2774,1425.5016,-80.7928);
+				SetPlayerPos(playerid, 922.4749, 1430.8566, -85.9349);
+				PlayerInfo[playerid][pHospital] = 13;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 13) //DeMorgan
+			{
+				SetPlayerCameraPos(playerid, 241.085021, 2018.862182, 24.019464);
+				SetPlayerCameraLookAt(playerid, 239.654739, 2015.127685, 23.928848);
+				SetPlayerPos(playerid, 226.7881,1981.7726,11.6014);
+				PlayerInfo[playerid][pHospital] = 14;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 14) //TR - Bayside
+			{
+				SetPlayerCameraPos(playerid, -2472.393310, 2255.071777, 8.939566);
+				SetPlayerCameraLookAt(playerid, -2475.382324, 2252.422119, 9.152222);
+				SetPlayerPos(playerid, -2486.7124,2234.5493,1.0);
+				PlayerInfo[playerid][pHospital] = 15;
+			}
+   			if(PlayerInfo[playerid][pInsurance] == 0)
+			{
+				new randhos = Random(1,3);
+ 				switch (randhos)
+   				{
+    				case 1:
+  	    			{
+    					if(PlayerInfo[playerid][pWantedLevel] >= 1)
+						{
+				    		SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    		format(string, sizeof(string), " All Saints Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    		SendGroupMessage(1, DEPTRADIO, string);
+						}
+
+						SetPlayerCameraPos(playerid,1188.4574,-1309.2242,13.5625+6.0);
+						SetPlayerCameraLookAt(playerid,1175.5581,-1324.7922,18.1610);
+						SetPlayerPos(playerid, 1188.4574,-1309.2242,10.5625); // Warp the player
+						PlayerInfo[playerid][pHospital] = 6;
+  	    			}
+    	    		case 2:
+	    	    	{
+    			    	if(PlayerInfo[playerid][pWantedLevel] >= 1)
+						{
+				    		SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    		format(string, sizeof(string), " County General Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    		SendGroupMessage(1, DEPTRADIO, string);
+						}
+
+						SetPlayerCameraPos(playerid,1999.5308,-1449.3281,13.5594+6.0);
+						SetPlayerCameraLookAt(playerid,2036.2179,-1410.3223,17.1641);
+						SetPlayerPos(playerid, 1999.5308,-1449.3281,10.5594);
+						PlayerInfo[playerid][pHospital] = 2;
+   					}
+   				}
+			}
+			TogglePlayerControllable(playerid, 0);
+			SetPlayerHealth(playerid, 0.5);
+			if(PlayerInfo[playerid][pHealthCare] == 0)
+			{
+			    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong co tieu chuan de cham soc suc khoe tot hon, su dung /chamsocsuckhoe de mua goi cham soc suc khoe khi vao vien.");
+				SetPVarInt(playerid, "HospitalTimer", 10);
+			}
+			else if(PlayerInfo[playerid][pHealthCare] == 1)
+			{
+			    if(PlayerInfo[playerid][pCredits] >= ShopItems[18][sItemPrice])
+			    {
+			        GivePlayerCredits(playerid, -ShopItems[18][sItemPrice], 1);
+			        printf("Price18: %d", 1);
+			    	SetPVarInt(playerid, "HealthCareActive", 1);
+
+                    AmountSold[18]++;
+                    AmountMade[18] += ShopItems[18][sItemPrice];
+			    	//ShopItems[18][sSold]++;
+					//ShopItems[18][sMade] += ShopItems[18][sItemPrice];
+					new szQuery[128];
+				 	format(szQuery, sizeof(szQuery), "UPDATE `sales` SET `TotalSold18` = '%d', `AmountMade18` = '%d' WHERE `Month` > NOW() - INTERVAL 1 MONTH", AmountSold[18], AmountMade[18]);
+					mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+
+					format(string, sizeof(string), "[HC] [User: %s(%i)][IP: %s][Credits: %s][Binh thuong][Gia: %s]", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[18][sItemPrice]));
+					Log("logs/credits.log", string), print(string);
+				}
+				else
+				{
+				    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong du credits de mua goi cham soc suc khoe binh thuong.");
+				}
+			    SetPVarInt(playerid, "HospitalTimer", 10);
+			}
+			else
+			{
+			    if(PlayerInfo[playerid][pCredits] >= ShopItems[19][sItemPrice])
+			    {
+			        GivePlayerCredits(playerid, -ShopItems[19][sItemPrice], 1);
+			        printf("Price19: %d", 2);
+			    	SetPVarInt(playerid, "HospitalTimer", 5);
+			    	SetPVarInt(playerid, "HealthCareActive", 1);
+                    AmountSold[19]++;
+					AmountMade[19] += ShopItems[19][sItemPrice];
+			    	//ShopItems[19][sSold]++;
+					//ShopItems[19][sMade] += ShopItems[19][sItemPrice];
+					new szQuery[128];
+					format(szQuery, sizeof(szQuery), "UPDATE `sales` SET `TotalSold19` = '%d', `AmountMade19` = '%d' WHERE `Month` > NOW() - INTERVAL 1 MONTH", AmountSold[19], AmountMade[19]);
+					mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+
+			    	format(string, sizeof(string), "[HC] [User: %s(%i)][IP: %s][Credits: %s][Nang cao][Gia: %s]", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[19][sItemPrice]));
+					Log("logs/credits.log", string), print(string);
+				}
+				else
+				{
+				    SetPVarInt(playerid, "HospitalTimer", 10);
+				    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong du credits de mua goi cham soc suc khoe nang cao.");
+				}
+			}
+			SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_HOSPITALTIMER);
+			return 1;
+		}
+		if(PlayerInfo[playerid][pHospital] == 0)
+		{
+			SetPlayerPos(playerid,PlayerInfo[playerid][pPos_x],PlayerInfo[playerid][pPos_y],PlayerInfo[playerid][pPos_z]);
+			//PlayerInfo[playerid][pInterior] = PlayerInfo[playerid][pInt];
+			SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][pVW]);
+			SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pPos_r]);
+			SetPlayerInterior(playerid,PlayerInfo[playerid][pInt]);
+			if(PlayerInfo[playerid][pHealth] < 1) PlayerInfo[playerid][pHealth] = 100;
+			SetPlayerHealth(playerid, PlayerInfo[playerid][pHealth]);
+			if(PlayerInfo[playerid][pArmor] > 0) {
+				SetPlayerArmor(playerid, PlayerInfo[playerid][pArmor]);
+			}
+			SetCameraBehindPlayer(playerid);
+			if(PlayerInfo[playerid][pInt] > 0) Player_StreamPrep(playerid, PlayerInfo[playerid][pPos_x],PlayerInfo[playerid][pPos_y],PlayerInfo[playerid][pPos_z], FREEZE_TIME);
+		}
+		else
+		{
+		    PlayerInfo[playerid][pDuty] = 0;
+			PlayerInfo[playerid][pVW] = 0;
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			if( GetPVarInt( playerid, "EventToken" ) == 1 )
+			{
+				//SendClientMessageEx( playerid, COLOR_WHITE, "As you've just come from an event, your weapons have been refunded." );
+			}
+			else
+			{
+				ResetPlayerWeaponsEx(playerid);
+			}
+
+			SetPVarInt(playerid, "MedicBill", 1);
+			new string[70+MAX_PLAYER_NAME];
+			if(PlayerInfo[playerid][pInsurance] == 1)
+			{
+			    if(PlayerInfo[playerid][pWantedLevel] >= 1)
+				{
+				    SendClientMessageEx(playerid, COLOR_YELLOW, "Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    format(string, sizeof(string), " County General Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    SendGroupMessage(1, DEPTRADIO, string);
+				}
+				SetPlayerCameraPos(playerid,1999.5308,-1449.3281,13.5594+6.0);
+				SetPlayerCameraLookAt(playerid,2036.2179,-1410.3223,17.1641);
+				SetPlayerPos(playerid, 1999.5308,-1449.3281,10.5594);
+				PlayerInfo[playerid][pHospital] = 2;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 2)
+			{
+			    if(PlayerInfo[playerid][pWantedLevel] >= 1)
+				{
+				    SendClientMessageEx(playerid, COLOR_YELLOW, "Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    format(string, sizeof(string), " All Saints Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    SendGroupMessage(1, DEPTRADIO, string);
+				}
+				SetPlayerCameraPos(playerid,1188.4574,-1309.2242,13.5625+6.0);
+				SetPlayerCameraLookAt(playerid,1175.5581,-1324.7922,18.1610);
+				SetPlayerPos(playerid, 1188.4574,-1309.2242,10.5625); // Warp the player
+				PlayerInfo[playerid][pHospital] = 1;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 3)
+			{
+			    if(PlayerInfo[playerid][pWantedLevel] >= 1)
+				{
+				    SendClientMessageEx(playerid, COLOR_YELLOW, "Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    format(string, sizeof(string), " Red County Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    SendGroupMessage(1, DEPTRADIO, string);
+				}
+				SetPlayerCameraPos(playerid,1248.4147,338.8385,19.4063+6.0);
+				SetPlayerCameraLookAt(playerid,1241.4449,326.3389,19.7555);
+				SetPlayerPos(playerid, 1248.4147,338.8385,19.4063);
+				PlayerInfo[playerid][pHospital] = 3;
+			}
+   			else if(PlayerInfo[playerid][pInsurance] == 4)
+			{
+			    if(PlayerInfo[playerid][pWantedLevel] >= 1)
+				{
+				    SendClientMessageEx(playerid, COLOR_YELLOW, "Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    format(string, sizeof(string), " Fort Carson Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    SendGroupMessage(1, DEPTRADIO, string);
+				}
+				SetPlayerCameraPos(playerid,-314.0242,1060.7919,19.5938+6.0);
+				SetPlayerCameraLookAt(playerid,-320.0992,1049.0341,20.3403);
+				SetPlayerPos(playerid, -314.0242,1060.7919,19.5938);
+				PlayerInfo[playerid][pHospital] = 4;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 5)
+			{
+			    if(PlayerInfo[playerid][pWantedLevel] >= 1)
+				{
+				    SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    format(string, sizeof(string), " San Fierro Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    SendGroupMessage(1, DEPTRADIO, string);
+				}
+				SetPlayerCameraPos(playerid,-2571.2766,558.7813,68.1754);
+				SetPlayerCameraLookAt(playerid,-2619.2883,596.2850,49.0966);
+				SetPlayerPos(playerid, -2653.6685,626.6485,4.8930);
+				PlayerInfo[playerid][pHospital] = 5;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 6)
+			{
+				SetPlayerCameraPos(playerid,2787.102050, 2392.162841, 1243.898681);
+				SetPlayerCameraLookAt(playerid,2801.281982, 2404.575683, 1240.531127);
+				SetPlayerPos(playerid, 2788.561523, 2387.321044, 1227.350219);
+				PlayerInfo[playerid][pHospital] = 7;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 7)
+			{
+				SetPlayerCameraPos(playerid,2787.102050, 2392.162841, 1243.898681);
+				SetPlayerCameraLookAt(playerid,2801.281982, 2404.575683, 1240.531127);
+				SetPlayerPos(playerid, 2788.561523, 2387.321044, 1227.350219);
+				PlayerInfo[playerid][pHospital] = 8;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 8)
+			{
+			    new Float:X, Float:Y, Float:Z;
+				GetDynamicObjectPos(Carrier[0], X, Y, Z);
+				SetPlayerCameraPos(playerid,(X-100),(Y-100),30);
+				SetPlayerCameraLookAt(playerid,X, Y, Z);
+				SetPlayerPos(playerid, (X-0.377671),(Y-10.917018),0);
+				PlayerInfo[playerid][pHospital] = 9;
+			}
+			else if(PlayerInfo[playerid][pInsurance] == 9)
+			{
+				SetPlayerCameraPos(playerid, -1529.847167, 2539.394042, 62.038913);
+				SetPlayerCameraLookAt(playerid, -1514.883300, 2527.161132, 55.743553);
+				SetPlayerPos(playerid, -1514.809204, 2526.305175, 51.865501);
+				PlayerInfo[playerid][pHospital] = 10;
+			}
+   			if(PlayerInfo[playerid][pInsurance] == 0)
+			{
+				new randhos = Random(1,3);
+ 				switch(randhos)
+   				{
+    				case 1:
+  	    			{
+    					if(PlayerInfo[playerid][pWantedLevel] >= 1)
+						{
+				    		SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    		format(string, sizeof(string), " All Saints Hospital da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
+				    		SendGroupMessage(1, DEPTRADIO, string);
+						}
+
+						SetPlayerCameraPos(playerid,1188.4574,-1309.2242,13.5625+6.0);
+						SetPlayerCameraLookAt(playerid,1175.5581,-1324.7922,18.1610);
+						SetPlayerPos(playerid, 1188.4574,-1309.2242,10.5625); // Warp the player
+						PlayerInfo[playerid][pHospital] = 6;
+  	    			}
+    	    		case 2:
+	    	    	{
+    			    	if(PlayerInfo[playerid][pWantedLevel] >= 1)
+						{
+				    		SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
+				    		format(string, sizeof(string), " County General Hospital da bao cao doi tuong truy na %s dang o day", GetPlayerNameEx(playerid));
+				    		SendGroupMessage(1, DEPTRADIO, string);
+						}
+
+						SetPlayerCameraPos(playerid,1999.5308,-1449.3281,13.5594+6.0);
+						SetPlayerCameraLookAt(playerid,2036.2179,-1410.3223,17.1641);
+						SetPlayerPos(playerid, 1999.5308,-1449.3281,10.5594);
+						PlayerInfo[playerid][pHospital] = 2;
+   					}
+   				}
+			}
+			TogglePlayerControllable(playerid, 0);
+			SetPlayerHealth(playerid, 0.5);
+			if(PlayerInfo[playerid][pHealthCare] == 0)
+			{
+			    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong co tieu chuan de cham soc suc khoe tot hon, su dung /chamsocsuckhoe de mua goi cham soc suc khoe khi vao vien.");
+				SetPVarInt(playerid, "HospitalTimer", 10);
+			}
+			else if(PlayerInfo[playerid][pHealthCare] == 1)
+			{
+			    if(PlayerInfo[playerid][pCredits] >= ShopItems[18][sItemPrice])
+			    {
+			        GivePlayerCredits(playerid, -ShopItems[18][sItemPrice], 1);
+			        printf("Price18: %d", 1);
+			    	SetPVarInt(playerid, "HealthCareActive", 1);
+                    AmountSold[18]++;
+					AmountMade[18] += ShopItems[18][sItemPrice];
+			    	//ShopItems[18][sSold]++;
+					//ShopItems[18][sMade] += ShopItems[18][sItemPrice];
+					new szQuery[128];
+				 	format(szQuery, sizeof(szQuery), "UPDATE `sales` SET `TotalSold18` = '%d', `AmountMade18` = '%d' WHERE `Month` > NOW() - INTERVAL 1 MONTH", AmountSold[18], AmountMade[18]);
+					mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+
+					format(string, sizeof(string), "[HC] [User: %s(%i)][IP: %s][Credits: %s][Binh thuong][Gia: %s]", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[18][sItemPrice]));
+					Log("logs/credits.log", string), print(string);
+				}
+				else
+				{
+				    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong du credits de mua goi cham soc suc khoe binh thuong");
+				}
+			    SetPVarInt(playerid, "HospitalTimer", 10);
+			}
+			else
+			{
+			    if(PlayerInfo[playerid][pCredits] >= ShopItems[19][sItemPrice])
+			    {
+			        GivePlayerCredits(playerid, -ShopItems[19][sItemPrice], 1);
+			        printf("Price19: %d", ShopItems[19][sItemPrice]);
+			    	SetPVarInt(playerid, "HospitalTimer", 5);
+			    	SetPVarInt(playerid, "HealthCareActive", 1);
+                    AmountSold[19]++;
+					AmountMade[19] += ShopItems[19][sItemPrice];
+			    	//ShopItems[19][sSold]++;
+					//ShopItems[19][sMade] += ShopItems[19][sItemPrice];
+					new szQuery[128];
+				 	format(szQuery, sizeof(szQuery), "UPDATE `sales` SET `TotalSold19` = '%d', `AmountMade19` = '%d' WHERE `Month` > NOW() - INTERVAL 1 MONTH", AmountSold[19], AmountMade[19]);
+					mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+
+			    	format(string, sizeof(string), "[HC] [User: %s(%i)][IP: %s][Credits: %s][Nang cao][Price: %s]", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[19][sItemPrice]));
+					Log("logs/credits.log", string), print(string);
+				}
+				else
+				{
+				    SetPVarInt(playerid, "HospitalTimer", 10);
+				    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong du credits de mua goi cham soc suc khoe nang cao.");
+				}
+			}
+			SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_HOSPITALTIMER);
+		}
+		new Float: x, Float: y, Float: z;
+		GetPlayerPos(playerid, x, y, z);
+		if(x == 0.0 && y == 0.0)
+		{
+  			SetPlayerInterior(playerid,0);
+			SetPlayerPos(playerid, 1715.1201,-1903.1711,13.5665);
+			SetPlayerFacingAngle(playerid, 359.4621);
+			SetCameraBehindPlayer(playerid);
+		}
+		SetPlayerToTeamColor(playerid);
+		return 1;
+	}
 	return 1;
 }
 
@@ -15104,6 +15647,7 @@ stock ShowInventory(playerid,targetid)
 		Sprunk Cans: %s\n\
 		Spraycans: %s\n\
 		Tua vit: %s\n\
+		SMSLog: %d\n\
 		Dong ho: %d\n\
 		Giam sat: %d\n\
 		Lop xe: %d\n\
@@ -15132,6 +15676,7 @@ stock ShowInventory(playerid,targetid)
 		number_format(PlayerInfo[targetid][pSprunk]),
 		number_format(PlayerInfo[targetid][pSpraycan]),
 		number_format(PlayerInfo[targetid][pScrewdriver]),
+		PlayerInfo[targetid][pSmslog],
 		PlayerInfo[targetid][pWristwatch],
 		PlayerInfo[targetid][pSurveillance],
 		PlayerInfo[targetid][pTire],
@@ -21907,6 +22452,23 @@ stock GetDynamicGiftBoxType(value)
 	return string;
 }
 
+forward TeleportToShop(playerid);
+public TeleportToShop(playerid)
+{
+	if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "EventToken") == 1 || GetPVarInt(playerid, "IsInArena") >= 0)
+		return DeletePVar(playerid, "ShopTP"), SendClientMessage(playerid, COLOR_GRAD2, "SERVER: Teleportation da bi huy bo.");
+	if(gettime() - LastShot[playerid] < 30) return DeletePVar(playerid, "ShopTP"), SendClientMessageEx(playerid, COLOR_GRAD2, "ban da bi thuong trong 30s cuoi cung, ban se khong duoc dich chuyen den cac cua hang.");
+	if(GetPVarInt(playerid, "ShopTP") == 1)
+	{
+		SetPlayerPos(playerid, 2957.9670, -1459.4045, 10.8092);
+		SetPlayerInterior(playerid, 0);
+		SetPlayerVirtualWorld(playerid, 0);
+		TogglePlayerControllable(playerid, 1);
+		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Neu ban muon roi khoi cua hang, su dung /leaveshop de quay ve vi tri cu.");
+		SendClientMessageEx(playerid, COLOR_ORANGE, "Chu y{ffffff}: ban se {ff0000}khong{ffffff} the quay tro lai vi tri truoc cua ban khi mua mot chiec xe.");
+	}
+	return 1;
+}
 
 forward HidePlayerTextDraw(playerid, PlayerText:txd);
 public HidePlayerTextDraw(playerid, PlayerText:txd) return PlayerTextDrawHide(playerid, txd);
