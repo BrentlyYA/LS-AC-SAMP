@@ -4140,21 +4140,6 @@ CMD:tokenhelp(playerid, params[])
 }
 
 
-CMD:trogiupca(playerid, params[]) return cmd_fishhelp(playerid, params);
-CMD:fishhelp(playerid, params[])
-{
-    SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
-    SendClientMessageEx(playerid, COLOR_WHITE,"*** FISH HELP *** - type a command for more infomation.");
-    SendClientMessageEx(playerid, COLOR_GRAD3,"*** FISHING *** /fish (Try to catch a fish)   /fishes (Show the fishes you have caught)");
-    SendClientMessageEx(playerid, COLOR_GRAD3,"*** FISHING *** /throwback (Throw the last fish you caught back)   /throwbackall");
-    SendClientMessageEx(playerid, COLOR_GRAD3,"*** FISHING *** /releasefish (Release one of your fishes)");
-    return 1;
-}
-
-CMD:bhelp(playerid, params[]) {
-	return cmd_businesshelp(playerid, params);
-}
-
 CMD:dn(playerid, params[])
 {
     if (PlayerInfo[playerid][pAdmin] >= 2)
