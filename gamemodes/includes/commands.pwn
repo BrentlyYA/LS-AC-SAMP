@@ -40951,76 +40951,6 @@ CMD:credits(playerid, params[])
 	return 1;
 }
 
-CMD:shopstats(playerid, params[])
-{
-	if(PlayerInfo[playerid][pAdmin] < 1338 && PlayerInfo[playerid][pShopTech] != 3)
-	    return 0;
-
-	mysql_function_query(MainPipeline, "SELECT `id`, `Month` FROM `sales`", true, "CheckSales", "i", playerid);
-	return 1;
-}
-
-CMD:shophelp(playerid, params[]) {
-    return ShowPlayerDialog(playerid, DIALOG_SHOPHELPMENU, DIALOG_STYLE_LIST, "Nhung cua hang ma ban muon tim hieu them?","VIP Shop\nHouse Shop\nBusiness Shop\nToy Shop\nMiscellaneous Shop\nCar Shop\nPlane Shop\nBoat Shop", "Chon", "Thoat");
-}
-
-CMD:gvnshop(playerid, params[]) {
-	if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "EventToken") == 1 || GetPVarInt(playerid, "IsInArena") >= 0)
-		return SendClientMessage(playerid, COLOR_GRAD2, "You can't do this at this time!");
-	if(PlayerInfo[playerid][pWantedLevel] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban dan muon, ban khong the su dung lenh nay.");
-	if(gettime() - LastShot[playerid] < 60) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da bi ban' trong vong 60s cuoi cung, ban khong the su dung lenh nay.");
-	if(IsPlayerInDynamicArea(playerid, NGGShop)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da o GTA-VIETNAM Shop");
-	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay ben trong mot chiec xe.");
-	if(GetPVarInt(playerid, "ShopTP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da yeu cau mot Teleport den GTA-VIETNAM Shop.");
-
-	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban da yeu cau Teleport den GvN Shop, xin vui long cho 30 giay..");
-	SetTimerEx("TeleportToShop", 30000, false, "i", playerid);
-	TogglePlayerControllable(playerid, 0);
-	SetPVarInt(playerid, "ShopTP", 1);
-
-	new Float:tmp[3];
-	GetPlayerPos(playerid, tmp[0], tmp[1], tmp[2]);
-	SetPVarFloat(playerid, "tmpX", tmp[0]);
-	SetPVarFloat(playerid, "tmpY", tmp[1]);
-	SetPVarFloat(playerid, "tmpZ", tmp[2]);
-	SetPVarInt(playerid, "tmpInt", GetPlayerInterior(playerid));
-	SetPVarInt(playerid, "tmpVW", GetPlayerVirtualWorld(playerid));
-	return 1;
-}
-
-CMD:leaveshop(playerid, params[]) {
-	if(GetPVarInt(playerid, "ShopTP") == 1)
-	{
-		if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0)
-			return SendClientMessage(playerid, COLOR_GRAD2, "You can't do this at this time!.");
-		if(gettime() - LastShot[playerid] < 60) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da bi thuong trong vong 60 giay cuoi cung, ban se khong duoc dua den vi tri truoc day cua ban.");
-		Player_StreamPrep(playerid, GetPVarFloat(playerid, "tmpX"), GetPVarFloat(playerid, "tmpY"), GetPVarFloat(playerid, "tmpZ"), FREEZE_TIME);
-		SetPlayerInterior(playerid, GetPVarInt(playerid, "tmpInt"));
-		SetPlayerVirtualWorld(playerid, GetPVarInt(playerid, "tmpVW"));
-		TogglePlayerControllable(playerid, 1);
-		DeletePVar(playerid, "ShopTP");
-	}
-	return 1;
-}
-
-CMD:togshopnotice(playerid, params[]) {
-	if(PlayerInfo[playerid][pConnectHours] >= 50)
-	{
-		if(PlayerInfo[playerid][pShopNotice] == 0)
-		{
-			PlayerInfo[playerid][pShopNotice] = 24;
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Cua hang thong bao da bi vo hieu hoa trong vong 24h choi.");
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Neu ban muon kich hoat lai, ban chi can go lenh mot lan nua.");
-		}
-		else
-		{
-			PlayerInfo[playerid][pShopNotice] = 0;
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Cua hang thong bao da duoc tai kich hoat.");
-		}
-	}
-	return 1;
-}
-
 CMD:buygiftreset(playerid, params[]) {
 	if(IsPlayerInRangeOfPoint(playerid, 4.0, 2937.2878, -1357.2294, 10.8503))
 	{
@@ -41036,24 +40966,6 @@ CMD:buyhealthcare(playerid, params[]) {
 	{
 		return ShowPlayerDialog(playerid, DIALOG_HEALTHCARE, DIALOG_STYLE_LIST, "Goi cham soc suc khoe", "Cham soc suc khoe binh thuong\nCham soc suc khoe nang cao", "Chon", "Thoat");
 	}
-	return 1;
-}
-
-CMD:togshopnotices(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] >= 1337)
-	{
-		if(ShopReminder == 0)
-		{
-			ShopReminder = 1;
-			SendClientMessageEx(playerid, COLOR_WHITE, "Ban da kich hoat cua hang thong bao.");
-		}
-		else
-		{
-			ShopReminder = 0;
-			SendClientMessageEx(playerid, COLOR_WHITE, "Ban da vo hieu hoa cua hang thong bao.");
-		}
-	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung lenh nay.");
 	return 1;
 }
 
@@ -41075,113 +40987,6 @@ CMD:stoprentacar(playerid, params[])
 	return 1;
 }
 
-CMD:thuexe(playerid, params[]) {
-	return cmd_rentacar(playerid, params);
-}
-
-
-CMD:rentacar(playerid, params[])
-{
-    if(ShopClosed == 1)
-	    return SendClientMessageEx(playerid, COLOR_GREY, "Cua hang hien tai dang duoc dong' cua.");
-
-    if(IsPlayerInRangeOfPoint(playerid, 4, 1102.8999, -1440.1669, 15.7969) || IsPlayerInRangeOfPoint(playerid, 4, 1796.0620, -1588.5571, 13.4951))
-	{
-		if(GetPVarInt(playerid, "PinConfirmed"))
-		{
-		    if(!GetPVarType(playerid, "RentedVehicle"))
-			{
-		    	SetPVarInt(playerid, "RentaCar", 1);
-				ShowModelSelectionMenu(playerid, CarList2, "Thue mot chiec xe!");
-			}
-			else SendClientMessageEx(playerid, COLOR_GREY, "Ban da thue mot chiec xe.");
-		}
-		else
-		{
-		    SetPVarInt(playerid, "OpenShop", 2);
-  			PinLogin(playerid);
-		}
-	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o vi tri thue xe.");
-	}
-	return 1;
-}
-
-CMD:boatshop(playerid, params[])
-{
-    if(ShopClosed == 1)
-	    return SendClientMessageEx(playerid, COLOR_GREY, "Cac cua hang hien dang dong cua");
-
-	if(IsPlayerInRangeOfPoint(playerid, 4, -2214.1636, 2422.4763, 2.4961) || IsPlayerInRangeOfPoint(playerid, 4,-2975.8950, 505.1325, 2.4297) || IsPlayerInRangeOfPoint(playerid, 4, 723.1553, -1494.4547, 1.9343) || IsPlayerInRangeOfPoint(playerid, 4, 2974.7520, -1462.9265, 2.8184))
-	{
-		if(GetPVarInt(playerid, "PinConfirmed"))
-		{
-			ShowModelSelectionMenu(playerid, BoatList, "Boat Shop");
-		}
-		else
-		{
-		    SetPVarInt(playerid, "OpenShop", 8);
-  			PinLogin(playerid);
-		}
-	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o vi tri cua hang thuyen.");
-	}
-	return 1;
-}
-
-CMD:planeshop(playerid, params[])
-{
-    if(ShopClosed == 1)
-	    return SendClientMessageEx(playerid, COLOR_GREY, "Cua hang hien dang dong cua.");
-
-	if(IsPlayerInRangeOfPoint(playerid, 5, 1891.9105, -2279.6174, 13.5469) || IsPlayerInRangeOfPoint(playerid, 5, 1632.0836, 1551.7365, 10.8061) || IsPlayerInRangeOfPoint(playerid, 5, 2950.4014,-1283.0776,4.6875))
-	{
-		if(GetPVarInt(playerid, "PinConfirmed"))
-		{
-			ShowModelSelectionMenu(playerid, PlaneList, "Plane Shop");
-		}
-		else
-		{
-		    SetPVarInt(playerid, "OpenShop", 7);
-  			PinLogin(playerid);
-		}
-	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "Ban khong phai o vi tri cua hang may' bay.");
-	}
-	return 1;
-}
-
-CMD:carshop(playerid, params[])
-{
-    if(ShopClosed == 1)
-	    return SendClientMessageEx(playerid, COLOR_GREY, "Hien tai cua hang dang duoc dong cua.");
-
-	if(IsPlayerInRangeOfPoint(playerid, 4, 2280.5720, -2325.2490, 13.5469) || IsPlayerInRangeOfPoint(playerid, 4,-1731.1923, 127.4794, 3.2976) || IsPlayerInRangeOfPoint(playerid, 4, 1663.9569, 1628.5106, 10.8203) ||
-	IsPlayerInRangeOfPoint(playerid, 4, 2958.2200, -1339.2900, 5.2100))
-	{
-		if(GetPVarInt(playerid, "PinConfirmed"))
-		{
-			ShowModelSelectionMenu(playerid, CarList2, "Car Shop");
-		}
-		else
-		{
-		    SetPVarInt(playerid, "OpenShop", 3);
-  			PinLogin(playerid);
-		}
-	}
-	else
-	{
-	    SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o vi tri cua hang xe.");
-	}
-	return 1;
-}
-
 CMD:changepin(playerid, params[])
 {
     if(GetPVarInt(playerid, "PinConfirmed"))
@@ -41193,25 +40998,6 @@ CMD:changepin(playerid, params[])
 	{
 	    PinLogin(playerid);
 	}
-	return 1;
-}
-
-CMD:houseshop(playerid, params[])
-{
-	if(ShopClosed == 1) return SendClientMessageEx(playerid, COLOR_GREY, "Cua hang hien dang dong cua.");
-	if(IsPlayerInRangeOfPoint(playerid, 4.0, 2938.2734, -1391.0596, 11.0000))
-	{
-		if(GetPVarInt(playerid, "PinConfirmed"))
-		{
-			ShowPlayerDialog( playerid, DIALOG_HOUSESHOP, DIALOG_STYLE_LIST, "House Shop", "Purchase House\nHouse Interior Change\nHouse Move\nGarage - Small\nGarage - Medium\nGarage - Large\nGarage - Extra Large","Select", "Exit" );
-		}
-		else
-		{
-			SetPVarInt(playerid, "OpenShop", 4);
-			PinLogin(playerid);
-		}
-	}
-	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o vi tri cua hang nha.");
 	return 1;
 }
 
