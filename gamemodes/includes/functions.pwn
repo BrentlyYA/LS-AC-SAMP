@@ -6046,25 +6046,25 @@ stock ShowMainMenuDialog(playerid, frame)
 		case 1:
 		{
 			format(titlestring, sizeof(titlestring), "{3399FF}Dang nhap - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Chao mung ban den voi Cong dong GTA Online Viet Nam, %s.\n\nDia chi IP: %s\n\nNhan vat %s nay da duoc dang ky, vui l�ng dang nhap de tham gia:", GetPlayerNameEx(playerid),  GetPlayerIpEx(playerid), GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Chao mung ban den voi LS:AC, %s.\n\nNhan vat %s nay da duoc dang ky, vui long dang nhap de tham gia:", GetPlayerNameEx(playerid), GetPlayerNameEx(playerid));
 			ShowPlayerDialog(playerid,MAINMENU,DIALOG_STYLE_PASSWORD,titlestring,string,"Dang nhap","Thoat");
 		}
 		case 2:
 		{
 			format(titlestring, sizeof(titlestring), "{3399FF}Dang ky - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Chao mung ban den voi Cong dong GTA Online Viet Nam, %s.\n\nDia chi IP: %s\n\nNhan vat %s chua ton tai, vui long dien mat khau de tao nhan vat:", GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Chao mung ban den voi LS:AC, %s.\n\nNhan vat %s chua ton tai, vui long dien mat khau de tao nhan vat:", GetPlayerNameEx(playerid), GetPlayerNameEx(playerid));
 			ShowPlayerDialog(playerid,MAINMENU2,DIALOG_STYLE_INPUT,titlestring,string,"Dang ky","Thoat");
 		}
 		case 3:
 		{
 			format(titlestring, sizeof(titlestring), "{3399FF}Dang nhap - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FF0000}Mat khau khong hop le!{FFFFFF}\n\nChao mung ban den voi Cong dong GTA Online Viet Nam, %s.\n\nDia chi IP: %s\n\nTai khoan %s ma ban dang su dung da duoc dang ky, nhap mat khau de dang nhap:", GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FF0000}Mat khau khong hop le!{FFFFFF}\n\nChao mung ban den voi LS:AC, %s.\n\nTai khoan %s ma ban dang su dung da duoc dang ky, nhap mat khau de dang nhap:", GetPlayerNameEx(playerid), GetPlayerNameEx(playerid));
 			ShowPlayerDialog(playerid,MAINMENU,DIALOG_STYLE_PASSWORD,titlestring,string,"Dang nhap","Thoat");
 		}
 		case 4:
 		{
 			format(titlestring, sizeof(titlestring), "{3399FF}Tai khoan dang tham gia - %s", GetPlayerNameEx(playerid));
-			format(string, sizeof(string), "{FFFFFF}Co so du lieu cua chung toi chi ra rang %s hien dang dang nhap, neu khong phai la ban vui long lien he mot quan tri administrator de duoc giai quyet.", GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "{FFFFFF}Co so du lieu cua chung toi chi ra rang %s hien dang dang nhap, neu khong phai la ban vui long lien he mot administrator de duoc giai quyet.", GetPlayerNameEx(playerid));
 			ShowPlayerDialog(playerid,MAINMENU3,DIALOG_STYLE_MSGBOX,titlestring,string,"Thoat","");
 		}
 	}
