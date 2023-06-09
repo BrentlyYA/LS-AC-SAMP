@@ -202,32 +202,6 @@ NationSel_HandleNationSelection(playerid)
 	}
 }
 
-OnPlayerChangeWeapon(playerid, newweapon)
-{
-	if(IsPlayerInDynamicArea(playerid, NGGShop)) SetPlayerArmedWeapon(playerid, 0);
-	if(pTazer{playerid} == 1) SetPlayerArmedWeapon(playerid,23);
-	if(GetPVarInt(playerid, "WeaponsHolstered") == 1)
-	{
-	    SetPlayerArmedWeapon(playerid, 0);
-	}
-
- 	if(GetPVarInt(playerid, "IsInArena") >= 0)
-	{
-	    new a = GetPVarInt(playerid, "IsInArena");
-	    if(PaintBallArena[a][pbGameType] == 3)
-	    {
-	        if(PaintBallArena[a][pbFlagNoWeapons] == 1)
-	        {
-	        	if(GetPVarInt(playerid, "AOSlotPaintballFlag") != -1)
-	        	{
-					SetPlayerArmedWeapon(playerid, 0);
-	        	}
-			}
-	    }
-	}
-	return 1;
-}
-
 IsNumeric(szInput[]) {
 
 	new
