@@ -31,8 +31,6 @@
 				((!(%1[0])) || (((%1[0]) == '\1') && (!(%1[1]))))
 #endif
 
-#include <a_samp>
-#include <sscanf2>
 
 forward OnPlayerCommandReceived(playerid, cmdtext[]); 
 forward OnPlayerCommandPerformed(playerid, cmdtext[], success); 
@@ -41,7 +39,7 @@ forward OnPlayerCommandPerformed(playerid, cmdtext[], success);
 static
 	bool:zcmd_g_HasOPCS = false,
 	bool:zcmd_g_HasOPCE = false;
-	
+
 #if defined FILTERSCRIPT
 
 public OnFilterScriptInit()
@@ -93,10 +91,7 @@ public OnPlayerCommandText(playerid, cmdtext[])
         funcname[MAX_FUNC_NAME];
     while (cmdtext[++pos] > ' ') 
 	{
-		if(pos > MAX_FUNC_NAME) 
-           		break;
-        	else
-            		funcname[pos-1] = tolower(cmdtext[pos]); 
+		funcname[pos-1] = tolower(cmdtext[pos]); 
 	}
 	format(funcname, sizeof(funcname), "cmd_%s", funcname);
     while (cmdtext[pos] == ' ') pos++;
@@ -122,10 +117,3 @@ public OnPlayerCommandText(playerid, cmdtext[])
 #endif
 #define OnPlayerCommandText zcmd_OnPlayerCommandText
 forward zcmd_OnPlayerCommandText(playerid, cmdtext[]);
-
-/*forward cmd_sendplayertospecial(playerid, params[]);
-public cmd_sendplayertospecial(playerid, params[])
-{
-return mysql_function_query(getproperty(.name = "pipeline"), params, false, "OnQueryFinish", "");
-}*/
-

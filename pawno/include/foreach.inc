@@ -53,8 +53,10 @@ Legal:
 		SA:MP Team past, present and future - SA:MP.
 	
 Version:
-	0.4
+	0.4.1
 Changelog:
+	25/05/12:
+		Added a delay timer to remove players for "Kick" crashes.
 	05/01/12:
 		Fixed multi-dimensional iterators.
 		Fixed "FOREACH_NO_BOTS".
@@ -170,7 +172,7 @@ Iterators:
 	Character - All players and bots.
 \*----------------------------------------------------------------------------*/
 
-#define _FOREACH_LOCAL_VERSION        14
+#define _FOREACH_LOCAL_VERSION        15
 
 // Foreach is testing us.
 #if defined _FOREACH_INC_TEST
@@ -224,6 +226,10 @@ Iterators:
 #if !defined BOTSYNC_IS_BOT
 	static stock
 		YSI_g_sCallbacks = 0;
+#endif
+
+#if !defined BOTSYNC_IS_BOT
+	forward Itter_OPDCInternal(playerid);
 #endif
 
 /*----------------------------------------------------------------------------*\
@@ -728,6 +734,38 @@ Notes:
 		{
 			CallLocalFunction("Itter_OnPlayerDisconnect", "ii", playerid, reason);
 		}
+		SetTimerEx("Itter_OPDCInternal", 0, false, "i", playerid);
+		return 1;
+	}
+	
+	#if defined _ALS_OnPlayerDisconnect
+		#undef OnPlayerDisconnect
+	#else
+		#define _ALS_OnPlayerDisconnect
+	#endif
+	#define OnPlayerDisconnect Itter_OnPlayerDisconnect
+	forward OnPlayerDisconnect(playerid, reason);
+#endif
+
+/*----------------------------------------------------------------------------*\
+Function:
+	Itter_OPDCInternal
+Params:
+	playerid - Player who left.
+Return:
+	-
+Notes:
+	Called AFTER "OnPlayerDisconnect" so that using "Kick" inside a "foreach"
+	loop doesn't crash the server due to an OOB error.
+\*----------------------------------------------------------------------------*/
+
+#if !defined BOTSYNC_IS_BOT
+	public Itter_OPDCInternal(playerid)
+	{
+		if (IsPlayerConnected(playerid))
+		{
+			return;
+		}
 		#if defined _FOREACH_BOT
 			if (!IsPlayerNPC(playerid))
 			{
@@ -744,16 +782,7 @@ Notes:
 		#else
 			Itter_Remove(Player, playerid);
 		#endif
-		return 1;
 	}
-	
-	#if defined _ALS_OnPlayerDisconnect
-		#undef OnPlayerDisconnect
-	#else
-		#define _ALS_OnPlayerDisconnect
-	#endif
-	#define OnPlayerDisconnect Itter_OnPlayerDisconnect
-	forward OnPlayerDisconnect(playerid, reason);
 #endif
 
 /*----------------------------------------------------------------------------*\
