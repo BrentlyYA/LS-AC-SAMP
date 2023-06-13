@@ -1,13 +1,15 @@
 /*
-	Gamemode NGG
+	Gamemode LS:AC-ChaseCop ver 1.0
+	Azynre Community
+	Discord.gg/Azynre
+	
 	Nhat Trung
-	DIen thien
-	ROn
+	Dien Thien
+	Mon
 */
-#define SERVER_GM_TEXT "NGG-TDM"
-
+#define SERVER_GM_TEXT "LS:AC Ver 0.1"
 #include <a_samp>
-#include <a_mysql>
+#include <a_mysql>	
 #include <streamer>
 #include <yom_buttons>
 #include <ZCMD>
@@ -38,6 +40,8 @@ public OnGameModeInit()
 {
 	print("Dang chuan bi tai gamemode, xin vui long cho doi...");
 	g_mysql_Init();
+	#include "./includes/OBJECTMAP.pwn"
+	ShowNameTags(0);
 	return 1;
 }
 
@@ -46,4 +50,3 @@ public OnGameModeExit()
     g_mysql_Exit();
 	return 1;
 }
-

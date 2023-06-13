@@ -3292,6 +3292,11 @@ public KickNonRP(playerid)
 {
 	new name[MAX_PLAYER_NAME];
 	GetPVarString(playerid, "KickNonRP", name, sizeof(name));
+	if(strcmp(GetPlayerNameEx(playerid), name) == 0)
+	{
+	    SendClientMessage(playerid, COLOR_WHITE, "Ban da bi kick ra khoi he thong vi ten khong dung voi quy dinh (VD: Trong_Dat).");
+		SetTimerEx("KickEx", 1000, 0, "i", playerid);
+	}
 }
 
 forward RotateWheel();
@@ -6075,7 +6080,15 @@ stock SafeLogin(playerid, type)
 		}
 		case 2: // No Account Exists
 		{
-		    ShowMainMenuDialog(playerid, 2);
+			if(!IsValidName(playerid))
+			{
+			    SetPVarString(playerid, "KickNonRP", GetPlayerNameEx(playerid));
+			    SetTimerEx("KickNonRP", 3000, false, "i", playerid);
+			}
+			else
+			{
+			    ShowMainMenuDialog(playerid, 2);
+			}
 		}
 	}
 
@@ -8542,6 +8555,24 @@ stock SetPlayerSpawn(playerid)
 	        	SetPlayerHealth(playerid, 0x7FB00000);
 		    	SetPlayerArmor(playerid, 0x7FB00000);
 			}
+			return 1;
+		}
+		if(PlayerInfo[playerid][pTut] == 0)
+		{
+			gOoc[playerid] = 1; gNews[playerid] = 1; gFam[playerid] = 1;
+			TogglePlayerControllable(playerid, false);
+			SetPlayerColor(playerid,TEAM_HIT_COLOR);
+			PlayerNationSelection[playerid] = -1;
+			PlayerHasNationSelected[playerid] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			SetPlayerInterior(playerid, 0);
+			Streamer_UpdateEx(playerid, 2229.4968,-1722.0701,13.5625);
+			SetPlayerPos(playerid, 2229.4968,-1722.0701,-10.0);
+			SetPlayerCameraPos(playerid, 2211.1460,-1748.3909,29.3744);
+			SetPlayerCameraLookAt(playerid, 2229.4968,-1722.0701,13.5625);
+
+   			RegistrationStep[playerid] = 1;
+   			ShowPlayerDialog(playerid, REGISTERSEX, DIALOG_STYLE_LIST, "{FF0000}Nhan vat cua ban gioi tinh gi?", "Nam\nNu", "Lua chon", "");
 			return 1;
 		}
 		new rand;

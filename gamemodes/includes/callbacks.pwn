@@ -366,12 +366,7 @@ public OnPlayerUpdate(playerid)
 	    NationSel_HandleNationSelection(playerid);
 	    return 1;
 	}
-		new pCurWeap = GetPlayerWeapon(playerid);
-    if(pCurWeap != pCurrentWeapon{playerid})
-    {
-        OnPlayerChangeWeapon(playerid, pCurWeap);
-        pCurrentWeapon{playerid} = pCurWeap;
-    }
+
 	    new drunknew = GetPlayerDrunkLevel(playerid);
     if (drunknew < 100) { // go back up, keep cycling.
         SetPlayerDrunkLevel(playerid, 2000);
