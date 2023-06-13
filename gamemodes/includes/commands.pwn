@@ -2548,21 +2548,6 @@ CMD:vipdate(playerid, params[]) {
 	return 1;
 }
 
-CMD:rewards(playerid, params[]) {
-	new string[128];
-	SendClientMessageEx(playerid, COLOR_GREEN, "Thong tin thuong:");
-	format(string, sizeof(string), "Tong so gio choi: %d", floatround(PlayerInfo[playerid][pRewardHours]));
-	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-	format(string, sizeof(string), "Chances in #FallIntoFun Prize Drawing: %d", PlayerInfo[playerid][pRewardDrawChance]);
-	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-	format(string, sizeof(string), "Gold Giftbox Tokens: %d", PlayerInfo[playerid][pGoldBoxTokens]);
-	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-	if(!iRewardBox)
-	{
-		SendClientMessageEx(playerid, COLOR_RED, "Note: Hop vang mon qua cua tinh ban.");
-	}
-	return 1;
-}
 
 CMD:hhc(playerid, params[]) {
 	return cmd_hhcheck(playerid, params);
@@ -2759,7 +2744,7 @@ CMD:near(playerid, params[])
 	return 1;
 }
 
-CMD:givegun(playerid, params[])
+CMD:giveweap(playerid, params[])
 {
     if (PlayerInfo[playerid][pAdmin] >= 1338) {
         new sstring[128], playa, gun;
@@ -2781,6 +2766,7 @@ CMD:givegun(playerid, params[])
         if(gun < 1||gun > 47)
             { SendClientMessageEx(playerid, COLOR_GRAD1, "ID vu khi khong hop le!"); return 1; }
         if(IsPlayerConnected(playa)) {
+			if((PlayerInfo[playa][pConnectHours] < 1 || PlayerInfo[playa][pWRestricted] > 0) && gun != 46 && gun != 43) return SendClientMessageEx(playerid, COLOR_GRAD2, "That person is currently restricted from carrying weapons");
             if(playa != INVALID_PLAYER_ID && gun <= 20 || gun >= 22) {
                 PlayerInfo[playa][pAGuns][GetWeaponSlot(gun)] = gun;
                 GivePlayerValidWeapon(playa, gun, 60000);
@@ -10521,34 +10507,7 @@ CMD:accept(playerid, params[])
                 }
             }
             else return SendClientMessageEx(playerid, COLOR_GREY, "Khong co ai gui cho ban nha.");
-            return 1;
-        }
-        else if(strcmp(params, "lyhon", true) == 0) {
-            if(DivorceOffer[playerid] != INVALID_PLAYER_ID) {
-                if(IsPlayerConnected(DivorceOffer[playerid])) {
-                    if(ProxDetectorS(10.0, playerid, DivorceOffer[playerid])) {
-                        GetPlayerName(DivorceOffer[playerid], giveplayer, sizeof(giveplayer));
-                        GetPlayerName(playerid, sendername, sizeof(sendername));
-                        format(szMessage, sizeof(szMessage), "* Ban da dang ky cac giay to ly hon %s, bay gio ban la nguoi doc than.", giveplayer);
-                        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, szMessage);
-                        format(szMessage, sizeof(szMessage), "* %s da ky giy ly hon, bay gio ban la nguoi doc than.", sendername);
-                        SendClientMessageEx(DivorceOffer[playerid], COLOR_LIGHTBLUE, szMessage);
-                        ClearMarriage(playerid);
-                        ClearMarriage(DivorceOffer[playerid]);
-                        PlayerInfo[playerid][pPhousekey] = INVALID_HOUSE_ID;
-                        return 1;
-                    }
-                    else {
-                        SendClientMessageEx(playerid, COLOR_GREY, "   Nguoi gui giay to ly hon khong o gan ban!");
-                        return 1;
-                    }
-                }
-            }
-            else {
-                SendClientMessageEx(playerid, COLOR_GREY, "Khong ai gui cho ban giay to ly hon.");
-                return 1;
-            }
-        }
+            return 1;      
         else if(strcmp(params, "group", true) == 0) {
             if(GetPVarType(playerid, "Group_Inviter")) {
 
@@ -33533,11 +33492,6 @@ CMD:setstat(playerid, params[])
 					PlayerInfo[giveplayerid][pScrewdriver] = amount;
 					format(string, sizeof(string), "   %s's Screwdrivers have been set to %d.", GetPlayerNameEx(giveplayerid), amount);
 				}
-			/*case 33:
-				{
-					PlayerInfo[giveplayerid][pBirthDate] = amount;
-					format(string, sizeof(string), "   %s's Age has been set to %d.", GetPlayerNameEx(giveplayerid), amount);
-				}*/
 			case 34:
 				{
 					PlayerInfo[giveplayerid][pSex] = amount;
@@ -41004,64 +40958,6 @@ CMD:settotalcredits(playerid, params[])
 
 	format(szMessage, sizeof(szMessage), "Ban da cho %s's thong so credits thanh %s.", GetPlayerNameEx(Player), number_format(PlayerInfo[Player][pTotalCredits]));
 	SendClientMessageEx(playerid, COLOR_CYAN, szMessage);
-	return 1;
-}
-
-CMD:muadochoi(playerid, params[]) {
-	return cmd_buytoys(playerid, params);
-}
-
-CMD:buytoys(playerid, params[])
-{
-	if(IsPlayerInRangeOfPoint(playerid, 4, 2787.095947, 2390.353027, 1240.531127) || IsPlayerInRangeOfPoint(playerid, 4, 1774.7533, 1422.6665, 2013.4979) || IsPlayerInRangeOfPoint(playerid, 4, 775.0900, 1742.4900, 1938.3800))
-	{
-		if(PlayerInfo[playerid][pDonateRank] < 3)
-		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "* Ban khong phai la Gold or Platinum VIP!");
-		}
-		else
-		{
-			ShowPlayerDialog( playerid, BUYTOYSGOLD, DIALOG_STYLE_MSGBOX, "Cua hang Toys", "Ch�o mung ban den cua hang do choi VIP! O day ban co the mua phu kien de gan vao nhan vat cua ban.\n\nDau tien, chung toi se chon mot slot toys de luu tru cac do choi.","Tiep tuc", "Cancel" );
-		}
-	}
-	else
-	{
-		new biz = InBusiness(playerid);
-	   	if (biz == INVALID_BUSINESS_ID || Businesses[biz][bType] != BUSINESS_TYPE_CLOTHING) {
-	        SendClientMessageEx(playerid, COLOR_GRAD2, "   Ban khong o mot cua hang quan ao!");
-	        return 1;
-	    }
-		if (Businesses[biz][bInventory] < 1) {
-	    	SendClientMessageEx(playerid, COLOR_GRAD2, "   Cua hang khong co quan ao!");
-		    return 1;
-		}
-		if (!Businesses[biz][bStatus]) {
-		    SendClientMessageEx(playerid, COLOR_GRAD2, "   Cua hang quan ao hien dang duoc dong cua!");
-		    return 1;
-		}
-		ShowPlayerDialog( playerid, BUYTOYS, DIALOG_STYLE_MSGBOX, "Cua hang do choi", "Chao munng ban den cua hang do choi! O day ban co the mua phu kien de gan' vao nhan vat cua ban.\n\nDau tien, chung toi se chon mot slot toys de luu tru cac toys.","Tiep tuc", "Cancel" );
-	}
-	return 1;
-}
-
-CMD:trogiupdochoi(playerid, params[]) return cmd_toyhelp(playerid, params);
-CMD:toyhelp(playerid, params[])
-{
- 	SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
-	SendClientMessageEx(playerid, COLOR_WHITE,"*** TOY HELP ***");
-	SendClientMessageEx(playerid, COLOR_GRAD3,"De mua trang bi! Hay den cua hang quan ao va go {AA3333}/buytoys");
-	SendClientMessageEx(playerid, COLOR_GRAD3,"He mac,thao hoac xoa! Ban co the su dung lenh {AA3333}/toys");
-	SendClientMessageEx(playerid, COLOR_GRAD3,"De mat tat ca trang bi mot cach nhanh chong, go {AA3333}/wat");
-	SendClientMessageEx(playerid, COLOR_GRAD3,"De thao tat ca trang bi mot cach nhanh chong, go {AA3333}/dat");
-	SendClientMessageEx(playerid, COLOR_GRAD3,"De chon mot trang bi nao do nhanh hon, go {AA3333}/wt [toyslot]");
-	SendClientMessageEx(playerid, COLOR_GRAD3,"De thao mot trang bi nao do nhanh hon, go {AA3333}/dt [toyslot]");
-	return 1;
-}
-
-CMD:toys(playerid, params[])
-{
-	if(GetPVarInt(playerid, "EventToken" ) == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung lenh nay trong su kien.");
-	ShowPlayerDialog( playerid, TOYS, DIALOG_STYLE_LIST, "Giao dien do choi", "Su dung/Cat do choi\nSua do choi\nXoa do choi","Lua chon", "Huy bo" );
 	return 1;
 }
 
